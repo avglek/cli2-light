@@ -1,5 +1,6 @@
 import React from 'react'
 import { useParams, useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
@@ -10,6 +11,8 @@ import Typography from '@material-ui/core/Typography'
 
 import { getDocs, raw2int } from '../../services/localData'
 import { getSvgImg } from '../../icons'
+import { routeToData } from '../../common/constApp'
+import { addTab } from '../../store/actions/tabAction'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,20 +37,27 @@ const useStyles = makeStyles((theme) => ({
 
 function CardBody({ classes, item }) {
   const history = useHistory()
+  const dispatch = useDispatch()
 
   const docName = item.DOC_NAME
   const id = raw2int(item.DOC_ID)
   const iconId = raw2int(item.IMG_INDEX)
 
-  const handleCardClick = (id) => {
-    history.push(`/procedure:${id}`)
+  const handleClick = (id, title) => {
+    const item = {
+      id,
+      title,
+      text: title,
+    }
+    dispatch(addTab(item))
+    history.push(routeToData)
   }
 
   return (
     <Card className={classes.card}>
       <CardActionArea
         className={classes.cardAction}
-        onClick={() => handleCardClick(id)}
+        onClick={() => handleClick(id, docName)}
       >
         <CardContent>
           {getSvgImg(iconId)}

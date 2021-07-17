@@ -19,7 +19,6 @@ function createTreeObj(data) {
   const out = []
 
   data.forEach((item) => {
-    //const parent = +item.PARENT_ID.split('.')[0]
     const parent = item.PARENT_ID
     const t = out.find((i) => i.DOC_ID === parent)
     if (t) {

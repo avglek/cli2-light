@@ -8,13 +8,17 @@ import Button from '@material-ui/core/Button'
 
 import { getStyles } from './styles'
 import { appTitle } from '../common/constApp'
+import { getTree } from '../services/cliService'
 
 const AuthLayout = (props) => {
   const classes = getStyles()
   const history = useHistory()
 
   const handleLogin = () => {
-    history.push('/')
+    getTree().subscribe((res) => {
+      console.log(res)
+      history.push('/')
+    })
   }
 
   return (
@@ -22,7 +26,7 @@ const AuthLayout = (props) => {
       <CssBaseline />
       <AppBar position='static' elevation={0}>
         <Toolbar>
-          <Typography variant='h4' className={classes.title}>
+          <Typography variant='h6' className={classes.title}>
             {appTitle}
           </Typography>
           <Button color='inherit' onClick={handleLogin}>
