@@ -8,6 +8,7 @@ import './index.css'
 import App from './App'
 import { rootReducer } from './store/reducers/rootReducer'
 import { rootEpic } from './store/epics/rootEpics'
+import ErrorBoundary from './hoc/ErrorBaundary'
 
 const epicMiddleware = createEpicMiddleware()
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -21,9 +22,11 @@ epicMiddleware.run(rootEpic)
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ErrorBoundary>
   </Provider>,
 
   document.getElementById('root')

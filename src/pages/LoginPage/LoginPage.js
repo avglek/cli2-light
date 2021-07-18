@@ -1,72 +1,65 @@
-import React, { useEffect } from 'react'
-import { Redirect } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Redirect } from 'react-router'
 
-//import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
+import {
+  Grid,
+  Paper,
+  Typography,
+  MenuItem,
+  IconButton,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  InputAdornment,
+  Button,
+  Menu,
+  CircularProgress,
+} from '@material-ui/core'
 
-import Avatar from '@material-ui/core/Avatar'
-import Button from '@material-ui/core/Button'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
-import Link from '@material-ui/core/Link'
-import Grid from '@material-ui/core/Grid'
-import Box from '@material-ui/core/Box'
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
-import Typography from '@material-ui/core/Typography'
-import Container from '@material-ui/core/Container'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import { useDispatch, useSelector } from 'react-redux'
-import { postTree } from '../../store/actions/treeAction'
-import { Paper } from '@material-ui/core'
-import AccountCircle from '@material-ui/icons/AccountCircle'
-import InputAdornment from '@material-ui/core/InputAdornment'
+import { Visibility, VisibilityOff, MoreHoriz } from '@material-ui/icons'
+import clsx from 'clsx'
 
-function Copyright() {
-  return (
-    <Typography variant='body2' color='textSecondary' align='center'>
-      {'Copyright © '}
-      <Link color='inherit' href='https://material-ui.com/'>
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
-}
+import { postAuth } from '../../store/actions/authAction'
+import WarningMessage from '../../components/WarningMessage'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // //    backgroundImage: 'url(' + './static/img/auth.jpeg' + ')',
-    // backgroundPosition: 'center',
-    // backgroundSize: 'cover',
-    // backgroundRepeat: 'no-repeat',
+    backgroundImage: `url(./static/img/auth.png)`,
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    flexGrow: 1,
   },
 
   paper: {
-    marginTop: theme.spacing(1),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    padding: theme.spacing(4),
+    margin: 'auto',
+    minWidth: 400,
   },
-  avatar: {
+  box: {
+    marginTop: theme.spacing(8),
+  },
+
+  margin: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+  },
+  withoutLabel: {
+    marginTop: theme.spacing(3),
+  },
+  textField: {
+    width: '45ch',
+  },
+  submit: {
+    marginTop: theme.spacing(3),
+    width: '40ch',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  fabProgress: {
-    color: 'secondary',
-    position: 'absolute',
-    top: -6,
-    left: -6,
-    zIndex: 1,
   },
   buttonProgress: {
     color: 'secondary',
@@ -76,132 +69,226 @@ const useStyles = makeStyles((theme) => ({
     marginTop: -12,
     marginLeft: -12,
   },
-  box: {
-    paddingLeft: theme.spacing(8),
-    paddingRight: theme.spacing(8),
-  },
 }))
 
-const LoginPage = ({ login, onLogin }) => {
+const resources = [
+  'http://localhost:8080/sevstal_ch/servlet/CliServlet',
+  'http://localhost:8080/sevstal/servlet/CliServlet',
+  'http://localhost:8080/r65/servlet/CliServlet',
+  'http://localhost:8080/storaenso/servlet/CliServlet',
+  'http://localhost:8080/akron/servlet/CliServlet',
+]
+
+const LoginPage = ({ ilogin, onLogin }) => {
   const classes = useStyles()
-  const { loading, items } = useSelector((state) => state.tree)
+  const [loading, setLoading] = useState(false)
+  const [openWarning, setOpenWarning] = useState(false)
+  const [values, setValues] = useState({
+    // amount: '',
+    password: '',
+    //  weight: '',
+    weightRange: '',
+    showPassword: false,
+    user: '',
+    resource: '',
+    ancorRes: null,
+  })
+  //const { loading, items } = useSelector((state) => state.tree)
+  const { login, error } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (!loading && items.length > 0) {
-      onLogin(true)
+    console.log('error:', error)
+    if (login) {
+      setLoading(false)
     }
-  })
+    if (error) {
+      setOpenWarning(true)
+    }
+  }, [login, error])
+
+  const handleClickMenu = (event) => {
+    setValues({ ...values, ancorRes: event.currentTarget })
+  }
+
+  const handleCloseMenu = (index) => () => {
+    setValues({ ...values, resource: resources[index], ancorRes: null })
+  }
+
+  const handleChangeValues = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value })
+  }
+
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword })
+  }
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault()
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    dispatch(postTree())
+    const formData = {
+      user: values.user,
+      password: values.password,
+      resource: values.resource,
+    }
+    dispatch(postAuth(formData))
+    setLoading(true)
   }
 
-  const handleLink = (event) => {
-    event.preventDefault()
-    onLogin(true)
+  const handleCloseWarning = () => {
+    setOpenWarning(false)
+    setLoading(false)
   }
 
   return (
     <div className={classes.root}>
       {login ? <Redirect to='/' /> : null}
-      <Container component='main' maxWidth='sm'>
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
+      {error ? (
+        <WarningMessage
+          open={openWarning}
+          onClose={handleCloseWarning}
+          title='Ошибка авторизации'
+          message={error}
+          severity='error'
+        />
+      ) : null}
+      <Grid
+        className={classes.box}
+        container
+        direction='column'
+        justifyContent='space-around'
+        alignItems='center'
+        spacing={4}
+      >
+        <Grid item>
           <Typography component='h1' variant='h5'>
             Вход в систему
           </Typography>
-          <Paper className={classes.box} variant='outlined' square>
+        </Grid>
+        <Grid item>
+          <Paper className={classes.paper}>
             <form className={classes.form} noValidate onSubmit={handleSubmit}>
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                id='url'
-                label='Информационный ресурс'
-                name='url'
-                autoComplete='url'
-                autoFocus
-                disabled={loading}
-              />
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                id='user'
-                label='Пользователь'
-                name='user'
-                autoComplete='email'
-                autoFocus
-                disabled={loading}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <AccountCircle />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                name='password'
-                label='Пароль'
-                type='password'
-                id='password'
-                autoComplete='current-password'
-                disabled={loading}
-                size='small'
-              />
-
-              <FormControlLabel
-                control={<Checkbox value='remember' color='primary' />}
-                label='Remember me'
-                disabled={loading}
-              />
-              <Button
-                type='submit'
-                fullWidth
-                variant='contained'
-                color='primary'
-                className={classes.submit}
-                disabled={loading}
+              <Grid
+                container
+                direction='column'
+                spacing={2}
+                alignItems='center'
               >
-                Вход
-              </Button>
-              {loading && (
-                <CircularProgress
-                  size={24}
-                  className={classes.buttonProgress}
-                />
-              )}
-              <Grid container>
-                <Grid item xs>
-                  <Link href='#' onClick={handleLink} variant='body2'>
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href='#' variant='body2'>
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
+                <FormControl
+                  className={clsx(classes.margin, classes.textField)}
+                  variant='outlined'
+                  disabled={loading}
+                >
+                  <InputLabel htmlFor='login-page-resource'>
+                    Информационный ресурс
+                  </InputLabel>
+                  <OutlinedInput
+                    id='login-page-resource'
+                    type='text'
+                    value={values.resource}
+                    onChange={handleChangeValues('resource')}
+                    endAdornment={
+                      <InputAdornment position='end'>
+                        <IconButton
+                          aria-label='select resource'
+                          onClick={handleClickMenu}
+                          edge='end'
+                        >
+                          <MoreHoriz />
+                        </IconButton>
+                        <Menu
+                          id='simple-menu'
+                          anchorEl={values.ancorRes}
+                          keepMounted
+                          open={Boolean(values.ancorRes)}
+                          onClose={handleCloseMenu}
+                        >
+                          {resources.map((item, index) => (
+                            <MenuItem
+                              key={index}
+                              onClick={handleCloseMenu(index)}
+                            >
+                              {item}
+                            </MenuItem>
+                          ))}
+                        </Menu>
+                      </InputAdornment>
+                    }
+                    labelWidth={200}
+                  />
+                </FormControl>
+                <FormControl
+                  className={clsx(classes.margin, classes.textField)}
+                  variant='outlined'
+                  disabled={loading}
+                >
+                  <InputLabel htmlFor='login-page-user'>
+                    Пользователь
+                  </InputLabel>
+                  <OutlinedInput
+                    id='login-page-user'
+                    type={'text'}
+                    value={values.user}
+                    onChange={handleChangeValues('user')}
+                    labelWidth={110}
+                  />
+                </FormControl>
+                <FormControl
+                  className={clsx(classes.margin, classes.textField)}
+                  variant='outlined'
+                  disabled={loading}
+                >
+                  <InputLabel htmlFor='outlined-adornment-password'>
+                    Пароль
+                  </InputLabel>
+                  <OutlinedInput
+                    id='outlined-adornment-password'
+                    type={values.showPassword ? 'text' : 'password'}
+                    value={values.password}
+                    onChange={handleChangeValues('password')}
+                    endAdornment={
+                      <InputAdornment position='end'>
+                        <IconButton
+                          aria-label='toggle password visibility'
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge='end'
+                        >
+                          {values.showPassword ? (
+                            <Visibility />
+                          ) : (
+                            <VisibilityOff />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    labelWidth={60}
+                  />
+                </FormControl>
+                <Button
+                  type='submit'
+                  variant='contained'
+                  color='primary'
+                  className={classes.submit}
+                  size='large'
+                  disabled={loading}
+                >
+                  Вход
+                </Button>
+                {loading && (
+                  <CircularProgress
+                    size={24}
+                    className={classes.buttonProgress}
+                  />
+                )}
               </Grid>
             </form>
           </Paper>
-        </div>
-        <Box mt={8}>
-          <Copyright />
-        </Box>
-      </Container>
+        </Grid>
+      </Grid>
     </div>
   )
 }

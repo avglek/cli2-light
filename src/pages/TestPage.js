@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Button, Grid, Paper } from '@material-ui/core'
 
-import { useDispatch, useSelector } from 'react-redux'
-import { postTree } from '../store/actions/treeAction'
+//import { useDispatch, useSelector } from 'react-redux'
+//import { postTree } from '../store/actions/treeAction'
+import WarningMessage from '../components/WarningMessage'
 //import { requestTree } from '../services/cliService/template'
 
 const useStyles = makeStyles((theme) => ({
@@ -17,26 +18,27 @@ const useStyles = makeStyles((theme) => ({
 
 const TestPage = () => {
   const classes = useStyles
-  const state = useSelector((state) => state.tree)
-  const dispatch = useDispatch()
   const [disabled, setDisabled] = useState(false)
-
-  useEffect(() => {
-    //  console.log('[cli2:state]:', state)
-    setDisabled(false)
-    if (!state.loading && state.items.lenght !== 0) {
-      //    console.log('[cli2:done]', state.items)
-    }
-  }, [state])
+  const [open, setOpen] = useState(false)
 
   const handleClick = () => {
-    setDisabled(true)
+    setOpen(true)
+    setDisabled(false)
+  }
 
-    dispatch(postTree())
+  const handleClose = () => {
+    setOpen(false)
   }
 
   return (
     <div className={classes.root}>
+      <WarningMessage
+        open={open}
+        onClose={handleClose}
+        title='Ошибка авторизации'
+        message='Пользователь с таким именем в системе не зарегистрирован. Проверьте правильность ввода'
+        severity='error'
+      />
       <Grid
         container
         direction='column'

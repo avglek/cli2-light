@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 //import { useDispatch } from 'react-redux'
 
@@ -9,36 +9,24 @@ import TestPage from './pages/TestPage'
 //import MainLayout from './hoc/MainLayout'
 import DesktopLayout from './hoc/DesktopLayout'
 //import AuthLayout from './hoc/AuthLayout'
-import LoginPage from './pages/LoginPage/LoginPage2'
+import LoginPage from './pages/LoginPage/LoginPage'
 //import Home from './pages/Home/Home'
 import Views from './components/Views'
 import { ListViewProvider } from './ListViewContext'
 import { routeToData } from './common/constApp'
 import TabsViewData from './components/Views/TabsViewData'
-//import { postTree } from './store/actions/treeAction'
-
-// eslint-disable-next-line
-const testLayer = <TestPage />
+import { useSelector } from 'react-redux'
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false)
-  //  const dispatch = useDispatch()
-
-  const handleLogin = (login) => {
-    //  dispatch(postTree())
-    setIsLogin(login)
-  }
+  const { login } = useSelector((state) => state.auth)
 
   return (
     <ListViewProvider>
       <ThemeProvider theme={theme}>
         <Switch>
-          <Route
-            path='/login'
-            render={() => <LoginPage onLogin={handleLogin} login={isLogin} />}
-          />
+          <Route path='/login' render={() => <LoginPage />} />
 
-          {isLogin ? (
+          {login ? (
             <DesktopLayout>
               <Route exact path='/' component={TestPage} />
               <Route path='/view/:id' component={Views} />

@@ -25,7 +25,7 @@ import TreeDrawer from '../components/Drawer/TreeDrawer'
 import AboutDialog from '../components/Dialog/AboutDialog'
 import { useListView } from '../ListViewContext'
 
-const DesktopLayout = ({ children }) => {
+const DesktopLayout = ({ children, onLogin }) => {
   const classes = useStyles()
   const theme = useTheme()
   const [open, setOpen] = useState(false)
@@ -42,6 +42,7 @@ const DesktopLayout = ({ children }) => {
   }
 
   const handleLogout = () => {
+    onLogin(false)
     history.push('/login')
   }
 
