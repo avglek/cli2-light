@@ -1,13 +1,9 @@
-import { map, Observable, switchMap } from 'rxjs'
+import { map, Observable, switchMap, throwError } from 'rxjs'
 import { ajax } from 'rxjs/ajax'
 import { btoa } from 'abab'
 import { parseString } from 'xml2js'
 import { encode } from 'windows-1251'
 import { decode } from 'utf8'
-
-const user = 'OPER_CH'
-const password = 'ch11'
-const url = 'http://localhost:8080/sevstal_ch/servlet/CliServlet'
 
 const xmlJsonStream$ = (value) =>
   new Observable((observer) => {
@@ -25,9 +21,11 @@ const xmlJsonStream$ = (value) =>
     )
   })
 
-export const cli2xmlServise = (body) =>
-  ajax({
-    url,
+export const cli2xmlServise = (body, value) => {
+  const { user, password, resource } = value.auth
+
+  return ajax({
+    url: resource,
     method: 'POST',
     headers: {
       Authorization: 'Basic ' + btoa(user + ':' + password),
@@ -38,13 +36,21 @@ export const cli2xmlServise = (body) =>
   }).pipe(
     map((response) => {
       const buff = response.response
-      //const raw = new ArrayBuffer(buff.length * 2)
       const raw = encode(buff)
-
       const xml = decode(raw)
 
       return xml
     }),
     //tap((x) => console.log('start:', x)),
-    switchMap((xml) => xmlJsonStream$(xml).pipe(map((json) => json.RESPONSE)))
+    switchMap((xml) =>
+      xmlJsonStream$(xml).pipe(
+        map((json) => {
+          if (json.EXCEPTION) {
+            return throwError(() => new Error(`From server: ${json.EXCEPTION}`))
+          }
+          return json.RESPONSE
+        })
+      )
+    )
   )
+}

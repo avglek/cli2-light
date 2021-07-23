@@ -1,8 +1,15 @@
-import { TAB_ADD, TAB_CHANGE, TAB_REMOVE } from './actionsType'
+import { TAB_ADD, TAB_CHANGE, TAB_REMOVE, TAB_UPDATE } from './actionsType'
 
 export function addTab(payload) {
   return {
     type: TAB_ADD,
+    payload,
+  }
+}
+
+export function updateTab(payload) {
+  return {
+    type: TAB_UPDATE,
     payload,
   }
 }

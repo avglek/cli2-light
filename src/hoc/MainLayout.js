@@ -1,42 +1,51 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
-import AppBar from '@material-ui/core/AppBar'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import clsx from 'clsx'
 
+import { useTheme } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
-import Hidden from '@material-ui/core/Hidden'
-import IconButton from '@material-ui/core/IconButton'
-
-import MenuIcon from '@material-ui/icons/Menu'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
+import IconButton from '@material-ui/core/IconButton'
+import MenuIcon from '@material-ui/icons/Menu'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import Button from '@material-ui/core/Button'
-import { useTheme } from '@material-ui/core/styles'
 
 import ListAltIcon from '@material-ui/icons/ListAlt'
 import GridOnIcon from '@material-ui/icons/GridOn'
 
-import { getStyles } from './styles'
+import { useStyles } from './styleMainLayout'
 import { appTitle } from '../common/constApp'
 import TreeDrawer from '../components/Drawer/TreeDrawer'
 import AboutDialog from '../components/Dialog/AboutDialog'
 import { useListView } from '../ListViewContext'
+import { logoutAuth } from '../store/actions/authAction'
 
-const MainLayout = (props) => {
-  const { window } = props
-  const classes = getStyles()
+const DesktopLayout = ({ children }) => {
+  const classes = useStyles()
   const theme = useTheme()
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const [open, setOpen] = useState(true)
   const [isAbout, setIsAbout] = useState(false)
   const history = useHistory()
   const listView = useListView()
+  const dispatch = useDispatch()
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen)
+  const handleDrawerOpen = () => {
+    setOpen(true)
+  }
+
+  const handleDrawerClose = () => {
+    setOpen(false)
   }
 
   const handleLogout = () => {
+    dispatch(logoutAuth())
     history.push('/login')
   }
 
@@ -48,24 +57,26 @@ const MainLayout = (props) => {
     listView.toggle()
   }
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined
-
   return (
-    <div className={classes.main}>
+    <div className={classes.root}>
       <CssBaseline />
-      <AppBar position='fixed' className={classes.appBar} elevation={0}>
+      <AppBar
+        position='fixed'
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+      >
         <Toolbar>
           <IconButton
             color='inherit'
             aria-label='open drawer'
+            onClick={handleDrawerOpen}
             edge='start'
-            onClick={handleDrawerToggle}
-            className={classes.menuButton}
+            className={clsx(classes.menuButton, open && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant='h4' noWrap className={classes.title}>
+          <Typography variant='h6' noWrap className={classes.title}>
             {appTitle}
           </Typography>
           <IconButton
@@ -86,46 +97,37 @@ const MainLayout = (props) => {
           </Button>
         </Toolbar>
       </AppBar>
-      <nav className={classes.drawer} aria-label='mailbox folders'>
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Hidden mdUp implementation='css'>
-          <Drawer
-            container={container}
-            variant='temporary'
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-            elevation={0}
-          >
-            <TreeDrawer classes={classes} />
-          </Drawer>
-        </Hidden>
-        <Hidden smDown implementation='css'>
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            variant='permanent'
-            open
-          >
-            <div className={classes.toolbar} />
-            <TreeDrawer classes={classes} />
-          </Drawer>
-        </Hidden>
-      </nav>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
+      <Drawer
+        className={classes.drawer}
+        variant='persistent'
+        anchor='left'
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
+          </IconButton>
+        </div>
+        <Divider />
+        <TreeDrawer classes={classes} />
+      </Drawer>
+      <main
+        className={clsx(classes.content, {
+          [classes.contentShift]: open,
+        })}
+      >
+        <div className={classes.drawerHeader} />
         <AboutDialog open={isAbout} onClose={handleAbout} />
-        {props.children}
+        {children}
       </main>
     </div>
   )
 }
-
-export default MainLayout
+export default DesktopLayout

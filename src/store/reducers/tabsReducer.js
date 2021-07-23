@@ -1,8 +1,13 @@
-import { TAB_ADD, TAB_CHANGE, TAB_REMOVE } from '../actions/actionsType'
+import {
+  TAB_ADD,
+  TAB_CHANGE,
+  TAB_REMOVE,
+  TAB_UPDATE,
+} from '../actions/actionsType'
 
 const initialState = {
   items: [],
-  value: 0,
+  count: 0,
 }
 
 export default function tabReducer(state = initialState, action) {
@@ -11,14 +16,25 @@ export default function tabReducer(state = initialState, action) {
       return {
         ...state,
         items: [...state.items, action.payload],
-        value: state.items.length,
+        count: state.items.length,
       }
     case TAB_REMOVE:
       const items = state.items.filter((i, inx) => inx !== action.payload)
-      return { ...state, items, value: state.value >= -1 ? state.value : 0 }
+      return { ...state, items, count: state.count > 0 ? state.count : 0 }
+
     case TAB_CHANGE:
-      const value = action.payload
-      return { ...state, value }
+      const count = action.payload
+      return { ...state, count }
+
+    case TAB_UPDATE:
+      const cloneItems = state.items.map((item) => {
+        if (item.id === action.payload.id) {
+          item = { ...item, ...action.payload }
+        }
+        return item
+      })
+
+      return { ...state, items: cloneItems }
     default:
       return state
   }

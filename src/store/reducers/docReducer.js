@@ -1,33 +1,33 @@
-import { CLI2_ERROR, CLI2_POST, CLI2_SUCCESS } from '../actions/actionsType'
+import { DOC_ERROR, DOC_POST, DOC_SUCCESS } from '../actions/actionsType'
 
 const initialState = {
   error: '',
   loading: false,
-  data: {},
+  data: null,
 }
 
-export const cli2Reducer = (state = initialState, action) => {
+export const docReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CLI2_POST:
+    case DOC_POST:
       return {
         ...state,
         error: '',
         loading: true,
-        data: '',
+        data: null,
       }
-    case CLI2_SUCCESS:
+    case DOC_SUCCESS:
       return {
         ...state,
         error: '',
         loading: false,
         data: action.payload,
       }
-    case CLI2_ERROR:
+    case DOC_ERROR:
       return {
         ...state,
         error: action.payload,
         loading: false,
-        data: {},
+        data: null,
       }
 
     default:

@@ -1,5 +1,5 @@
 import { ofType } from 'redux-observable'
-import { catchError, tap, mergeMap, map, of } from 'rxjs'
+import { catchError, mergeMap, map, of } from 'rxjs'
 
 import { succesAuth, errorAuth } from '../actions/authAction'
 import { AUTH_POST } from '../actions/actionsType'
@@ -11,8 +11,6 @@ export const authEpic = (action$, state$) =>
     ofType(AUTH_POST),
     mergeMap(() =>
       authServise(state$.value).pipe(
-        //       delay(3500),
-        tap((x) => console.log('res:', x)),
         map(() => succesAuth()),
         catchError((error) =>
           of(error).pipe(

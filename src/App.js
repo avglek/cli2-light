@@ -5,17 +5,16 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import { ThemeProvider } from '@material-ui/styles'
 import theme from './theme/purpleTheme'
 
-import TestPage from './pages/TestPage'
-//import MainLayout from './hoc/MainLayout'
-import DesktopLayout from './hoc/DesktopLayout'
-//import AuthLayout from './hoc/AuthLayout'
+import MainLayout from './hoc/MainLayout'
 import LoginPage from './pages/LoginPage/LoginPage'
-//import Home from './pages/Home/Home'
+
 import Views from './components/Views'
 import { ListViewProvider } from './ListViewContext'
 import { routeToData } from './common/constApp'
-import TabsViewData from './components/Views/TabsViewData'
+import TabsViewData from './components/Views/TabsView/TabsViewData'
 import { useSelector } from 'react-redux'
+//import Home from './pages/Home/Home'
+import TestPage from './pages/TestPage'
 
 function App() {
   const { login } = useSelector((state) => state.auth)
@@ -24,14 +23,14 @@ function App() {
     <ListViewProvider>
       <ThemeProvider theme={theme}>
         <Switch>
-          <Route path='/login' render={() => <LoginPage />} />
-
+          <Route path='/test' component={MainLayout} />
+          <Route path='/login' component={LoginPage} />
           {login ? (
-            <DesktopLayout>
+            <MainLayout>
               <Route exact path='/' component={TestPage} />
               <Route path='/view/:id' component={Views} />
               <Route path={routeToData} component={TabsViewData} />
-            </DesktopLayout>
+            </MainLayout>
           ) : (
             <Redirect to='/login' />
           )}
@@ -39,6 +38,8 @@ function App() {
       </ThemeProvider>
     </ListViewProvider>
   )
+
+  //return <TestPage />
 }
 
 export default App

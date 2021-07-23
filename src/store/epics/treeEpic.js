@@ -1,5 +1,5 @@
 import { ofType } from 'redux-observable'
-import { catchError, mergeMap, map, delay } from 'rxjs'
+import { catchError, mergeMap, map} from 'rxjs'
 
 import { succesTree, errorTree } from '../actions/treeAction'
 import { TREE_POST } from '../actions/actionsType'
@@ -13,7 +13,12 @@ const getMetaData = (meta, data) => {
     : undefined
 }
 
-const createTreeObj = (data) => {
+const getTreeArray = (rawdata) => {
+  if (!rawdata) {
+    return []
+  }
+
+  const data = rawdata[0].DATA.DATAPACKET.ROWDATA.ROW
   const out = []
 
   data.sort((a, b) => raw2int(a.LEV) - raw2int(b.LEV))
@@ -32,22 +37,38 @@ const createTreeObj = (data) => {
   return out.sort((a, b) => raw2int(a.ORDERING) - raw2int(b.ORDERING))
 }
 
-export const treeEpic = (action$) =>
+const getDocsArray = (rawdata) => {
+  if (!rawdata) {
+    return []
+  }
+
+  const data = rawdata[0].DATA.DATAPACKET.ROWDATA.ROW.map((item) => ({
+    ...item,
+    ORDERING: item.ORDERING ? item.ORDERING : '0.0',
+  }))
+
+  return data.sort((a, b) => raw2int(a.ORDERING) - raw2int(b.ORDERING))
+}
+
+export const treeEpic = (action$, state$) =>
   action$.pipe(
     ofType(TREE_POST),
 
     mergeMap((action) =>
-      cli2xmlServise(action.payload).pipe(
+      cli2xmlServise(action.payload, state$.value).pipe(
         map((data) => {
-          const obj = getMetaData('p_TREE', data)
-          if (obj && obj.length > 0) {
-            const rawArray = obj[0].DATA.DATAPACKET.ROWDATA.ROW
-            return createTreeObj(rawArray)
+          const rawDataTree = getMetaData('p_TREE', data)
+          const rawDataDocs = getMetaData('p_DOCS', data)
+
+          return {
+            tree: getTreeArray(rawDataTree),
+            docs: getDocsArray(rawDataDocs),
           }
-          return []
         }),
-        delay(3500),
-        map((data) => succesTree(data))
+        //delay(3500),
+        map((data) => {
+          return succesTree(data)
+        })
       )
     ),
     catchError((error) => {

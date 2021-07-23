@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<REQUEST><DOC docid="59"><CALL command="DWAGONS1(?,?,?)" type="proc"><PARAMS><PARAM><META name="P_DOC" datatype="CURSOR" type="OUT"/></PARAM><PARAM><META name="P_NV" datatype="VARCHAR" type="IN"/><DATA>53828448</DATA></PARAM><PARAM><META name="P_OP_COUNT" datatype="NUMBER" type="IN"/><DATA>50</DATA></PARAM></PARAMS></CALL></DOC></REQUEST>

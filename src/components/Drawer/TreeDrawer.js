@@ -11,6 +11,8 @@ import Folder from '@material-ui/icons/Folder'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 
+import { normId } from '../../utils/docs'
+
 const useTreeItemStyles = makeStyles((theme) => ({
   root: {
     color: theme.palette.text.secondary,
@@ -126,8 +128,6 @@ export default function TreeDrawer(props) {
     history.push(`/view/${nodeIds}`)
   }
 
-  const normId = (raw) => raw.split('.')[0]
-
   const getTreeItemsFromData = (treeItems) => {
     return treeItems.map((treeItemData) => {
       let child = undefined
@@ -160,7 +160,7 @@ export default function TreeDrawer(props) {
           multiSelect={false}
           onNodeSelect={handleNodeSelect}
         >
-          {getTreeItemsFromData(state.items)}
+          {getTreeItemsFromData(state.tree)}
         </TreeView>
       )}
     </div>

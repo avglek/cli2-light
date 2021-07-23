@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+  <REQUEST>
+      <DOC
+          docid="341297">
+          <CALL
+              command="test(?,?,?)"
+              type="proc">
+              <PARAMS><PARAM>
+      <META
+          name="param_1"
+          datatype="varchar"
+          type="in"/>
+      </PARAM><PARAM>
+      <META
+          name="param_2"
+          datatype="varchar"
+          type="in"/>
+      </PARAM><PARAM>
+      <META
+          name="param_3"
+          datatype="varchar"
+          type="in"/>
+      </PARAM></PARAMS></CALL></DOC></REQUEST>

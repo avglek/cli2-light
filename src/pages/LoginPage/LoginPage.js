@@ -16,6 +16,7 @@ import {
   Button,
   Menu,
   CircularProgress,
+  FormHelperText,
 } from '@material-ui/core'
 
 import { Visibility, VisibilityOff, MoreHoriz } from '@material-ui/icons'
@@ -23,6 +24,7 @@ import clsx from 'clsx'
 
 import { postAuth } from '../../store/actions/authAction'
 import WarningMessage from '../../components/WarningMessage'
+import { postTree } from '../../store/actions/treeAction'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,47 +81,53 @@ const resources = [
   'http://localhost:8080/akron/servlet/CliServlet',
 ]
 
-const LoginPage = ({ ilogin, onLogin }) => {
+const LoginPage = () => {
   const classes = useStyles()
-  const [loading, setLoading] = useState(false)
-  const [openWarning, setOpenWarning] = useState(false)
   const [values, setValues] = useState({
-    // amount: '',
-    password: '',
-    //  weight: '',
+    resource: 'http://localhost:8080/r65/servlet/CliServlet',
+    user: 'r65',
+    password: 'r65',
     weightRange: '',
     showPassword: false,
-    user: '',
-    resource: '',
     ancorRes: null,
+    disabled: false,
+    loading: false,
+    openWarning: false,
+    error: {
+      password: false,
+      user: false,
+      resource: false,
+    },
   })
-  //const { loading, items } = useSelector((state) => state.tree)
+
+  const { loading, tree } = useSelector((state) => state.tree)
   const { login, error } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    console.log('error:', error)
     if (login) {
-      setLoading(false)
+      dispatch(postTree())
     }
     if (error) {
-      setOpenWarning(true)
+      setValues((prev) => ({ ...prev, loading: false, openWarning: true }))
     }
-  }, [login, error])
+  }, [login, error, dispatch])
 
   const handleClickMenu = (event) => {
     setValues({ ...values, ancorRes: event.currentTarget })
   }
 
-  const handleCloseMenu = (index) => () => {
+  const handleCloseMenu = (index) => (event) => {
     setValues({ ...values, resource: resources[index], ancorRes: null })
   }
 
   const handleChangeValues = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value })
+    const value = event.target.value
+
+    setValues({ ...values, [prop]: value })
   }
 
-  const handleClickShowPassword = () => {
+  const handleClickShowPassword = (event) => {
     setValues({ ...values, showPassword: !values.showPassword })
   }
 
@@ -135,20 +143,28 @@ const LoginPage = ({ ilogin, onLogin }) => {
       resource: values.resource,
     }
     dispatch(postAuth(formData))
-    setLoading(true)
+    setValues({ ...values, disabled: true, loading: true })
   }
 
-  const handleCloseWarning = () => {
-    setOpenWarning(false)
-    setLoading(false)
+  const handleCloseWarning = (event) => {
+    console.log('close warning')
+    setValues({
+      ...values,
+      disabled: false,
+      openWarning: false,
+      ancorRes: null,
+    })
   }
 
   return (
-    <div className={classes.root}>
-      {login ? <Redirect to='/' /> : null}
+    <div
+      className={classes.root}
+      onClick={values.openWarning ? () => handleCloseWarning() : null}
+    >
+      {login && !loading && tree.length > 0 ? <Redirect to='/' /> : null}
       {error ? (
         <WarningMessage
-          open={openWarning}
+          open={values.openWarning}
           onClose={handleCloseWarning}
           title='Ошибка авторизации'
           message={error}
@@ -180,7 +196,8 @@ const LoginPage = ({ ilogin, onLogin }) => {
                 <FormControl
                   className={clsx(classes.margin, classes.textField)}
                   variant='outlined'
-                  disabled={loading}
+                  disabled={values.disabled}
+                  error={values.error.resources}
                 >
                   <InputLabel htmlFor='login-page-resource'>
                     Информационный ресурс
@@ -218,12 +235,22 @@ const LoginPage = ({ ilogin, onLogin }) => {
                       </InputAdornment>
                     }
                     labelWidth={200}
+                    aria-describedby='component-resource-text'
                   />
+                  <FormHelperText
+                    id='component-resource-text'
+                    error={values.error.resources}
+                  >
+                    {values.error.resources
+                      ? 'Поле не может быть пустым '
+                      : null}
+                  </FormHelperText>
                 </FormControl>
                 <FormControl
                   className={clsx(classes.margin, classes.textField)}
                   variant='outlined'
-                  disabled={loading}
+                  disabled={values.disabled}
+                  error={values.error.user}
                 >
                   <InputLabel htmlFor='login-page-user'>
                     Пользователь
@@ -234,12 +261,20 @@ const LoginPage = ({ ilogin, onLogin }) => {
                     value={values.user}
                     onChange={handleChangeValues('user')}
                     labelWidth={110}
+                    aria-describedby='component-user-text'
                   />
+                  <FormHelperText
+                    id='component-user-text'
+                    error={values.error.user}
+                  >
+                    {values.error.user ? 'Поле не может быть пустым ' : null}
+                  </FormHelperText>
                 </FormControl>
                 <FormControl
                   className={clsx(classes.margin, classes.textField)}
                   variant='outlined'
-                  disabled={loading}
+                  disabled={values.disabled}
+                  error={values.error.password}
                 >
                   <InputLabel htmlFor='outlined-adornment-password'>
                     Пароль
@@ -266,7 +301,16 @@ const LoginPage = ({ ilogin, onLogin }) => {
                       </InputAdornment>
                     }
                     labelWidth={60}
-                  />
+                    aria-describedby='component-password-text'
+                  />{' '}
+                  <FormHelperText
+                    id='component-password-text'
+                    error={values.error.password}
+                  >
+                    {values.error.password
+                      ? 'Поле не может быть пустым '
+                      : null}
+                  </FormHelperText>
                 </FormControl>
                 <Button
                   type='submit'
@@ -274,11 +318,11 @@ const LoginPage = ({ ilogin, onLogin }) => {
                   color='primary'
                   className={classes.submit}
                   size='large'
-                  disabled={loading}
+                  disabled={values.disabled}
                 >
                   Вход
                 </Button>
-                {loading && (
+                {values.loading && (
                   <CircularProgress
                     size={24}
                     className={classes.buttonProgress}

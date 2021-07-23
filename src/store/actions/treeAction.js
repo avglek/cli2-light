@@ -1,5 +1,5 @@
 import { TREE_ERROR, TREE_POST, TREE_SUCCESS } from './actionsType'
-import { requestTree } from '../../services/cliService/template'
+import { requestTree } from '../../common/template'
 
 export const postTree = () => ({
   type: TREE_POST,

@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
-import { Button, Grid, Paper } from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core'
 
-//import { useDispatch, useSelector } from 'react-redux'
-//import { postTree } from '../store/actions/treeAction'
-import WarningMessage from '../components/WarningMessage'
-//import { requestTree } from '../services/cliService/template'
+import { queryProc } from '../common/template'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,27 +15,34 @@ const useStyles = makeStyles((theme) => ({
 
 const TestPage = () => {
   const classes = useStyles
-  const [disabled, setDisabled] = useState(false)
-  const [open, setOpen] = useState(false)
 
   const handleClick = () => {
-    setOpen(true)
-    setDisabled(false)
-  }
+    const params = [
+      {
+        name: 'p_Doc',
+        datatype: 'cursor',
+        type: 'out',
+      },
+      {
+        name: 'param_2',
+        datatype: 'varchar',
+        type: 'in',
+        data: '22222222',
+      },
+      {
+        name: 'param_3',
+        datatype: 'varchar',
+        type: 'in',
+        data: '50',
+      },
+    ]
 
-  const handleClose = () => {
-    setOpen(false)
+    const query = queryProc('45332', 'test(?,?,?)', params)
+    console.log(query)
   }
 
   return (
     <div className={classes.root}>
-      <WarningMessage
-        open={open}
-        onClose={handleClose}
-        title='Ошибка авторизации'
-        message='Пользователь с таким именем в системе не зарегистрирован. Проверьте правильность ввода'
-        severity='error'
-      />
       <Grid
         container
         direction='column'
@@ -50,17 +54,9 @@ const TestPage = () => {
           <h1>Welcom to Cli2-light</h1>
         </Grid>
         <Grid item xs={4}>
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={handleClick}
-            disabled={disabled}
-          >
+          <Button variant='contained' color='primary' onClick={handleClick}>
             Test Cli Request
           </Button>
-        </Grid>
-        <Grid item xs={2}>
-          <Paper variant='outlined'>test</Paper>
         </Grid>
       </Grid>
     </div>

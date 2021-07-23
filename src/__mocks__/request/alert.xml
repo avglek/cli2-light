@@ -1,0 +1,27 @@
+    <?xml
+        version="1.0"
+        encoding="Windows-1251"
+        ?>
+    <REQUEST>
+        <CALL
+            command="begin alert_utils.check_alert(?, ?); end;"
+            type="block">
+            <PARAMS>
+                <PARAM>
+                    <META
+                        name="P_DT"
+                        datatype="DATE"
+                        type="INOUT"/>
+                    <DATA>
+                        20210713T20:01:1515
+                        </DATA>
+                    </PARAM>
+                <PARAM>
+                    <META
+                        name="P_STATUS"
+                        datatype="CURSOR"
+                        type="OUT"/>
+                    </PARAM>
+                </PARAMS>
+            </CALL>
+        </REQUEST>

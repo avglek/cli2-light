@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EXCEPTION
+        message="ORA-20003: ORU-10036: object LOM_POROGNIE is invalid and cannot be described&#xA;ORA-06512: at &quot;SYS.DBMS_DESCRIBE&quot;, line 156&#xA;ORA-06512: at &quot;COMMON.DESCRIBE_PROC&quot;, line 22&#xA;ORA-06512: at line 1&#xA;"
+        class="java.lang.Exception"/>

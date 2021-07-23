@@ -3,7 +3,8 @@ import { TREE_ERROR, TREE_SUCCESS, TREE_POST } from '../actions/actionsType'
 const initialState = {
   loading: false,
   error: '',
-  items: [],
+  tree: [],
+  docs: [],
 }
 
 export const treeReducer = (state = initialState, action) => {
@@ -13,21 +14,24 @@ export const treeReducer = (state = initialState, action) => {
         ...state,
         loading: true,
         error: '',
-        items: [],
+        tree: [],
+        docs: [],
       }
     case TREE_ERROR:
       return {
         ...state,
         loading: false,
         error: action.payload,
-        items: [],
+        tree: [],
+        docs: [],
       }
     case TREE_SUCCESS:
       return {
         ...state,
         loading: false,
         error: '',
-        items: action.payload,
+        tree: action.payload.tree,
+        docs: action.payload.docs,
       }
     default:
       return state

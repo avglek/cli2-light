@@ -1,31 +1,18 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { Redirect } from 'react-router'
 
-import { makeStyles } from '@material-ui/core/styles'
-import { Grid } from '@material-ui/core'
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-}))
+const normId = (raw) => raw.split('.')[0]
 
 const Home = () => {
-  const classes = useStyles
+  const { loading, tree } = useSelector((state) => state.tree)
 
-  return (
-    <div className={classes.root}>
-      <Grid
-        container
-        direction='column'
-        spacing={3}
-        justifyContent='flex-start'
-        alignItems='center'
-      >
-        <Grid item xs={4}>
-          <h1>Welcom to Cli2-light</h1>
-        </Grid>
-      </Grid>
-    </div>
-  )
+  if (!loading && tree.length > 0) {
+    const id = normId(tree[0].DOC_ID)
+    return <Redirect to={`/view/${id}`} />
+  } else {
+    return null
+  }
 }
+
 export default Home
