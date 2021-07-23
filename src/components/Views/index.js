@@ -2,6 +2,8 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom'
 
+import { nanoid } from 'nanoid'
+
 import { useListView } from '../../ListViewContext'
 import GridDocView from './GridDocView'
 import ListDocView from './ListDocView'
@@ -31,7 +33,9 @@ const Views = () => {
   const dispatch = useDispatch()
 
   const handleClick = (id) => {
+    const uid = nanoid()
     const item = {
+      uid,
       id,
       loading: true,
       title: '',
@@ -39,7 +43,7 @@ const Views = () => {
 
     dispatch(addTab(item))
     const xml = describe(id)
-    dispatch(postDoc(xml))
+    dispatch(postDoc({ uid, xml }))
     history.push(routeToData)
   }
 

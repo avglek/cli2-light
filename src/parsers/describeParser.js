@@ -3,8 +3,8 @@ import { updateTab } from '../store/actions/tabAction'
 import { postDoc } from '../store/actions/docAction'
 import { queryProc } from '../common/template'
 
-export const describeParser = (data) => {
-  const ancor = data.DESCRIBE
+export const describeParser = ({ uid, json }) => {
+  const ancor = json.DESCRIBE
 
   const pDoc = ancor.DOCPROC.CALL.PARAMS.PARAM.find(
     (i) => i.META.name === 'P_DOCS'
@@ -24,6 +24,7 @@ export const describeParser = (data) => {
     const desc = pDoc.DATA.DATAPACKET.ROWDATA.ROW
     const id = Number.parseInt(normId(desc.DOC_ID))
     const item = {
+      uid,
       id,
       title: desc.DOC_NAME,
       loading: false,
@@ -36,8 +37,8 @@ export const describeParser = (data) => {
       return updateTab(item)
     } else {
       const query = queryProc(id, ancor.call, params)
-      return postDoc(query)
+      return postDoc({uid,xml:query})
     }
   }
-  return updateTab({ loading: false, error: 'no data' })
+  return updateTab({ uid, loading: false, error: 'no data' })
 }

@@ -11,8 +11,11 @@ export const docEpic = (action$, state$) =>
     ofType(DOC_POST),
 
     mergeMap((action) =>
-      cli2xmlServise(action.payload, state$.value).pipe(
-        map((json) => succesDoc(json))
+      cli2xmlServise(action.payload.xml, state$.value).pipe(
+        map((json) => {
+          const uid = action.payload.uid
+          return succesDoc({ uid, json })
+        })
       )
     ),
     catchError((error) => {

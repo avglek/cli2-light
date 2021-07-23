@@ -4,11 +4,14 @@ import { docParser } from './docParser'
 const parsers = {
   DESCRIBE: describeParser,
   DOC: docParser,
-  DEFAULT: { type: '__NONE__' },
+  DEFAULT: () => ({ type: '__NONE__' }),
 }
 
 export const parser = (data) => {
-  const keys = Object.keys(data)
+  console.log(data)
+  const keys = Object.keys(data.json)
+  console.log(keys)
   const action = parsers[keys[0]] || parsers.DEFAULT
+  console.log(action)
   return action(data)
 }

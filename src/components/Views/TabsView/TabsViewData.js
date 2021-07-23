@@ -11,11 +11,12 @@ import { useStyles, a11yProps } from './styles'
 import TabPanel from './TabPanel'
 import TabLabel from './TabLabel'
 import InputForm from '../../../UIComponents/InputForm'
+import { RenderData } from '../Data'
 
 const TabsViewData = () => {
   const classes = useStyles()
 
-  const { items, count } = useSelector((store) => store.tab)
+  const { items, count } = useSelector((store) => store.tabs)
   const dispatch = useDispatch()
 
   const handleChange = (event, newValue) => {
@@ -75,6 +76,7 @@ const TabsViewData = () => {
         return (
           <TabPanel value={count} index={index} key={index} classes={classes}>
             {item.form ? <InputForm /> : null}
+            {item.data ? <RenderData /> : null}
           </TabPanel>
         )
       })}

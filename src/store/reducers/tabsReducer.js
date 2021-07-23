@@ -28,7 +28,7 @@ export default function tabReducer(state = initialState, action) {
 
     case TAB_UPDATE:
       const cloneItems = state.items.map((item) => {
-        if (item.id === action.payload.id) {
+        if (item.uid === action.payload.uid) {
           item = { ...item, ...action.payload }
         }
         return item

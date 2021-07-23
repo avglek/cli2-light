@@ -4,8 +4,8 @@ import { updateTab } from '../store/actions/tabAction'
 const getMETA = (ancor, name) =>
   ancor.DOCPROC.CALL.PARAMS.PARAM.find((i) => i.META.name === name)
 
-export const docParser = (data) => {
-  const ancor = data.DOC
+export const docParser = ({ uid, json }) => {
+  const ancor = json.DOC
 
   const pDoc = getMETA(ancor, 'P_DOCS')
   const pFields = getMETA(ancor, 'P_FIELDS')
@@ -25,6 +25,7 @@ export const docParser = (data) => {
     const docClass = desc['DOC_CLASS']
 
     const item = {
+      uid,
       id,
       title,
       loading: false,
@@ -40,5 +41,5 @@ export const docParser = (data) => {
     return updateTab(item)
   }
 
-  return updateTab({ loading: false, error: 'no data' })
+  return updateTab({ uid, loading: false, error: 'no data' })
 }
