@@ -24,7 +24,6 @@ export const authReducer = (state = initialState, action) => {
         login: false,
       }
     case AUTH_ERROR:
-      console.log('reduser:', action.payload)
       return {
         ...state,
         user: '',

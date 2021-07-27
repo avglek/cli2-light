@@ -10,8 +10,8 @@ import { removeTab, changeTab } from '../../../store/actions/tabAction'
 import { useStyles, a11yProps } from './styles'
 import TabPanel from './TabPanel'
 import TabLabel from './TabLabel'
-import InputForm from '../../../UIComponents/InputForm'
-import { RenderData } from '../Data'
+import Form from '../../Forms'
+import { RenderData } from '../reports'
 
 const TabsViewData = () => {
   const classes = useStyles()
@@ -33,8 +33,6 @@ const TabsViewData = () => {
     }
     dispatch(removeTab(index))
   }
-
-  console.log('D:', items)
 
   return (
     <div className={classes.root}>
@@ -74,9 +72,14 @@ const TabsViewData = () => {
       </AppBar>
       {items.map((item, index) => {
         return (
-          <TabPanel value={count} index={index} key={index} classes={classes}>
-            {item.form ? <InputForm /> : null}
-            {item.data ? <RenderData /> : null}
+          <TabPanel
+            value={count}
+            index={index}
+            key={item.uid}
+            classes={classes}
+          >
+            {item.form ? <Form id={item.uid} /> : null}
+            {item.data ? <RenderData id={item.uid} /> : null}
           </TabPanel>
         )
       })}

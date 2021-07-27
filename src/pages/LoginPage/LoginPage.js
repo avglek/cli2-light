@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const resources = [
-  'http://localhost:8080/sevstal_ch/servlet/CliServlet',
+  'http://192.168.1.174:8080/sevstal_ch/servlet/CliServlet',
   'http://localhost:8080/sevstal/servlet/CliServlet',
   'http://localhost:8080/r65/servlet/CliServlet',
   'http://localhost:8080/storaenso/servlet/CliServlet',
@@ -84,9 +84,9 @@ const resources = [
 const LoginPage = () => {
   const classes = useStyles()
   const [values, setValues] = useState({
-    resource: 'http://localhost:8080/r65/servlet/CliServlet',
-    user: 'r65',
-    password: 'r65',
+    resource: 'http://192.168.1.174:8080/sevstal_ch/servlet/CliServlet',
+    user: 'OPER_CH',
+    password: 'ch11',
     weightRange: '',
     showPassword: false,
     ancorRes: null,
@@ -147,7 +147,6 @@ const LoginPage = () => {
   }
 
   const handleCloseWarning = (event) => {
-    console.log('close warning')
     setValues({
       ...values,
       disabled: false,

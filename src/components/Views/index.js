@@ -11,8 +11,7 @@ import { routeToData } from '../../common/constApp'
 import { addTab } from '../../store/actions/tabAction'
 import { describe } from '../../common/template'
 import { postDoc } from '../../store/actions/docAction'
-
-const raw2int = (raw) => Number.parseInt(raw.split('.')[0])
+import { raw2int } from '../../utils/docs'
 
 const getDocs = (docs, selected) => {
   const out = docs.filter((i) => {

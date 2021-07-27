@@ -1,5 +1,11 @@
 export const normId = (raw) => raw.split('.')[0]
 
+export const raw2int = (raw) => Number.parseInt(raw.split('.')[0])
+
+export const rem2pix = (rem) => {
+  return rem * parseFloat(getComputedStyle(document.documentElement).fontSize)
+}
+
 export const getArray = (value) => {
   if (Array.isArray(value)) {
     return value

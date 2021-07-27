@@ -16,6 +16,7 @@ export const describeParser = ({ uid, json }) => {
   let form = null
   if (pFields.DATA.DATAPACKET.ROWDATA !== '') {
     form = getArray(pFields.DATA.DATAPACKET.ROWDATA.ROW)
+    console.log('form:', form)
   }
 
   const params = getArray(ancor.PARAMS.PARAM).map((i) => i.META)
@@ -37,7 +38,7 @@ export const describeParser = ({ uid, json }) => {
       return updateTab(item)
     } else {
       const query = queryProc(id, ancor.call, params)
-      return postDoc({uid,xml:query})
+      return postDoc({ uid, xml: query })
     }
   }
   return updateTab({ uid, loading: false, error: 'no data' })

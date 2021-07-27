@@ -1,4 +1,4 @@
-import { map, Observable, switchMap, throwError } from 'rxjs'
+import { map, Observable, switchMap, throwError, tap } from 'rxjs'
 import { ajax } from 'rxjs/ajax'
 import { btoa } from 'abab'
 import { parseString } from 'xml2js'
@@ -41,7 +41,7 @@ export const cli2xmlServise = (body, value) => {
 
       return xml
     }),
-    //tap((x) => console.log('start:', x)),
+
     switchMap((xml) =>
       xmlJsonStream$(xml).pipe(
         map((json) => {
@@ -51,6 +51,7 @@ export const cli2xmlServise = (body, value) => {
           return json.RESPONSE
         })
       )
-    )
+    ),
+    tap((x) => console.log('start:', x))
   )
 }
