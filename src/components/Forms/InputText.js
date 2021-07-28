@@ -14,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
 const InputText = ({ data }) => {
   const classes = useStyles()
 
-  return <TextField id='standard-basic' label={data['DISPLAY_LABEL']} />
+  return (
+    <div className={classes.root}>
+      <TextField id="standard-basic" label={data['DISPLAY_LABEL']} />
+    </div>
+  )
 }
 export default InputText

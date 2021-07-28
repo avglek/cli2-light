@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const resources = [
-  'http://192.168.1.174:8080/sevstal_ch/servlet/CliServlet',
+  'http://localhost:8080/sevstal_ch/servlet/CliServlet',
   'http://localhost:8080/sevstal/servlet/CliServlet',
   'http://localhost:8080/r65/servlet/CliServlet',
   'http://localhost:8080/storaenso/servlet/CliServlet',
@@ -160,26 +160,26 @@ const LoginPage = () => {
       className={classes.root}
       onClick={values.openWarning ? () => handleCloseWarning() : null}
     >
-      {login && !loading && tree.length > 0 ? <Redirect to='/' /> : null}
+      {login && !loading && tree.length > 0 ? <Redirect to="/" /> : null}
       {error ? (
         <WarningMessage
           open={values.openWarning}
           onClose={handleCloseWarning}
-          title='Ошибка авторизации'
+          title="Ошибка авторизации"
           message={error}
-          severity='error'
+          severity="error"
         />
       ) : null}
       <Grid
         className={classes.box}
         container
-        direction='column'
-        justifyContent='space-around'
-        alignItems='center'
+        direction="column"
+        justifyContent="space-around"
+        alignItems="center"
         spacing={4}
       >
         <Grid item>
-          <Typography component='h1' variant='h5'>
+          <Typography component="h1" variant="h5">
             Вход в систему
           </Typography>
         </Grid>
@@ -188,35 +188,35 @@ const LoginPage = () => {
             <form className={classes.form} noValidate onSubmit={handleSubmit}>
               <Grid
                 container
-                direction='column'
+                direction="column"
                 spacing={2}
-                alignItems='center'
+                alignItems="center"
               >
                 <FormControl
                   className={clsx(classes.margin, classes.textField)}
-                  variant='outlined'
+                  variant="outlined"
                   disabled={values.disabled}
                   error={values.error.resources}
                 >
-                  <InputLabel htmlFor='login-page-resource'>
+                  <InputLabel htmlFor="login-page-resource">
                     Информационный ресурс
                   </InputLabel>
                   <OutlinedInput
-                    id='login-page-resource'
-                    type='text'
+                    id="login-page-resource"
+                    type="text"
                     value={values.resource}
                     onChange={handleChangeValues('resource')}
                     endAdornment={
-                      <InputAdornment position='end'>
+                      <InputAdornment position="end">
                         <IconButton
-                          aria-label='select resource'
+                          aria-label="select resource"
                           onClick={handleClickMenu}
-                          edge='end'
+                          edge="end"
                         >
                           <MoreHoriz />
                         </IconButton>
                         <Menu
-                          id='simple-menu'
+                          id="simple-menu"
                           anchorEl={values.ancorRes}
                           keepMounted
                           open={Boolean(values.ancorRes)}
@@ -234,10 +234,10 @@ const LoginPage = () => {
                       </InputAdornment>
                     }
                     labelWidth={200}
-                    aria-describedby='component-resource-text'
+                    aria-describedby="component-resource-text"
                   />
                   <FormHelperText
-                    id='component-resource-text'
+                    id="component-resource-text"
                     error={values.error.resources}
                   >
                     {values.error.resources
@@ -247,23 +247,23 @@ const LoginPage = () => {
                 </FormControl>
                 <FormControl
                   className={clsx(classes.margin, classes.textField)}
-                  variant='outlined'
+                  variant="outlined"
                   disabled={values.disabled}
                   error={values.error.user}
                 >
-                  <InputLabel htmlFor='login-page-user'>
+                  <InputLabel htmlFor="login-page-user">
                     Пользователь
                   </InputLabel>
                   <OutlinedInput
-                    id='login-page-user'
+                    id="login-page-user"
                     type={'text'}
                     value={values.user}
                     onChange={handleChangeValues('user')}
                     labelWidth={110}
-                    aria-describedby='component-user-text'
+                    aria-describedby="component-user-text"
                   />
                   <FormHelperText
-                    id='component-user-text'
+                    id="component-user-text"
                     error={values.error.user}
                   >
                     {values.error.user ? 'Поле не может быть пустым ' : null}
@@ -271,25 +271,25 @@ const LoginPage = () => {
                 </FormControl>
                 <FormControl
                   className={clsx(classes.margin, classes.textField)}
-                  variant='outlined'
+                  variant="outlined"
                   disabled={values.disabled}
                   error={values.error.password}
                 >
-                  <InputLabel htmlFor='outlined-adornment-password'>
+                  <InputLabel htmlFor="outlined-adornment-password">
                     Пароль
                   </InputLabel>
                   <OutlinedInput
-                    id='outlined-adornment-password'
+                    id="outlined-adornment-password"
                     type={values.showPassword ? 'text' : 'password'}
                     value={values.password}
                     onChange={handleChangeValues('password')}
                     endAdornment={
-                      <InputAdornment position='end'>
+                      <InputAdornment position="end">
                         <IconButton
-                          aria-label='toggle password visibility'
+                          aria-label="toggle password visibility"
                           onClick={handleClickShowPassword}
                           onMouseDown={handleMouseDownPassword}
-                          edge='end'
+                          edge="end"
                         >
                           {values.showPassword ? (
                             <Visibility />
@@ -300,10 +300,10 @@ const LoginPage = () => {
                       </InputAdornment>
                     }
                     labelWidth={60}
-                    aria-describedby='component-password-text'
+                    aria-describedby="component-password-text"
                   />{' '}
                   <FormHelperText
-                    id='component-password-text'
+                    id="component-password-text"
                     error={values.error.password}
                   >
                     {values.error.password
@@ -312,11 +312,11 @@ const LoginPage = () => {
                   </FormHelperText>
                 </FormControl>
                 <Button
-                  type='submit'
-                  variant='contained'
-                  color='primary'
+                  type="submit"
+                  variant="contained"
+                  color="primary"
                   className={classes.submit}
-                  size='large'
+                  size="large"
                   disabled={values.disabled}
                 >
                   Вход

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
+//import TextField from '@material-ui/core/TextField'
 import { Typography } from '@material-ui/core'
 import { RenderData } from './controlTypes'
 
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const title = 'Поиск вагона по номеру'
+//const title = 'Поиск вагона по номеру'
 
 const Form = ({ id }) => {
   const classes = useStyles()
@@ -22,11 +22,9 @@ const Form = ({ id }) => {
   const item = items.find((i) => i.uid === id)
   console.log(item.form)
 
-
-
   return (
-    <form className={classes.root} noValidate autoComplete='off'>
-      <Typography variant='h5' color='primary' style={{ marginTop: '2rem' }}>
+    <form className={classes.root} noValidate autoComplete="off">
+      <Typography variant="h5" color="primary" style={{ marginTop: '2rem' }}>
         {item.form.title}
       </Typography>
       <ul style={{ listStyle: 'none' }}>

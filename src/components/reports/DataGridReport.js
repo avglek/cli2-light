@@ -2,7 +2,7 @@ import React from 'react'
 import { DataGrid } from '@material-ui/data-grid'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { raw2int, rem2pix } from '../../../utils/docs'
+import { raw2int, rem2pix } from '../../utils/docs'
 
 export const useStyles = makeStyles((theme) => ({
   root: {
