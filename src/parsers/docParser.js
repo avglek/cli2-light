@@ -30,8 +30,6 @@ const getDataValue = (param) => {
 
 export const docParser = ({ uid, json }) => {
   const ancor = json.DOC
-  console.log('ancor:', ancor)
-
   const pDoc = getMETA(ancor, 'P_DOCS')
   const pFields = getMETA(ancor, 'P_FIELDS')
   const pSubDocs = getMETA(ancor, 'P_SUB_DOCS')
@@ -72,7 +70,7 @@ export const docParser = ({ uid, json }) => {
         outdata,
       },
     }
-    console.log('i:', item)
+
     return updateTab(item)
   }
 

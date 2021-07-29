@@ -24,10 +24,6 @@ export const DataTabsProvider = ({ children }) => {
       return res
     })
 
-  // const removeTab = () => {
-  //   console.log()
-  // }
-
   return (
     <DataTabsContext.Provider
       value={{

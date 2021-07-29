@@ -84,7 +84,7 @@ const resources = [
 const LoginPage = () => {
   const classes = useStyles()
   const [values, setValues] = useState({
-    resource: 'http://192.168.1.174:8080/sevstal_ch/servlet/CliServlet',
+    resource: resources[0],
     user: 'OPER_CH',
     password: 'ch11',
     weightRange: '',

@@ -11,8 +11,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const InputText = ({ data }) => {
+const InputText = ({ data, fields }) => {
   const classes = useStyles()
+
+  console.log('input form data:', data)
+  console.log('input form fields:', fields)
 
   return (
     <div className={classes.root}>

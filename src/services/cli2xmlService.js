@@ -52,6 +52,6 @@ export const cli2xmlServise = (body, value) => {
         })
       )
     ),
-    tap((x) => console.log('start:', x))
+    tap((x) => console.log('raw data:', x))
   )
 }

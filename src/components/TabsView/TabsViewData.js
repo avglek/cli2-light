@@ -6,11 +6,11 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-import { removeTab, changeTab } from '../../../store/actions/tabAction'
+import { removeTab, changeTab } from '../../store/actions/tabAction'
 import { useStyles, a11yProps } from './styles'
 import TabPanel from './TabPanel'
 import TabLabel from './TabLabel'
-import Form from '../../Forms'
+import Form from '../Forms'
 import { RenderData } from '../reports'
 
 const TabsViewData = () => {
@@ -36,15 +36,15 @@ const TabsViewData = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position='static' color='default'>
+      <AppBar position="static" color="default">
         <Tabs
           value={count}
           onChange={handleChange}
-          aria-label='simple tabs example'
-          indicatorColor='primary'
-          textColor='primary'
-          variant='scrollable'
-          scrollButtons='on'
+          aria-label="simple tabs example"
+          indicatorColor="primary"
+          textColor="primary"
+          variant="scrollable"
+          scrollButtons="on"
         >
           {items.map((item, index) => {
             return (

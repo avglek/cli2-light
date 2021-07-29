@@ -4,6 +4,7 @@ import { docReducer } from './docReducer'
 import { treeReducer } from './treeReducer'
 import tabsReducer from './tabsReducer'
 import { authReducer } from './authReducer'
+import { formReducer } from './formReducer'
 
 export const rootReducer = combineReducers({
   ping: pingReducer,
@@ -11,4 +12,5 @@ export const rootReducer = combineReducers({
   tabs: tabsReducer,
   tree: treeReducer,
   auth: authReducer,
+  form: formReducer,
 })

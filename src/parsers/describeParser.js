@@ -13,13 +13,24 @@ export const describeParser = ({ uid, json }) => {
   const pFields = ancor.DOCPROC.CALL.PARAMS.PARAM.find(
     (i) => i.META.name === 'P_FIELDS'
   )
-  let form = null
-  if (pFields.DATA.DATAPACKET.ROWDATA !== '') {
-    form = getArray(pFields.DATA.DATAPACKET.ROWDATA.ROW)
-    console.log('form:', form)
-  }
 
   const params = getArray(ancor.PARAMS.PARAM).map((i) => i.META)
+
+  let form = null
+  if (pFields.DATA.DATAPACKET.ROWDATA !== '') {
+    const controls = params.filter((i) => i.type === 'IN')
+    const fields = getArray(pFields.DATA.DATAPACKET.ROWDATA.ROW)
+
+    form = controls.map((i) => {
+      const f = fields.find((t) => t['FIELD_NAME'] === i.name.slice(2))
+
+      return {
+        name: i.name,
+        datatype: i.datatype,
+        ...f,
+      }
+    })
+  }
 
   if (pDoc) {
     const desc = pDoc.DATA.DATAPACKET.ROWDATA.ROW
