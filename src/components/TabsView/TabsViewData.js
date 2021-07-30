@@ -11,7 +11,7 @@ import { useStyles, a11yProps } from './styles'
 import TabPanel from './TabPanel'
 import TabLabel from './TabLabel'
 import Form from '../Forms'
-import { RenderData } from '../reports'
+import RenderData from '../reports'
 
 const TabsViewData = () => {
   const classes = useStyles()
@@ -56,7 +56,7 @@ const TabsViewData = () => {
                   >
                     {item.loading ? (
                       <>
-                        <CircularProgress size={20} /> Loading...
+                        <CircularProgress size={20} /> Загрузка...
                       </>
                     ) : (
                       item.title

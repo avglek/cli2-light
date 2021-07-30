@@ -1,4 +1,10 @@
-import { TAB_ADD, TAB_CHANGE, TAB_REMOVE, TAB_UPDATE } from './actionsType'
+import {
+  TAB_ADD,
+  TAB_CHANGE,
+  TAB_REMOVE,
+  TAB_UPDATE,
+  TAB_CLEAR,
+} from './actionsType'
 
 export function addTab(payload) {
   return {
@@ -25,5 +31,12 @@ export function changeTab(value) {
   return {
     type: TAB_CHANGE,
     payload: value,
+  }
+}
+
+export function clearTab(payload) {
+  return {
+    type: TAB_CLEAR,
+    payload,
   }
 }

@@ -39,6 +39,7 @@ export const describeParser = ({ uid, json }) => {
       uid,
       id,
       title: desc.DOC_NAME,
+      titleResult: desc.DOC_TITLE,
       loading: false,
       call: ancor.call,
       params,
