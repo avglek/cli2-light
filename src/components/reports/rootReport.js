@@ -3,11 +3,12 @@ import { useSelector } from 'react-redux'
 //import DataGridReport from './DataGridReport'
 import TwoDataGrid from './TwoDataGrid'
 import DataPlainText from './DataPlainText'
+import SmartDataGridReport from './SmartDataGridReport'
 
 const def = <h1>Default</h1>
 
 const views = {
-  TfrmTable: () => <h1>DataGrid</h1>, // DataGridReport,
+  TfrmTable: SmartDataGridReport,
   TfrmTwoTables: TwoDataGrid,
   TfrmText: DataPlainText,
   TfrmFlash: () => <h1>Flash is not supported</h1>,
@@ -21,9 +22,9 @@ const withItemData =
   ({ ...props }) =>
     <ReportComponent {...props} />
 
-export const RenderData = ({ id }) => {
+export const RenderData = ({ id, size }) => {
   const { items } = useSelector((state) => state.tabs)
   const item = items.find((i) => i.uid === id)
 
-  return withItemData(views[item.data.docClass])({ data: item })
+  return withItemData(views[item.data.docClass])({ data: item, size })
 }

@@ -14,9 +14,16 @@ export const describeParser = ({ uid, json }) => {
     (i) => i.META.name === 'P_FIELDS'
   )
 
+  const pLookupTables = ancor.DOCPROC.CALL.PARAMS.PARAM.find(
+    (i) => i.META.name === 'P_LOOKUP_TABLES'
+  )
+
+  const lookTables = getArray(pLookupTables.DATA.DATAPACKET.ROWDATA.ROW)
+
   const params = getArray(ancor.PARAMS.PARAM).map((i) => i.META)
 
   let form = null
+
   if (pFields.DATA.DATAPACKET.ROWDATA !== '') {
     const controls = params.filter((i) => i.type === 'IN')
     const fields = getArray(pFields.DATA.DATAPACKET.ROWDATA.ROW)
@@ -40,10 +47,11 @@ export const describeParser = ({ uid, json }) => {
       id,
       title: desc.DOC_NAME,
       titleResult: desc.DOC_TITLE,
-      loading: false,
+      loading: lookTables ? true : false,
       call: ancor.call,
       params,
       form,
+      lookTables,
     }
 
     if (form) {

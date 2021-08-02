@@ -1,0 +1,12 @@
+    <?xml
+        version="1.0"
+        encoding="Windows-1251"
+        ?>
+    <REQUEST>
+        <LOOKUP>
+            <TABLES>
+                <TABLE
+                    name="NCI.RODG"/>
+                </TABLES>
+            </LOOKUP>
+        </REQUEST>

@@ -1,22 +1,49 @@
 import { normId } from '../utils/docs'
 import { updateTab } from '../store/actions/tabAction'
+import moment from 'moment'
 
 const getMETA = (ancor, name) =>
   ancor.DOCPROC.CALL.PARAMS.PARAM.find((i) => i.META.name === name)
 
-const getDataValue = (param) => {
+const getDataValue = (param, descriptionFields = null) => {
   switch (param.META.datatype) {
     case 'CURSOR':
+      const fields = param.DATA.DATAPACKET.METADATA.FIELDS.FIELD
+      const columns = fields.map((i) => {
+        const field = descriptionFields.find(
+          (t) => t['FIELD_NAME'] === i['attrname']
+        )
+        return { ...i, ...field }
+      })
+
+      const rows = param.DATA.DATAPACKET.ROWDATA.ROW.map((row) => {
+        columns.forEach((col) => {
+          if (col.fieldtype === 'dateTime') {
+            const date = row[col['FIELD_NAME']]
+            if (date) {
+              const iso = date.split(':').join('')
+              row[col['FIELD_NAME']] = moment(iso.slice(0, 13)).format(
+                'DD.MM.YYYY HH:mm'
+              )
+            }
+          }
+        })
+
+        return row
+      })
+
       return {
-        rows: param.DATA.DATAPACKET.ROWDATA,
+        rows,
+        columns,
       }
     case 'CLOB':
       return {
         text: param.DATA,
       }
     case 'DATE':
+      const iso = param.DATA.slice(0, 13)
       return {
-        date: param.DATA, //20210713T20:01:47000
+        date: moment(iso).format('DD.MM.YYYY HH:mm'), //20210713T20:01:47000
       }
     case 'VARCHAR':
       return {
@@ -47,12 +74,13 @@ export const docParser = ({ uid, json }) => {
     return {
       name: param.META.name,
       datatype: param.META.datatype,
-      value: getDataValue(param),
+      value: getDataValue(param, columns),
     }
   })
 
   if (pDoc) {
     const desc = pDoc.DATA.DATAPACKET.ROWDATA.ROW
+    //const meta = pDoc.DATA.DATAPACKET.METADATA.FIELDS.FIELD
     const id = Number.parseInt(normId(desc['DOC_ID']))
     const title = desc['DOC_NAME']
     const docClass = desc['DOC_CLASS']
@@ -61,12 +89,12 @@ export const docParser = ({ uid, json }) => {
       uid,
       id,
       title,
+      titleDoc: desc['DOC_TITLE'],
       loading: false,
       data: {
         docClass,
         subDocs,
         lookupTables,
-        columns,
         outdata,
       },
     }

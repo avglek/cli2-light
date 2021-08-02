@@ -41,3 +41,11 @@ export const queryProc = (id, call, params) => {
 
   return `<?xml version="1.0" encoding="Windows-1251"?><REQUEST><DOC docid="${id}"><CALL command="${call}" type="proc"><PARAMS>${body}</PARAMS></CALL></DOC></REQUEST>`
 }
+
+export const queryLookTable = (tables) => {
+  const body = tables.reduce((acc, item) => {
+    return acc + `<TABLE name="${item['TABLE_NAME']}"/>`
+  }, '')
+
+  return `<?xml version="1.0" encoding="Windows-1251"?><REQUEST><LOOKUP><TABLES>${body}</TABLES></LOOKUP></REQUEST>`
+}

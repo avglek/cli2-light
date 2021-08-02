@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     margin: theme.spacing(1),
     minWidth: 120,
-    width: '40rem',
+    width: '25rem',
   },
 }))
 
@@ -47,8 +47,6 @@ export default function SimpleSelect({ data, controlsValue }) {
   const [value, setValue] = React.useState('')
   const [open, setOpen] = React.useState(false)
 
-  //console.log('Data:', data)
-
   const handleChange = (event) => {
     setValue(event.target.value)
 
@@ -56,7 +54,7 @@ export default function SimpleSelect({ data, controlsValue }) {
       name: data.name,
       data: event.target.value,
     }
-    console.log('value:', value)
+
     controlsValue(value)
   }
 
@@ -71,7 +69,7 @@ export default function SimpleSelect({ data, controlsValue }) {
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <Typography variant="h5" style={{ marginRight: '10px' }}>
+        <Typography variant="h5" style={{ marginRight: '2rem' }}>
           {`${data['DISPLAY_LABEL']}:`}
         </Typography>
         <Select
@@ -82,6 +80,7 @@ export default function SimpleSelect({ data, controlsValue }) {
           onOpen={handleOpen}
           value={value}
           onChange={handleChange}
+          fullWidth
         >
           {str2array(data['ITEM_LIST']).map((item, index) => {
             return (

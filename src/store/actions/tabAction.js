@@ -4,6 +4,7 @@ import {
   TAB_REMOVE,
   TAB_UPDATE,
   TAB_CLEAR,
+  TAB_REPLACE,
 } from './actionsType'
 
 export function addTab(payload) {
@@ -16,6 +17,13 @@ export function addTab(payload) {
 export function updateTab(payload) {
   return {
     type: TAB_UPDATE,
+    payload,
+  }
+}
+
+export function replaceTab(payload) {
+  return {
+    type: TAB_REPLACE,
     payload,
   }
 }

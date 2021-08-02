@@ -5,6 +5,7 @@ import { treeEpic } from './treeEpic'
 import { authEpic } from './authEpic'
 import { parserEpic } from './parserEpic'
 import { formEpic } from './formEpic'
+import { lookEpic } from './lookEpic'
 
 export const rootEpic = combineEpics(
   //pingEpic,
@@ -12,5 +13,6 @@ export const rootEpic = combineEpics(
   treeEpic,
   authEpic,
   parserEpic,
-  formEpic
+  formEpic,
+  lookEpic
 )

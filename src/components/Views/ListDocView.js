@@ -11,7 +11,6 @@ import { getIcon } from '../../icons'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
     padding: 0,
     backgroundColor: theme.palette.background.paper,
   },
@@ -22,7 +21,7 @@ export default function ListDocView({ docs, onDocClick }) {
 
   return (
     <div className={classes.root}>
-      <List component='nav' aria-label='box for documents'>
+      <List component="nav" aria-label="box for documents">
         {docs.map((item) => {
           const docName = item.DOC_NAME
           const id = raw2int(item.DOC_ID)

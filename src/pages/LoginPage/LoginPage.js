@@ -29,7 +29,7 @@ import { postTree } from '../../store/actions/treeAction'
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundImage: `url(./static/img/auth.png)`,
-    position: 'absolute',
+    position: 'fixed',
     left: 0,
     right: 0,
     top: 0,
@@ -75,6 +75,7 @@ const useStyles = makeStyles((theme) => ({
 
 const resources = [
   'http://localhost:8080/sevstal_ch/servlet/CliServlet',
+  'http://192.168.1.143:8080/sevstal_ch/servlet/CliServlet',
   'http://localhost:8080/sevstal/servlet/CliServlet',
   'http://localhost:8080/r65/servlet/CliServlet',
   'http://localhost:8080/storaenso/servlet/CliServlet',

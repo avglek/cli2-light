@@ -14,9 +14,6 @@ const useStyles = makeStyles((theme) => ({
 const InputText = ({ data, fields }) => {
   const classes = useStyles()
 
-  console.log('input form data:', data)
-  console.log('input form fields:', fields)
-
   return (
     <div className={classes.root}>
       <TextField id="standard-basic" label={data['DISPLAY_LABEL']} />

@@ -1,0 +1,7 @@
+    <?xml
+        version="1.0"
+        encoding="UTF-8"
+        ?>
+    <EXCEPTION
+        message="ORA-01861: literal does not match format string&#xA;"
+        class="java.lang.Exception"/>

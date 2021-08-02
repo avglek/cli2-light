@@ -7,6 +7,9 @@ export const rem2pix = (rem) => {
 }
 
 export const getArray = (value) => {
+  if (!value) {
+    return value
+  }
   if (Array.isArray(value)) {
     return value
   } else {

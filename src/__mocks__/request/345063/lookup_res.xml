@@ -1,0 +1,253 @@
+    <?xml
+        version="1.0"
+        encoding="UTF-8"
+        ?>
+    <RESPONSE>
+        <LOOKUP>
+            <LOOKUPPARAMS>
+                <PARAMS>
+                    <PARAM>
+                        <META
+                            name="p_NCI.RODG"
+                            datatype="CURSOR"
+                            type="OUT"/>
+                        <DATA>
+                            <DATAPACKET
+                                Version="2.0">
+                                <METADATA>
+                                    <FIELDS>
+                                        <FIELD
+                                            attrname="RG"
+                                            SUBTYPE="FixedChar"
+                                            fieldtype="string"
+                                            WIDTH="2"/>
+                                        <FIELD
+                                            attrname="MRG"
+                                            fieldtype="string"
+                                            WIDTH="6"/>
+                                        <FIELD
+                                            attrname="NRG"
+                                            fieldtype="string"
+                                            WIDTH="40"/>
+                                        </FIELDS>
+                                    </METADATA>
+                                <ROWDATA>
+                                    <ROW
+                                        RG="16"
+                                        MRG="МЕТЦВ"
+                                        NRG="ЦВЕТНЫЕ МЕТАЛЛЫ И ЛОМ"/>
+                                    <ROW
+                                        RG="17"
+                                        MRG="ХИМУД"
+                                        NRG="ХИМ.И МИН.УДОБРЕНИЯ"/>
+                                    <ROW
+                                        RG="18"
+                                        MRG="ХИМСОД"
+                                        NRG="ХИМИКАТЫ И СОДА"/>
+                                    <ROW
+                                        RG="19"
+                                        MRG="СТРГРЗ"
+                                        NRG="СТРОИТЕЛЬНЫЕ ГРУЗЫ"/>
+                                    <ROW
+                                        RG="20"
+                                        MRG="ПРСЫР"
+                                        NRG="ПРОМ.СЫРЬЕ И ФОРММАТЕРИАЛЫ"/>
+                                    <ROW
+                                        RG="21"
+                                        MRG="ГРАНШЛ"
+                                        NRG="ШЛАКИ ГРАНУЛИРОВАННЫЕ"/>
+                                    <ROW
+                                        RG="22"
+                                        MRG="ОГНЕУП"
+                                        NRG="ОГНЕУПОРЫ"/>
+                                    <ROW
+                                        RG="23"
+                                        MRG="ЦЕМЕНТ"
+                                        NRG="ЦЕМЕНТ"/>
+                                    <ROW
+                                        RG="24"
+                                        MRG="ЛЕСГРЗ"
+                                        NRG="ЛЕСНЫЕ ГРУЗЫ"/>
+                                    <ROW
+                                        RG="25"
+                                        MRG="САХАР"
+                                        NRG="САХАР"/>
+                                    <ROW
+                                        RG="26"
+                                        MRG="МЯСО"
+                                        NRG="МЯСО И МАСЛО ЖИВОТНОЕ"/>
+                                    <ROW
+                                        RG="27"
+                                        MRG="РЫБА"
+                                        NRG="РЫБА"/>
+                                    <ROW
+                                        RG="28"
+                                        MRG="ОВОЩИ"
+                                        NRG="КАРТОФЕЛЬ, ОВОЩИ И ФРУКТЫ"/>
+                                    <ROW
+                                        RG="29"
+                                        MRG="СОЛЬ"
+                                        NRG="СОЛЬ ПОВАРЕННАЯ"/>
+                                    <ROW
+                                        RG="30"
+                                        MRG="ПРДТОВ"
+                                        NRG="ОСТАЛЬНЫЕ ПРОД.ТОВАРЫ"/>
+                                    <ROW
+                                        RG="31"
+                                        MRG="ПРМТОВ"
+                                        NRG="ПРОМ.ТОВАРЫ"/>
+                                    <ROW
+                                        RG="32"
+                                        MRG="ХЛОПОК"
+                                        NRG="ХЛОПОК"/>
+                                    <ROW
+                                        RG="33"
+                                        MRG="СВЕКЛА"
+                                        NRG="САХАРНАЯ СВЕКЛА И СЕМЕНА"/>
+                                    <ROW
+                                        RG="34"
+                                        MRG="ЗЕРНО"
+                                        NRG="ЗЕРНО"/>
+                                    <ROW
+                                        RG="35"
+                                        MRG="МУКА"
+                                        NRG="МУКА, ПРОЧИЕ ПРОДУКТЫ ПЕРЕМОЛА"/>
+                                    <ROW
+                                        RG="36"
+                                        MRG="КОМБИК"
+                                        NRG="КОМБИКОРМА"/>
+                                    <ROW
+                                        RG="37"
+                                        MRG="ЖИВНСТ"
+                                        NRG="ЖИВНОСТЬ"/>
+                                    <ROW
+                                        RG="38"
+                                        MRG="ЖМЫХИ"
+                                        NRG="ЖМЫХИ"/>
+                                    <ROW
+                                        RG="39"
+                                        MRG="БУМАГА"
+                                        NRG="БУМАГА"/>
+                                    <ROW
+                                        RG="41"
+                                        MRG="ИМПОРТ"
+                                        NRG="ИМПОРТНЫЕ ГРУЗЫ"/>
+                                    <ROW
+                                        RG="42"
+                                        MRG="КОНТЕЙ"
+                                        NRG="ГРУЗЫ В КОНТЕЙНЕРАХ"/>
+                                    <ROW
+                                        RG="43"
+                                        MRG="СБОРН"
+                                        NRG="ОСТАЛЬНЫЕ И СБОРНЫЕ ГРУЗЫ"/>
+                                    <ROW
+                                        RG="45"
+                                        MRG="СБОРН"
+                                        NRG="ОСТАЛЬНЫЕ И СБОРНЫЕ ГРУЗЫ"/>
+                                    <ROW
+                                        RG="46"
+                                        MRG="СБОРН"
+                                        NRG="ОСТАЛЬНЫЕ И СБОРНЫЕ ГРУЗЫ"/>
+                                    <ROW
+                                        RG="49"
+                                        MRG="СБОРН"
+                                        NRG="ОСТАЛЬНЫЕ И СБОРНЫЕ ГРУЗЫ"/>
+                                    <ROW
+                                        RG="50"
+                                        MRG="ОВОЩИ"
+                                        NRG="КАРТОФЕЛЬ, ОВОЩИ И ФРУКТЫ"/>
+                                    <ROW
+                                        RG="57"
+                                        MRG="ИМПОРТ"
+                                        NRG="ИМПОРТНЫЕ ГРУЗЫ"/>
+                                    <ROW
+                                        RG="40"
+                                        MRG="ИМПОРТ"
+                                        NRG="ИМПОРТНЫЕ ГРУЗЫ"/>
+                                    <ROW
+                                        RG="44"
+                                        MRG="ГРСВОС"
+                                        NRG="ГРУЗ НА СВОИХ ОСЯХ"/>
+                                    <ROW
+                                        RG="01"
+                                        MRG="УГОЛЬ"
+                                        NRG="КАМЕННЫЙ УГОЛЬ"/>
+                                    <ROW
+                                        RG="02"
+                                        MRG="КОКС"
+                                        NRG="КОКС"/>
+                                    <ROW
+                                        RG="03"
+                                        MRG="НЕФТЬ"
+                                        NRG="НЕФТЬ И НЕФТЕПРОДУКТЫ"/>
+                                    <ROW
+                                        RG="04"
+                                        MRG="ТОРФ"
+                                        NRG="ТОРФ И ТОРФЯНАЯ ПРОДУКЦИЯ"/>
+                                    <ROW
+                                        RG="05"
+                                        MRG="СЛАНЦЫ"
+                                        NRG="СЛАНЦЫ ГОРЮЧИЕ"/>
+                                    <ROW
+                                        RG="06"
+                                        MRG="ФЛЮСЫ"
+                                        NRG="ФЛЮСЫ"/>
+                                    <ROW
+                                        RG="07"
+                                        MRG="РУДАМ"
+                                        NRG="РУДА ЖЕЛЕЗНАЯ И МАРГАНЦЕВАЯ"/>
+                                    <ROW
+                                        RG="08"
+                                        MRG="РУДАЦ"
+                                        NRG="РУДА ЦВЕТНАЯ И СЕРНОЕ СЫРЬЕ"/>
+                                    <ROW
+                                        RG="09"
+                                        MRG="ЧЕРМЕТ"
+                                        NRG="ЧЕРНЫЕ МЕТАЛЛЫ"/>
+                                    <ROW
+                                        RG="10"
+                                        MRG="МАШИНЫ"
+                                        NRG="МАШИНЫ И ОБОРУДОВАНИЕ"/>
+                                    <ROW
+                                        RG="11"
+                                        MRG="МЕТАЛК"
+                                        NRG="МЕТАЛЛИЧЕСКИЕ КОНСТРУКЦИИ"/>
+                                    <ROW
+                                        RG="12"
+                                        MRG="МЕТИЗЫ"
+                                        NRG="МЕТИЗЫ"/>
+                                    <ROW
+                                        RG="13"
+                                        MRG="МЕТЛОМ"
+                                        NRG="ЛОМ ЧЕРНЫХ МЕТАЛЛОВ"/>
+                                    <ROW
+                                        RG="14"
+                                        MRG="СХМАШ"
+                                        NRG="С/Х МАШИНЫ"/>
+                                    <ROW
+                                        RG="15"
+                                        MRG="АВТОМБ"
+                                        NRG="АВТОМОБИЛИ"/>
+                                    <ROW
+                                        RG="00"
+                                        MRG="ПОРОЖ"
+                                        NRG="ПОРОЖНИЙ"/>
+                                    </ROWDATA>
+                                </DATAPACKET>
+                            </DATA>
+                        </PARAM>
+                    </PARAMS>
+                </LOOKUPPARAMS>
+            <UPDATEPARAMS>
+                <PARAMS>
+                    <PARAM>
+                        <META
+                            name="p_dt"
+                            datatype="DATE"
+                            type="OUT"/>
+                        <DATA/>
+                        </PARAM>
+                    </PARAMS>
+                </UPDATEPARAMS>
+            </LOOKUP>
+        </RESPONSE>

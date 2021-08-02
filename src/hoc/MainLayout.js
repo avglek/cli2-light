@@ -61,46 +61,46 @@ const DesktopLayout = ({ children }) => {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
-        position='fixed'
+        position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
       >
         <Toolbar>
           <IconButton
-            color='inherit'
-            aria-label='open drawer'
+            color="inherit"
+            aria-label="open drawer"
             onClick={handleDrawerOpen}
-            edge='start'
+            edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant='h6' noWrap className={classes.title}>
+          <Typography variant="h6" noWrap className={classes.title}>
             {appTitle}
           </Typography>
           <IconButton
-            color='inherit'
-            aria-label='list view'
+            color="inherit"
+            aria-label="list view"
             onClick={handleToggleView}
           >
             {listView.list ? <GridOnIcon /> : <ListAltIcon />}
           </IconButton>
-          <Button color='inherit' onClick={() => history.push('/')}>
+          <Button color="inherit" onClick={() => history.push('/data')}>
             Home
           </Button>
-          <Button color='inherit' onClick={handleAbout}>
+          <Button color="inherit" onClick={handleAbout}>
             About
           </Button>
-          <Button color='inherit' onClick={handleLogout}>
+          <Button color="inherit" onClick={handleLogout}>
             Выход
           </Button>
         </Toolbar>
       </AppBar>
       <Drawer
         className={classes.drawer}
-        variant='persistent'
-        anchor='left'
+        variant="persistent"
+        anchor="left"
         open={open}
         classes={{
           paper: classes.drawerPaper,

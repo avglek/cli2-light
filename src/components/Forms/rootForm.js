@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     listStyle: 'none',
+    //border: '1px solid green',
   },
 }))
 
@@ -25,7 +26,7 @@ const Form = ({ id }) => {
   const dispatch = useDispatch()
 
   const item = items.find((i) => i.uid === id)
-  console.log('item:', item)
+  console.log('form item:', item)
 
   const handleSubmit = (event, formData) => {
     event.preventDefault()
@@ -53,6 +54,9 @@ const Form = ({ id }) => {
     })
   }
 
+  if (item.loading) {
+    return <h1>Loading...</h1>
+  }
   return (
     <form
       className={classes.root}

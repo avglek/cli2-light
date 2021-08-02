@@ -1,0 +1,61 @@
+    <?xml
+        version="1.0"
+        encoding="UTF-8"
+        ?>
+    <RESPONSE>
+        <LOOKUP>
+            <LOOKUPPARAMS>
+                <PARAMS>
+                    <PARAM>
+                        <META
+                            name="p_V_SUBGR"
+                            datatype="CURSOR"
+                            type="OUT"/>
+                        <DATA>
+                            <DATAPACKET
+                                Version="2.0">
+                                <METADATA>
+                                    <FIELDS>
+                                        <FIELD
+                                            attrname="SUBGR"
+                                            SUBTYPE="FixedChar"
+                                            fieldtype="string"
+                                            WIDTH="4"/>
+                                        </FIELDS>
+                                    </METADATA>
+                                <ROWDATA>
+                                    <ROW
+                                        SUBGR="ЛК  "/>
+                                    <ROW
+                                        SUBGR="КД  "/>
+                                    <ROW
+                                        SUBGR="КН  "/>
+                                    <ROW
+                                        SUBGR="КС  "/>
+                                    <ROW
+                                        SUBGR="КР  "/>
+                                    <ROW
+                                        SUBGR="ЛМ  "/>
+                                    <ROW
+                                        SUBGR="СА  "/>
+                                    <ROW
+                                        SUBGR="ЦБ  "/>
+                                    </ROWDATA>
+                                </DATAPACKET>
+                            </DATA>
+                        </PARAM>
+                    </PARAMS>
+                </LOOKUPPARAMS>
+            <UPDATEPARAMS>
+                <PARAMS>
+                    <PARAM>
+                        <META
+                            name="p_dt"
+                            datatype="DATE"
+                            type="OUT"/>
+                        <DATA/>
+                        </PARAM>
+                    </PARAMS>
+                </UPDATEPARAMS>
+            </LOOKUP>
+        </RESPONSE>

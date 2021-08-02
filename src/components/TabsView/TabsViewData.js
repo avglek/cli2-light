@@ -12,9 +12,11 @@ import TabPanel from './TabPanel'
 import TabLabel from './TabLabel'
 import Form from '../Forms'
 import RenderData from '../reports'
+//import { useStyles as useLayoutStyles } from '../../hoc/styleMainLayout'
 
 const TabsViewData = () => {
   const classes = useStyles()
+  //const layoutClasses = useLayoutStyles()
 
   const { items, count } = useSelector((store) => store.tabs)
   const dispatch = useDispatch()
@@ -36,7 +38,7 @@ const TabsViewData = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <AppBar className={classes.header} color="default">
         <Tabs
           value={count}
           onChange={handleChange}

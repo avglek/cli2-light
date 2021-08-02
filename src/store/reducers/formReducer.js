@@ -14,7 +14,6 @@ const initialState = {
 export const formReducer = (state = initialState, action) => {
   switch (action.type) {
     case FORM_ADD_PARAMS:
-      console.log('state:', state)
       const filtredParams = state.params.filter(
         (i) => i.name !== action.payload.name
       )
