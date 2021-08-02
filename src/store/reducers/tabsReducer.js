@@ -4,7 +4,6 @@ import {
   TAB_CLEAR,
   TAB_REMOVE,
   TAB_UPDATE,
-  TAB_REPLACE,
 } from '../actions/actionsType'
 
 const initialState = {
@@ -37,20 +36,6 @@ export default function tabReducer(state = initialState, action) {
       })
 
       return { ...state, items: cloneItems }
-
-    case TAB_REPLACE:
-      console.log('state:', state.items)
-      const replaceItems = state.items.map((item) => {
-        if (item.uid === action.payload.uid) {
-          item = { ...item, ...action.payload }
-          console.log('item:', item)
-        }
-        return item
-      })
-
-      console.log('action:', action.payload, replaceItems)
-
-      return { ...state, items: replaceItems }
 
     case TAB_CLEAR:
       const cleanItems = state.items.map((item) => {

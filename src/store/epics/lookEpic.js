@@ -18,6 +18,6 @@ export const lookEpic = (action$) =>
         console.log(query)
         return postDoc({ uid, xml: query })
       }
-      return () => ({ type: '__NONE__' })
+      return { type: '__NONE__' }
     })
   )
