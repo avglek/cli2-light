@@ -1,5 +1,4 @@
 import React from 'react'
-import 'smart-webcomponents-react/source/styles/smart.default.css'
 import { makeStyles } from '@material-ui/core/styles'
 import { Smart, Grid } from 'smart-webcomponents-react/grid'
 

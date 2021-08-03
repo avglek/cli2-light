@@ -69,6 +69,9 @@ const Form = ({ id }) => {
       </Typography>
       <ul style={{ listStyle: 'none' }}>
         {item.form.map((control, index) => {
+          if (control.LOOKUP_TABLE) {
+            const lookData = item.lookdata
+          }
           return (
             <li key={index}>
               <RenderData
