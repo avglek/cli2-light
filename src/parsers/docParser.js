@@ -16,21 +16,23 @@ const getDataValue = (param, descriptionFields = null) => {
         return { ...i, ...field }
       })
 
-      const rows = param.DATA.DATAPACKET.ROWDATA.ROW.map((row) => {
-        columns.forEach((col) => {
-          if (col.fieldtype === 'dateTime') {
-            const date = row[col['FIELD_NAME']]
-            if (date) {
-              const iso = date.split(':').join('')
-              row[col['FIELD_NAME']] = moment(iso.slice(0, 13)).format(
-                'DD.MM.YYYY HH:mm'
-              )
-            }
-          }
-        })
+      const rows = param.DATA.DATAPACKET.ROWDATA.ROW
+        ? param.DATA.DATAPACKET.ROWDATA.ROW.map((row) => {
+            columns.forEach((col) => {
+              if (col.fieldtype === 'dateTime') {
+                const date = row[col['FIELD_NAME']]
+                if (date) {
+                  const iso = date.split(':').join('')
+                  row[col['FIELD_NAME']] = moment(iso.slice(0, 13)).format(
+                    'DD.MM.YYYY HH:mm'
+                  )
+                }
+              }
+            })
 
-        return row
-      })
+            return row
+          })
+        : []
 
       return {
         rows,

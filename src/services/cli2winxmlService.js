@@ -22,13 +22,15 @@ const xmlJsonStream$ = (value) =>
   })
 
 const body2win = (body) => {
-  const buff = body
-  const raw = utf.decode(buff)
-  const res = win.encode(raw)
-  return res
+  const winStr = win.encode(body)
+  const arr = new Uint8Array(winStr.length)
+
+  for (let i = 0; i < winStr.length; ++i) arr[i] = winStr.charCodeAt(i)
+
+  return arr
 }
 
-export const cli2xmlServise = (body, value) => {
+export const cli2winxmlServise = (body, value) => {
   const { user, password, resource } = value.auth
 
   return ajax({
@@ -38,7 +40,7 @@ export const cli2xmlServise = (body, value) => {
       Authorization: 'Basic ' + btoa(user + ':' + password),
     },
     body: body2win(body),
-    contentType: 'text/xml',
+    contentType: 'text/xml; charset=windows-1251',
     responseType: 'text',
   }).pipe(
     map((response) => {

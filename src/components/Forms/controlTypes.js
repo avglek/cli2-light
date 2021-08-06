@@ -39,10 +39,10 @@ const withItemData =
   ({ ...props }) =>
     <ItemComponent {...props} />
 
-export const RenderData = ({ control, controlsValue }) => {
+export const RenderData = ({ control, look, controlsValue }) => {
   const ctrl = controls[control['CONTROL_TYPE']]
   if (ctrl) {
-    return withItemData(ctrl)({ data: control, controlsValue })
+    return withItemData(ctrl)({ data: control, look, controlsValue })
   }
   return withItemData(DefaultControl)({ data: control, controlsValue })
 }

@@ -61,10 +61,10 @@ const Form = ({ id }) => {
     <form
       className={classes.root}
       noValidate
-      autoComplete="off"
+      autoComplete='off'
       onSubmit={(event) => handleSubmit(event, item)}
     >
-      <Typography variant="h5" color="primary" style={{ marginTop: '2rem' }}>
+      <Typography variant='h5' color='primary' style={{ marginTop: '2rem' }}>
         {item.form.title}
       </Typography>
       <ul style={{ listStyle: 'none' }}>
@@ -76,13 +76,14 @@ const Form = ({ id }) => {
             <li key={index}>
               <RenderData
                 control={control}
+                look={item.lookdata}
                 controlsValue={handleControlsValue}
               />
             </li>
           )
         })}
       </ul>
-      <Button type="submit" variant="contained" color="primary" size="large">
+      <Button type='submit' variant='contained' color='primary' size='large'>
         Отправить
       </Button>
     </form>
