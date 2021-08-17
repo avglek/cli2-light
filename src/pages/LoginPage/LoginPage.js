@@ -28,7 +28,7 @@ import { postTree } from '../../store/actions/treeAction'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundImage: `url(./static/img/auth.png)`,
+    backgroundImage: `url(./static/img/auth.jpeg)`,
     position: 'fixed',
     left: 0,
     right: 0,
@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   paper: {
+    position: 'relative',
     padding: theme.spacing(4),
     margin: 'auto',
     minWidth: 400,
@@ -74,13 +75,14 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const resources = [
-  'http://localhost:8080/sevstal_ch/servlet/CliServlet',
-  'http://192.168.1.143:8080/sevstal_ch/servlet/CliServlet',
-  'http://localhost:8080/sevstal/servlet/CliServlet',
-  'http://localhost:8080/r65/servlet/CliServlet',
-  'http://localhost:8080/storaenso/servlet/CliServlet',
-  'http://localhost:8080/akron/servlet/CliServlet',
+  'http://172.16.10.3:7081/sevstal_ch',
+  'http://172.16.10.3:7081/r65',
+  'http://172.16.10.3:7081/storaenso',
+  'http://172.16.10.3:7081/akron',
+  'http://localhost:8080/sevstal_ch',
 ]
+
+const resourcePostfix = '/servlet/CliServlet'
 
 const LoginPage = () => {
   const classes = useStyles()
@@ -141,7 +143,7 @@ const LoginPage = () => {
     const formData = {
       user: values.user,
       password: values.password,
-      resource: values.resource,
+      resource: values.resource + resourcePostfix,
     }
     dispatch(postAuth(formData))
     setValues({ ...values, disabled: true, loading: true })
@@ -210,6 +212,7 @@ const LoginPage = () => {
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
+                          disabled={values.disabled}
                           aria-label="select resource"
                           onClick={handleClickMenu}
                           edge="end"
@@ -287,6 +290,7 @@ const LoginPage = () => {
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
+                          disabled={values.disabled}
                           aria-label="toggle password visibility"
                           onClick={handleClickShowPassword}
                           onMouseDown={handleMouseDownPassword}

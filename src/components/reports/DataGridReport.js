@@ -20,8 +20,6 @@ const DataGridReport = ({ data }) => {
 
   const value = data.data.outdata[0].value
 
-  console.log('value:', value)
-
   const icolumns = value.columns.map((col) => ({
     field: col['FIELD_NAME'],
     headerName: col['DISPLAY_LABEL'],

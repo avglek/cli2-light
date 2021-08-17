@@ -27,7 +27,6 @@ const MenuProps = {
 }
 
 const SelectControl = ({ data, look, controlsValue }) => {
-  //  console.log('D:', data, look)
   const classes = useStyles()
   const [value, setValue] = React.useState('')
   const [open, setOpen] = React.useState(false)
@@ -39,7 +38,6 @@ const SelectControl = ({ data, look, controlsValue }) => {
       name: data.name,
       data: event.target.value.trim(),
     }
-    console.log('value:', value)
     controlsValue(value)
   }
 
@@ -54,12 +52,12 @@ const SelectControl = ({ data, look, controlsValue }) => {
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <Typography variant='h5' style={{ marginRight: '2rem' }}>
+        <Typography variant="h5" style={{ marginRight: '2rem' }}>
           {`${data['DISPLAY_LABEL']}:`}
         </Typography>
         <Select
-          labelId='demo-controlled-open-select-label'
-          id='demo-controlled-open-select'
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select"
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}

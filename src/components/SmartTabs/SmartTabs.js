@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './SmartTabs.css'
 
-import { Tabs, TabItem } from 'smart-webcomponents-react/tabs'
+import { Tabs } from 'smart-webcomponents-react/tabs'
 import { Button } from '@material-ui/core'
 
 const SmartTabs = () => {
@@ -10,7 +10,6 @@ const SmartTabs = () => {
   ])
 
   const handleClose = (event) => {
-    console.log('tab close ', event.detail.index)
     const index = event.detail.index
     setItems((prev) => {
       const clone = prev
@@ -30,8 +29,6 @@ const SmartTabs = () => {
       },
     ])
   }
-
-  console.log(items)
 
   return (
     <div>

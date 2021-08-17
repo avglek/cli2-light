@@ -13,10 +13,11 @@ import { ListViewProvider } from './ListViewContext'
 import { routeToData } from './common/constApp'
 import TabsViewData from './components/TabsView/TabsViewData'
 import { useSelector } from 'react-redux'
-//import Home from './pages/Home/Home'
-import TestPage from './pages/TestPage'
+import Home from './pages/Home/Home'
+//import TestPage from './pages/TestPage'
+//${this.props.location.pathname}
 
-function App() {
+const App = () => {
   const { login } = useSelector((state) => state.auth)
 
   return (
@@ -27,7 +28,7 @@ function App() {
           <Route path="/login" component={LoginPage} />
           {login ? (
             <MainLayout>
-              <Route exact path="/" component={TestPage} />
+              <Route exact path="/" component={Home} />
               <Route path="/view/:id" component={Views} />
               <Route path={routeToData} component={TabsViewData} />
             </MainLayout>

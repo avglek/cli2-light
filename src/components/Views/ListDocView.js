@@ -1,5 +1,5 @@
 import React from 'react'
-import { raw2int } from '../../services/localData'
+import { raw2int } from '../../utils/docs'
 
 import { makeStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'

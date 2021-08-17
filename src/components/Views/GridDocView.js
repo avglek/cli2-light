@@ -7,7 +7,7 @@ import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 
-import { raw2int } from '../../services/localData'
+import { raw2int } from '../../utils/docs'
 import { getSvgImg } from '../../icons'
 
 const useStyles = makeStyles((theme) => ({
@@ -44,7 +44,7 @@ function CardBody({ classes, item, onDocClick }) {
       >
         <CardContent>
           {getSvgImg(iconId)}
-          <Typography variant='h5' component='h3' align='justify'>
+          <Typography variant="h5" component="h3" align="justify">
             {docName}
           </Typography>
         </CardContent>

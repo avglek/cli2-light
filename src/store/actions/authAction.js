@@ -13,7 +13,7 @@ export const logoutAuth = () => ({
 })
 
 export const errorAuth = (error) => {
-  console.log('actiot', error)
+  console.log('action', error)
   return {
     type: AUTH_ERROR,
     payload: error,

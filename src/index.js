@@ -14,6 +14,8 @@ import ErrorBoundary from './hoc/ErrorBaundary'
 const epicMiddleware = createEpicMiddleware()
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
+const baseUrl = window.location.pathname
+
 const store = createStore(
   rootReducer,
   composeEnhancers(applyMiddleware(epicMiddleware))
@@ -24,7 +26,7 @@ epicMiddleware.run(rootEpic)
 ReactDOM.render(
   <Provider store={store}>
     <ErrorBoundary>
-      <BrowserRouter>
+      <BrowserRouter basename={baseUrl}>
         <App />
       </BrowserRouter>
     </ErrorBoundary>

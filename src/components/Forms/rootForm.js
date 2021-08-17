@@ -26,7 +26,6 @@ const Form = ({ id }) => {
   const dispatch = useDispatch()
 
   const item = items.find((i) => i.uid === id)
-  console.log('form item:', item)
 
   const handleSubmit = (event, formData) => {
     event.preventDefault()
@@ -61,16 +60,16 @@ const Form = ({ id }) => {
     <form
       className={classes.root}
       noValidate
-      autoComplete='off'
+      autoComplete="off"
       onSubmit={(event) => handleSubmit(event, item)}
     >
-      <Typography variant='h5' color='primary' style={{ marginTop: '2rem' }}>
+      <Typography variant="h5" color="primary" style={{ marginTop: '2rem' }}>
         {item.form.title}
       </Typography>
       <ul style={{ listStyle: 'none' }}>
         {item.form.map((control, index) => {
           if (control.LOOKUP_TABLE) {
-            const lookData = item.lookdata
+            //         const lookData = item.lookdata
           }
           return (
             <li key={index}>
@@ -83,7 +82,7 @@ const Form = ({ id }) => {
           )
         })}
       </ul>
-      <Button type='submit' variant='contained' color='primary' size='large'>
+      <Button type="submit" variant="contained" color="primary" size="large">
         Отправить
       </Button>
     </form>

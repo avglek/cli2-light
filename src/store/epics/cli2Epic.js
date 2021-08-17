@@ -12,7 +12,6 @@ const host = 'http://localhost:8080/node/grimm/sevstal_ch/'
 export const cli2Epic = (action$) =>
   action$.pipe(
     ofType(CLI2_POST),
-    tap((x) => console.log('start:', x)),
     mergeMap((action) =>
       ajax
         .getJSON(host + action.payload, {

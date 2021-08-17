@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
 const SmartDataGridReport = ({ data, size }) => {
   const classes = useStyles()
   const value = data.data.outdata[0].value
-  console.log(value)
 
   const behavior = {
     columnResizeMode: 'growAndShrink',
@@ -35,9 +34,15 @@ const SmartDataGridReport = ({ data, size }) => {
   //   visible: true,
   // }
 
-  // const sorting = {
-  //   enabled: true,
-  // }
+  const sorting = {
+    enabled: true,
+    sortToggleThreeStates: false,
+  }
+
+  const selection = {
+    enabled: true,
+    mode: 'one',
+  }
 
   // const editing = {
   //   enabled: true,
@@ -67,9 +72,10 @@ const SmartDataGridReport = ({ data, size }) => {
         columns={columns}
         appearance={appearance}
         behavior={behavior}
+        selection={selection}
         // paging={paging}
         // pager={pager}
-        // sorting={sorting}
+        sorting={sorting}
         // editing={editing}
       ></Grid>
     </div>
