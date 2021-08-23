@@ -10,7 +10,7 @@ export const lookEpic = (action$) =>
     ofType(TAB_UPDATE),
 
     map(({ payload }) => {
-      console.log('map:', payload)
+      //console.log('map:', payload)
       const { uid, lookTables } = payload
       if (lookTables) {
         const query = queryLookTable(lookTables)

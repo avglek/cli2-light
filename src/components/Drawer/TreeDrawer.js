@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import Folder from '@material-ui/icons/Folder'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowRightIcon from '@material-ui/icons/ArrowRight'
+import { ReactComponent as SvgFolder } from '../../icons/svg/folder.svg'
 
 import { normId } from '../../utils/docs'
 
@@ -59,6 +60,7 @@ const useTreeItemStyles = makeStyles((theme) => ({
   labelText: {
     fontWeight: 'inherit',
     flexGrow: 1,
+    paddingLeft: '10px',
   },
 }))
 
@@ -77,11 +79,11 @@ function StyledTreeItem(props) {
     <TreeItem
       label={
         <div className={classes.labelRoot}>
-          <LabelIcon color='inherit' className={classes.labelIcon} />
-          <Typography variant='body2' className={classes.labelText}>
+          <LabelIcon color="inherit" className={classes.labelIcon} />
+          <Typography variant="body2" className={classes.labelText}>
             {labelText}
           </Typography>
-          <Typography variant='caption' color='inherit'>
+          <Typography variant="caption" color="inherit">
             {labelInfo}
           </Typography>
         </div>
@@ -128,6 +130,10 @@ export default function TreeDrawer(props) {
     history.push(`/view/${nodeIds}`)
   }
 
+  const rSvgFolder = () => {
+    return <SvgFolder width="24px" height="24px" />
+  }
+
   const getTreeItemsFromData = (treeItems) => {
     return treeItems.map((treeItemData) => {
       let child = undefined
@@ -139,7 +145,7 @@ export default function TreeDrawer(props) {
           key={normId(treeItemData.DOC_ID)}
           nodeId={normId(treeItemData.DOC_ID)}
           labelText={treeItemData.DOC_NAME}
-          labelIcon={Folder}
+          labelIcon={rSvgFolder}
           children={child}
         ></StyledTreeItem>
       )

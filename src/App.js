@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 //import { useDispatch } from 'react-redux'
 
 import { ThemeProvider } from '@material-ui/styles'
-import theme from './theme/purpleTheme'
+import theme from './theme/blueTheme'
 
 import MainLayout from './hoc/MainLayout'
 import LoginPage from './pages/LoginPage/LoginPage'

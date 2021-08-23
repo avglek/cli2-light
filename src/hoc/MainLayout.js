@@ -87,10 +87,10 @@ const DesktopLayout = ({ children }) => {
             {listView.list ? <GridOnIcon /> : <ListAltIcon />}
           </IconButton>
           <Button color="inherit" onClick={() => history.push('/data')}>
-            Home
+            Запросы
           </Button>
           <Button color="inherit" onClick={handleAbout}>
-            About
+            О нас
           </Button>
           <Button color="inherit" onClick={handleLogout}>
             Выход
