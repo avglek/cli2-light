@@ -11,12 +11,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const InputText = ({ data, fields }) => {
+const InputText = ({ data, look, controlsValue }) => {
   const classes = useStyles()
+
+  const handleChange = (event) => {
+    const value = {
+      name: data.name,
+      data: event.target.value.trim(),
+    }
+    controlsValue(value)
+  }
 
   return (
     <div className={classes.root}>
-      <TextField id="standard-basic" label={data['DISPLAY_LABEL']} />
+      <TextField
+        id="standard-basic"
+        label={data['DISPLAY_LABEL']}
+        onChange={handleChange}
+      />
     </div>
   )
 }

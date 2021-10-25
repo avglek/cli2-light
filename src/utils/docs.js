@@ -59,17 +59,5 @@ export const parseDoc = (data) => {
     return data
   }
 
-  // if (pDoc) {
-  //   const desc = pDoc.DATA.DATAPACKET.ROWDATA.ROW
-  //   const item = {
-  //     id: Number.parseInt(normId(desc.DOC_ID)),
-  //     title: desc.DOC_NAME,
-  //     loading: false,
-  //     call: ancor.call,
-  //     params,
-  //     form,
-  //   }
-  //   return item
-  // }
   return { loading: false, error: 'no data' }
 }

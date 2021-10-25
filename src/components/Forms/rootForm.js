@@ -33,7 +33,7 @@ const Form = ({ id }) => {
       const item = controlsValue.find((t) => t.name === i.name)
       return item ? { ...i, data: item.data } : i
     })
-
+    console.log('todo:', formData.call)
     dispatch(
       submitForm({
         uid: formData.uid,

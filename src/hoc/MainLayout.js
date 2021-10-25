@@ -36,6 +36,8 @@ const DesktopLayout = ({ children }) => {
   const listView = useListView()
   const dispatch = useDispatch()
 
+  console.log('history:', history.location)
+
   const handleDrawerOpen = () => {
     setOpen(true)
   }
@@ -55,6 +57,14 @@ const DesktopLayout = ({ children }) => {
 
   const handleToggleView = () => {
     listView.toggle()
+  }
+
+  const handleQueryView = () => {
+    if (history.location.pathname === '/data') {
+      history.push.prototype()
+    } else {
+      history.push('/data')
+    }
   }
 
   return (
@@ -86,8 +96,8 @@ const DesktopLayout = ({ children }) => {
           >
             {listView.list ? <GridOnIcon /> : <ListAltIcon />}
           </IconButton>
-          <Button color="inherit" onClick={() => history.push('/data')}>
-            Запросы
+          <Button color="inherit" onClick={handleQueryView}>
+            {history.location.pathname === '/data' ? 'Menu' : 'Query'}
           </Button>
           <Button color="inherit" onClick={handleAbout}>
             О нас
