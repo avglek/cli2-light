@@ -20,7 +20,9 @@ class InputListControl extends React.Component {
     //     </ListBox>
     //   </div>
     // )
-    return <h6>inputList</h6>
+    return (<h6>inputList
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquid cum dicta dignissimos, dolore dolorem doloribus ducimus excepturi harum, in iste iusto laboriosam minus nesciunt nostrum quidem repellendus similique veritatis. Atque cumque, debitis ducimus ea expedita facere fugiat illo inventore laboriosam minima nam, natus obcaecati provident quae quasi sunt voluptatum!</p>
+    </h6>)
   }
 }
 
