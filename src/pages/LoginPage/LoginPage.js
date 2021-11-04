@@ -74,12 +74,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const prefixEva = 'http://172.16.14.102/eva/'
+const prefixGrimm = 'http://172.16.14.102/grimm/'
+
 const resources = [
-  'http://172.16.10.3:7081/sevstal_ch',
-  'http://172.16.10.3:7081/r65',
-  'http://172.16.10.3:7081/storaenso',
-  'http://172.16.10.3:7081/akron',
-  'http://localhost:8080/sevstal_ch',
+  prefixEva+'sevstal_ch',
+  prefixGrimm+'sevstal_ch',
+  prefixEva+'storaenso',
+  prefixGrimm+'storaenso',
 ]
 
 const resourcePostfix = '/servlet/CliServlet'
@@ -120,7 +122,7 @@ const LoginPage = () => {
     setValues({ ...values, ancorRes: event.currentTarget })
   }
 
-  const handleCloseMenu = (index) => (event) => {
+  const handleCloseMenu = (index) => () => {
     setValues({ ...values, resource: resources[index], ancorRes: null })
   }
 
@@ -130,7 +132,7 @@ const LoginPage = () => {
     setValues({ ...values, [prop]: value })
   }
 
-  const handleClickShowPassword = (event) => {
+  const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword })
   }
 
@@ -149,7 +151,7 @@ const LoginPage = () => {
     setValues({ ...values, disabled: true, loading: true })
   }
 
-  const handleCloseWarning = (event) => {
+  const handleCloseWarning = () => {
     setValues({
       ...values,
       disabled: false,
