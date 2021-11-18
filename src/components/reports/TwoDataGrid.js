@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
 const getSerchParams = (str) => {
   const rex = /\.([a-z-_1-9;]+)/gim
   const newstr = str.split(rex)[1]
-  console.log(newstr)
   if (newstr) {
     return newstr.toUpperCase().split(';')
   } else {
@@ -32,7 +31,6 @@ const TwoDataGrid = ({ data, size }) => {
   const classes = useStyles()
   const [selectRow, setSelectRow] = useState({})
 
-  console.log('data:', data)
   const pDoc = data.data.outdata.find((i) => i.name === 'P_DOC')
   const pLink = data.data.outdata.find((i) => i.name === 'P_LINKS')
   const pDetail = data.data.outdata.find((i) => i.name === 'P_DETAIL')
@@ -41,12 +39,9 @@ const TwoDataGrid = ({ data, size }) => {
   const docArr = getSerchParams(a1[0])
   const detailArr = getSerchParams(a1[1])
 
-  console.log('doc:', docArr)
-  console.log('detail:', detailArr)
 
   const value = pDoc.value
   const valueDep = pDetail.value
-  console.log('dep val:', valueDep)
 
   const behavior = {
     columnResizeMode: 'growAndShrink',
@@ -111,22 +106,17 @@ const TwoDataGrid = ({ data, size }) => {
   }))
 
   const handleRowClick = (event) => {
-    console.log(event.detail.row.data)
-    //const arr = ['a', 'b', 'c']
-    // const res = arr.reduce((acc,curr)=> (acc[curr]='',acc),{});
-    // console.log(res)
+
     const row = docArr.reduce((acc, i) => {
       return { ...acc, [i]: event.detail.row.data[i] }
     }, {})
-    console.log('row st:', row)
+
     setSelectRow(() => {
       return docArr.reduce((acc, i) => {
         return { ...acc, [i]: event.detail.row.data[i] }
       }, {})
     })
   }
-
-  console.log('state:', selectRow)
 
   return (
     <div

@@ -1,12 +1,22 @@
-import { normId } from '../utils/docs'
+import {getArray, normId} from '../utils/docs'
 import { updateTab } from '../store/actions/tabAction'
 import moment from 'moment'
 
 const getMETA = (ancor, name) =>
-  ancor.DOCPROC.CALL.PARAMS.PARAM.find((i) => i.META.name === name)
+  ancor.DOCPROC.CALL.PARAMS.PARAM.find((i) => i['META'].name === name)
+
+const getNormalizeColumns = (columns)=>{
+  const realCol = columns.filter((col) => col['FIELD_NAME'])
+  return  realCol.map(item=>({
+      name:item['DISPLAY_LABEL'],
+      value:item['FIELD_NAME'],
+      size:Number.parseInt(item['DISPLAY_SIZE']),
+    }))
+
+}
 
 const getDataValue = (param, descriptionFields = null) => {
-  switch (param.META.datatype) {
+  switch (param['META'].datatype) {
     case 'CURSOR':
       const fields = param.DATA.DATAPACKET.METADATA.FIELDS.FIELD
       const columns = fields.map((i) => {
@@ -17,39 +27,40 @@ const getDataValue = (param, descriptionFields = null) => {
       })
 
       const rows = param.DATA.DATAPACKET.ROWDATA.ROW
-        ? param.DATA.DATAPACKET.ROWDATA.ROW.map((row) => {
-            columns.forEach((col) => {
-              if (col.fieldtype === 'dateTime') {
-                const date = row[col['FIELD_NAME']]
-                if (date) {
-                  const iso = date.split(':').join('')
-                  row[col['FIELD_NAME']] = moment(iso.slice(0, 13)).format(
-                    'DD.MM.YYYY HH:mm'
-                  )
-                }
+        ? getArray(param.DATA.DATAPACKET.ROWDATA.ROW).map((row) => {
+          columns.forEach((col) => {
+            if (col.fieldtype === 'dateTime') {
+              const date = row[col['FIELD_NAME']]
+              if (date) {
+                const iso = date.split(':').join('')
+                row[col['FIELD_NAME']] = moment(iso.slice(0, 13)).format(
+                  'DD.MM.YYYY HH:mm'
+                )
               }
-            })
-
-            return row
+            }
           })
+
+          return row
+        })
         : []
 
       return {
         rows,
-        columns,
+        columns: getNormalizeColumns(columns),
+        filterRows: rows
       }
     case 'CLOB':
       return {
-        text: param.DATA,
+        text: param['DATA'],
       }
     case 'DATE':
-      const iso = param.DATA.slice(0, 13)
+      const iso = param['DATA'].slice(0, 13)
       return {
         date: moment(iso).format('DD.MM.YYYY HH:mm'), //20210713T20:01:47000
       }
     case 'VARCHAR':
       return {
-        text: param.DATA,
+        text: param['DATA'],
       }
 
     default:
@@ -57,9 +68,9 @@ const getDataValue = (param, descriptionFields = null) => {
   }
 }
 
+
 export const docParser = ({ uid, json }) => {
   const ancor = json.DOC
-  //console.log(ancor)
   const pDoc = getMETA(ancor, 'P_DOCS')
   const pFields = getMETA(ancor, 'P_FIELDS')
   const pSubDocs = getMETA(ancor, 'P_SUB_DOCS')

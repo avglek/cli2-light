@@ -18,11 +18,9 @@ const useStyles = makeStyles((theme) => ({
 
 const DataPlainText = ({ data, size }) => {
   const classes = useStyles()
-  console.log('data:', data)
-  const clob = data.data.outdata[0].value.text
 
+  const clob = data.data.outdata[0].value.text
   const text = clob.split('\r')
-  console.log('t:', text)
 
   return (
     <div className={classes.root}>

@@ -16,6 +16,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import Button from '@material-ui/core/Button'
+import CopyrightIcon from '@material-ui/icons/Copyright'
 
 import ListAltIcon from '@material-ui/icons/ListAlt'
 import GridOnIcon from '@material-ui/icons/GridOn'
@@ -35,8 +36,6 @@ const DesktopLayout = ({ children }) => {
   const history = useHistory()
   const listView = useListView()
   const dispatch = useDispatch()
-
-  console.log('history:', history.location)
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -61,7 +60,7 @@ const DesktopLayout = ({ children }) => {
 
   const handleQueryView = () => {
     if (history.location.pathname === '/data') {
-      history.push.prototype()
+      history.goBack()
     } else {
       history.push('/data')
     }
@@ -70,12 +69,35 @@ const DesktopLayout = ({ children }) => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+
+      <AboutDialog open={isAbout} onClose={handleAbout} />
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="left"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
+          </IconButton>
+        </div>
+        <Divider />
+        <TreeDrawer classes={classes} />
+      </Drawer>
+      <main
+        className={clsx(classes.content, {
+          [classes.contentShift]: open,
         })}
       >
+        <AppBar position="static" className={classes.appBar}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -107,36 +129,15 @@ const DesktopLayout = ({ children }) => {
           </Button>
         </Toolbar>
       </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
-        </div>
-        <Divider />
-        <TreeDrawer classes={classes} />
-      </Drawer>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
-        <div className={classes.drawerHeader} />
-        <AboutDialog open={isAbout} onClose={handleAbout} />
+        <div className={classes.mainBody}>
         {children}
+        </div>
+        <footer className={classes.footer}>
+          <CopyrightIcon fontSize="small"/>Copyright ООО "ИЦС-УК"
+        </footer>
+
       </main>
+
     </div>
   )
 }

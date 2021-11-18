@@ -5,23 +5,13 @@ const drawerWidth = 240
 export const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    flexGrow: 1,
+    width:'100%',
+    height:'100%',
   },
   appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
     color: '#ffffff',
   },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
+
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -43,14 +33,21 @@ export const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   },
+
   content: {
-    flexGrow: 1,
-    //padding: theme.spacing(3),
+    height:'100%',
+
+    display:'flex',
+    flexDirection:'column',
+
+    flex:'1 1 auto',
+
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
+
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
@@ -58,8 +55,22 @@ export const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
+
   },
   title: {
     flexGrow: 1,
+  },
+  footer:{
+    minHeight:'28px',
+    background:'#fafafa',
+    borderTop:'1px solid #bdbdbd',
+    color:'#a0a0a0',
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+  },
+  mainBody:{
+    flex:'1 1 auto',
+    overflow:'auto',
   },
 }))

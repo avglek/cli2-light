@@ -12,7 +12,7 @@ import TabPanel from './TabPanel'
 import TabLabel from './TabLabel'
 import Form from '../Forms'
 import RenderData from '../reports'
-//import { useStyles as useLayoutStyles } from '../../hoc/styleMainLayout'
+
 
 const TabsViewData = () => {
   const classes = useStyles()
@@ -80,8 +80,9 @@ const TabsViewData = () => {
             key={item.uid}
             classes={classes}
           >
-            {item.form ? <Form id={item.uid} /> : null}
-            {item.data ? <RenderData id={item.uid} /> : null}
+              {item.form ? <Form id={item.uid} /> : null}
+              {item.data ? <RenderData id={item.uid} /> : null}
+
           </TabPanel>
         )
       })}

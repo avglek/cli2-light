@@ -14,8 +14,7 @@ import { routeToData } from './common/constApp'
 import TabsViewData from './components/TabsView/TabsViewData'
 import { useSelector } from 'react-redux'
 import Home from './pages/Home/Home'
-//import TestPage from './pages/TestPage'
-//${this.props.location.pathname}
+
 
 const App = () => {
   const { login } = useSelector((state) => state.auth)
