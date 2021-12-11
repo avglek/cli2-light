@@ -34,7 +34,7 @@ const InputText = ({ data, look, controlsValue }) => {
     setAnchorEl(event.target)
   }
 
-  const handlePaste = (text) => {
+  const handleSetText = (text) => {
     setText(text)
 
     const value = {
@@ -57,7 +57,7 @@ const InputText = ({ data, look, controlsValue }) => {
       <IconFormMenu
         anchorEl={anchorEl}
         handleClose={handleClose}
-        handleSetText={handlePaste}
+        handleSetText={handleSetText}
       />
     </div>
   )

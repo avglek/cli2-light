@@ -14,8 +14,8 @@ import ErrorBoundary from './hoc/ErrorBaundary';
 const epicMiddleware = createEpicMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-//const baseUrl = '/'; //window.location.pathname
-const baseUrl = '/cli/build/'
+const baseUrl = '/'; //window.location.pathname
+//const baseUrl = '/cli/build/'
 
 const store = createStore(
   rootReducer,

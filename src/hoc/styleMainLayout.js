@@ -36,6 +36,7 @@ export const useStyles = makeStyles((theme) => ({
 
   content: {
     height:'100%',
+    width:'100%',
 
     display:'flex',
     flexDirection:'column',
@@ -55,7 +56,7 @@ export const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
-
+    width:`calc(100% - ${drawerWidth}px)`,
   },
   title: {
     flexGrow: 1,
@@ -72,5 +73,7 @@ export const useStyles = makeStyles((theme) => ({
   mainBody:{
     flex:'1 1 auto',
     overflow:'auto',
+    height:'100%',
+    width:'100%',
   },
 }))

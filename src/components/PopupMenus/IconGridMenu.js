@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,6 +11,7 @@ import Divider from '@material-ui/core/Divider';
 
 import {SiMicrosoftexcel} from 'react-icons/si'
 import FileSaveDialog from '../Dialog/FileSaveDialog';
+import useClipboard from "react-use-clipboard";
 
 const StyledMenu = withStyles({
   paper: {
@@ -55,10 +56,11 @@ export default function IconGridMenu({
                                      }) {
 
   const [openDialog,setOpenDialog] = useState(false)
+  const [isCopied, setCopied] = useClipboard(value)
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(value)
     handleClose()
+    setCopied()
   }
 
   const handleCloseDialog = ()=>{
@@ -66,9 +68,18 @@ export default function IconGridMenu({
   }
 
   const handleOpenDialog = () =>{
-    setOpenDialog(true)
     handleClose()
+    setOpenDialog(true)
   }
+
+  useEffect(()=>{
+    if(isCopied){
+      console.log('Copy to clipboard')
+    }else{
+      console.log('no copy')
+    }
+  },[isCopied])
+
 
   return (
     <div>

@@ -14,6 +14,7 @@ import { routeToData } from './common/constApp'
 import TabsViewData from './components/TabsView/TabsViewData'
 import { useSelector } from 'react-redux'
 import Home from './pages/Home/Home'
+import TestPage from './pages/TestPage/TestPage';
 
 
 const App = () => {
@@ -23,7 +24,7 @@ const App = () => {
     <ListViewProvider>
       <ThemeProvider theme={theme}>
         <Switch>
-          <Route path="/test" component={MainLayout} />
+          <Route path="/test" component={TestPage} />
           <Route path="/login" component={LoginPage} />
           {login ? (
             <MainLayout>

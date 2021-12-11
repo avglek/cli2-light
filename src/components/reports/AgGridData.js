@@ -45,6 +45,7 @@ const AgGridData = ({data}) => {
 
 
   const handleClickCell = (event) => {
+    console.log(event)
     setAnchorEl(event.event.target)
     setValue(event.value)
     setColId(event.column.colId)
@@ -57,6 +58,8 @@ const AgGridData = ({data}) => {
   const gridOptions = {
     //onCellDoubleClicked: handleClickCell,
     onCellContextMenu: handleClickCell,
+    suppressContextMenu:false,
+    preventDefaultOnContextMenu:true,
   }
 
   const handleFilterOn = () => {
@@ -80,19 +83,27 @@ const AgGridData = ({data}) => {
 
   }
 
+  const handleContextMenu = (e)=>{
+    console.log('context menu:',e)
+  }
+
 
 
   const realColumns = data.data.outdata[0].value.columns
 
   return (
     <Paper className={classes.paper}>
-      <div className="ag-theme-balham" style={{height: '100%', width: '100%'}}>
+      <div
+        className="ag-theme-balham"
+        style={{height: '100%', width: '100%'}}
+        onContextMenu={(e)=> e.preventDefault()}
+      >
         <AgGridReact
           defaultColDef={defaultColDef}
           rowSelection={'single'}
           rowData={data.data.outdata[0].value.filterRows}
           gridOptions={gridOptions}
-          suppressContextMenu={true}
+
         >
 
           {

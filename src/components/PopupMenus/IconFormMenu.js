@@ -44,11 +44,20 @@ const StyledMenuItem = withStyles((theme) => ({
 
 export default function IconFormMenu({anchorEl,handleClose,handleSetText}) {
 
-  const handlePaste = async() =>{
-    const value = await navigator.clipboard.readText()
-    handleSetText(value)
+  // const handlePaste = async() =>{
+  //   const value = await window.navigator.clipboard.readText()
+  //   console.log('get from clipboard:',value)
+  //   handleSetText(value)
+  //   handleClose()
+  // }
+
+  const handlePaste = () =>{
     handleClose()
+    const value = document.execCommand('paste')
+    handleSetText(value)
+    console.log('get from clipboard')
   }
+
 
   return (
     <div>
@@ -61,7 +70,7 @@ export default function IconFormMenu({anchorEl,handleClose,handleSetText}) {
         onClose={handleClose}
       >
 
-        <StyledMenuItem onClick={handlePaste}>
+        <StyledMenuItem onClick={handlePaste} >
           <ListItemIcon>
             <MdContentPaste fontSize="large"/>
           </ListItemIcon>
