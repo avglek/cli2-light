@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useRef, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {makeStyles} from '@material-ui/core/styles'
 import {Button, Container, Grid, Paper, TextField, Typography} from '@material-ui/core';
@@ -10,6 +10,9 @@ import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import {RenderForm} from './GeneratorForm';
+import moment from 'moment';
+import {submitForm} from '../../store/actions/formAction';
+import {clearTab} from '../../store/actions/tabAction';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -73,27 +76,52 @@ const defaultConst = {
 
 const Form = ({id}) => {
 
+  const dispatch = useDispatch()
+
   const {items} = useSelector((state) => state.tabs)
   const item = items.find((i) => i.uid === id)
   const params = item.params.filter((i) => i.type === 'IN')
+
+  console.log('item:',item)
+
 
   const defaultParams = params.reduce((acc, item) => {
     return {
       ...acc, [item.name]: defaultConst[item.datatype],
     }
   }, '')
-   console.log('item:', item)
-  // console.log('params:', params)
-  // console.log('default:', defaultParams)
 
   const {control, handleSubmit, watch, formState: {errors}} = useForm({
     defaultValues: defaultParams,
 
     resolver: yupResolver(schema),
   });
+
   const onSubmit = data => {
-    console.log('out form:', data);
-    console.log('call:',item.call)
+
+
+
+    const params = item.params.map((i)=>{
+      let findData = data[i.name]
+
+      if(i.datatype === 'DATE') findData = moment(findData).format('YYYYMMDDT00:00:0000')
+      if(i.name === 'P_NVS') findData = findData.split('\n').join(';')
+
+      return findData? {...i,data:findData}:i
+    })
+
+    console.log('out form:', params)
+
+    const reqData = {
+      uid: item.uid,
+      id: item.id,
+      call: item.call,
+      params,
+    }
+
+    console.log('submit:', reqData)
+    dispatch(submitForm(reqData))
+    dispatch(clearTab({uid: item.uid, title: 'result'}))
   }
 
   const classes = useStyles()
@@ -125,7 +153,7 @@ const Form = ({id}) => {
                         <RenderForm
                           ui={uiControl}
                           control={control}
-                          //look={item.lookdata}
+                          look={item.lookdata}
                         />
                       </li>
                     )
@@ -133,7 +161,12 @@ const Form = ({id}) => {
                 </ul>
               </div>
               <div className={classes.formSubmit}>
-                <Button type="submit" variant="contained" color="primary" className={classes.formButton}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className={classes.formButton}
+                >
                   Отправить
                 </Button>
               </div>

@@ -28,15 +28,15 @@ const UITextArea = ({data, control, ...props}) => {
           <Controller
             control={control}
             name={data.name}
-            render={({ field }) => (
+            render={({ ref,field }) => (
               <TextField
                 {...field}
                 id="outlined-multiline-static"
                 label=""
                 multiline
                 rows={4}
-                defaultValue="Default Value"
                 variant="outlined"
+                ref={ref}
               />
             )}
           />
