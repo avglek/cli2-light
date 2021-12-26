@@ -1,29 +1,31 @@
 import {getArray, normId} from '../utils/docs'
-import { updateTab } from '../store/actions/tabAction'
+import {updateTab} from '../store/actions/tabAction'
 import moment from 'moment'
 
 const getMETA = (ancor, name) =>
   ancor.DOCPROC.CALL.PARAMS.PARAM.find((i) => i['META'].name === name)
 
-const getNormalizeColumns = (columns)=>{
+const getNormalizeColumns = (columns) => {
   const realCol = columns.filter((col) => col['FIELD_NAME'])
-  return  realCol.map(item=>({
-      name:item['DISPLAY_LABEL'],
-      value:item['FIELD_NAME'],
-      size:Number.parseInt(item['DISPLAY_SIZE']),
-    }))
+  return realCol.map(item => ({
+    name: item['DISPLAY_LABEL'],
+    value: item['FIELD_NAME'],
+    size: Number.parseInt(item['DISPLAY_SIZE']),
+  }))
 
 }
 
-const getDataValue = (param, descriptionFields = null) => {
+const getDataValue = (param, descriptionFields = []) => {
   switch (param['META'].datatype) {
     case 'CURSOR':
-      const fields = param.DATA.DATAPACKET.METADATA.FIELDS.FIELD
+      if (!param.DATA) return []
+      const fieldsObj = param.DATA.DATAPACKET.METADATA.FIELDS.FIELD
+      const fields = Array.isArray(fieldsObj) ? fieldsObj : [fieldsObj]
       const columns = fields.map((i) => {
         const field = descriptionFields.find(
           (t) => t['FIELD_NAME'] === i['attrname']
         )
-        return { ...i, ...field }
+        return {...i, ...field}
       })
 
       const rows = param.DATA.DATAPACKET.ROWDATA.ROW
@@ -69,7 +71,7 @@ const getDataValue = (param, descriptionFields = null) => {
 }
 
 
-export const docParser = ({ uid, json }) => {
+export const docParser = ({uid, json}) => {
 
   const ancor = json.DOC
   const pDoc = getMETA(ancor, 'P_DOCS')
@@ -117,5 +119,5 @@ export const docParser = ({ uid, json }) => {
     return updateTab(item)
   }
 
-  return updateTab({ uid, loading: false, error: 'no data' })
+  return updateTab({uid, loading: false, error: 'no data'})
 }
