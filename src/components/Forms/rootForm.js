@@ -1,12 +1,8 @@
-import React, {useRef, useState} from 'react'
+import React from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {makeStyles} from '@material-ui/core/styles'
-import {Button, Container, Grid, Paper, TextField, Typography} from '@material-ui/core';
-//import UIInputList from './ui-kit/UIInputList';
-//import UITextField from './ui-kit/UITextField';
-//import UIDataPicker from './ui-kit/UIDataPicker';
+import {Button, Container, Paper, Typography} from '@material-ui/core';
 import {useForm} from 'react-hook-form';
-//import UITextArea from './ui-kit/UITextArea';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import {RenderForm} from './GeneratorForm';
@@ -30,14 +26,12 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'stretch',
-//    border:'1px solid red',
   },
   formTitle: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     height: '6rem',
-//    border:'1px solid green',
   },
   formBody: {
     flexGrow: '1',
@@ -45,13 +39,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'stretch',
     flexWrap: 'wrap',
-//    border:'1px solid blue',
   },
   formContent: {
     height: '100%',
     flex: '1 1 250px',
     [theme.breakpoints.down('xs')]: {
-      //    background: '#8b946f',
       height: '50px',
     },
   },
@@ -66,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-//^[0-9]+$
 const schema = yup.object().shape({})
 
 const defaultConst = {
@@ -82,16 +73,13 @@ const Form = ({id}) => {
   const item = items.find((i) => i.uid === id)
   const params = item.params.filter((i) => i.type === 'IN')
 
-  console.log('item:',item)
-
-
   const defaultParams = params.reduce((acc, item) => {
     return {
       ...acc, [item.name]: defaultConst[item.datatype],
     }
   }, '')
 
-  const {control, handleSubmit, watch, formState: {errors}} = useForm({
+  const {control, handleSubmit, formState: {errors}} = useForm({
     defaultValues: defaultParams,
 
     resolver: yupResolver(schema),
@@ -110,16 +98,13 @@ const Form = ({id}) => {
       return findData? {...i,data:findData}:i
     })
 
-    console.log('out form:', params)
-
-    const reqData = {
+   const reqData = {
       uid: item.uid,
       id: item.id,
       call: item.call,
       params,
     }
 
-    console.log('submit:', reqData)
     dispatch(submitForm(reqData))
     dispatch(clearTab({uid: item.uid, title: 'result'}))
   }

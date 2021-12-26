@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid, Input, TextField, Typography} from '@material-ui/core';
+import {Grid, Input, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/styles'
 import {Controller} from 'react-hook-form'
 import MaskedInput from 'react-text-mask/dist/reactTextMask';
@@ -44,8 +44,6 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const UITextField = ({control,data, ...props}) => {
-
-  console.log('text:',data)
 
   const renderMask = () =>{
     if(data.name === 'P_IP'){

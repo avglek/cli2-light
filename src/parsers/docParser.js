@@ -70,7 +70,7 @@ const getDataValue = (param, descriptionFields = null) => {
 
 
 export const docParser = ({ uid, json }) => {
-  console.log('doc json:',json)
+
   const ancor = json.DOC
   const pDoc = getMETA(ancor, 'P_DOCS')
   const pFields = getMETA(ancor, 'P_FIELDS')

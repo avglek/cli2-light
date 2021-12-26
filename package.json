@@ -20,6 +20,7 @@
     "abab": "^2.0.5",
     "ag-grid-community": "^26.1.0",
     "ag-grid-react": "^26.1.0",
+    "antd": "^4.17.4",
     "date-fns": "^2.23.0",
     "exceljs": "^4.3.0",
     "file-save": "^0.2.0",

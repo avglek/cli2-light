@@ -1,0 +1,63 @@
+{
+  "uid": "9NpWd_Fl9E88tRU934lWw",
+  "id": 59,
+  "title": "История вагона",
+  "titleResult": "История вагона  %nv  (последние %op_count операций)",
+  "loading": false,
+  "call": "DWAGONS1(?,?,?)",
+  "params": [
+    {
+      "name": "P_DOC",
+      "datatype": "CURSOR",
+      "type": "OUT"
+    },
+    {
+      "name": "P_NV",
+      "datatype": "VARCHAR",
+      "type": "IN"
+    },
+    {
+      "name": "P_OP_COUNT",
+      "datatype": "NUMBER",
+      "type": "IN"
+    }
+  ],
+  "form": [
+    {
+      "name": "P_NV",
+      "datatype": "VARCHAR",
+      "FIELD_NAME": "NV",
+      "DOC_ID": "0.0",
+      "FIELD_KIND": "0.0",
+      "DISPLAY_LABEL": "Номер вагона",
+      "DISPLAY_SIZE": "9.0",
+      "CONTROL_TYPE": "0.0",
+      "READONLY": "F",
+      "VISIBLE": "T",
+      "REQUIRED": "T",
+      "FROZE_COLUMN": "F",
+      "MOVE_DLG": "F",
+      "PARAM_VISIBLE": "T",
+      "DISABLE_SORT": "F",
+      "VALID_CLASS": "TNVValid"
+    },
+    {
+      "name": "P_OP_COUNT",
+      "datatype": "NUMBER",
+      "FIELD_NAME": "OP_COUNT",
+      "DOC_ID": "0.0",
+      "FIELD_KIND": "0.0",
+      "DISPLAY_LABEL": "Кол-во операций",
+      "DISPLAY_SIZE": "10.0",
+      "CONTROL_TYPE": "6.0",
+      "DEFAULT_VALUE": "50",
+      "READONLY": "T",
+      "VISIBLE": "T",
+      "REQUIRED": "F",
+      "FROZE_COLUMN": "F",
+      "MOVE_DLG": "F",
+      "PARAM_VISIBLE": "T",
+      "DISABLE_SORT": "F"
+    }
+  ]
+}

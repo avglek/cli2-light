@@ -1,5 +1,5 @@
 import React from 'react'
-import {FormControl, Grid, Input, InputLabel, MenuItem, Select, TextField, Typography} from '@material-ui/core';
+import {FormControl, Grid, MenuItem, Select, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/styles'
 import {Controller} from 'react-hook-form'
 
@@ -16,14 +16,8 @@ const useStyles = makeStyles((theme) => ({
 
 const UISelectControl = ({control,data,look, ...props}) => {
 
-  console.log('data:',data)
-  console.log('look:',look)
-
   const keyFields = data['LOOKUP_KEYFIELDS']
   const resultFields = data['LOOKUP_RESULTFIELD']
-
-  console.log(keyFields,resultFields)
-
 
   const classes = useStyles()
   return (

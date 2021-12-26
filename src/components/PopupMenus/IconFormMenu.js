@@ -55,7 +55,6 @@ export default function IconFormMenu({anchorEl,handleClose,handleSetText}) {
     handleClose()
     const value = document.execCommand('paste')
     handleSetText(value)
-    console.log('get from clipboard')
   }
 
 

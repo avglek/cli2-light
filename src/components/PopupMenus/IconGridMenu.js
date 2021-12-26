@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -12,6 +12,14 @@ import Divider from '@material-ui/core/Divider';
 import {SiMicrosoftexcel} from 'react-icons/si'
 import FileSaveDialog from '../Dialog/FileSaveDialog';
 import useClipboard from "react-use-clipboard";
+import {nanoid} from 'nanoid';
+import {addTab} from '../../store/actions/tabAction';
+import {describe} from '../../common/template';
+import {postDoc} from '../../store/actions/docAction';
+import {routeToData} from '../../common/constApp';
+import {useHistory} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {normId} from '../../utils/docs';
 
 const StyledMenu = withStyles({
   paper: {
@@ -35,6 +43,7 @@ const StyledMenu = withStyles({
 
 const StyledMenuItem = withStyles((theme) => ({
   root: {
+    fontSize:'0.8rem',
     paddingTop: '3px',
     paddingBottom: '3px',
     '&:focus': {
@@ -53,7 +62,11 @@ export default function IconGridMenu({
                                        handleFilterOff,
                                        value,
                                        data,
+                                       subItems = [],
                                      }) {
+
+  const history = useHistory()
+  const dispatch = useDispatch()
 
   const [openDialog,setOpenDialog] = useState(false)
   const [isCopied, setCopied] = useClipboard(value)
@@ -72,14 +85,24 @@ export default function IconGridMenu({
     setOpenDialog(true)
   }
 
-  useEffect(()=>{
-    if(isCopied){
-      console.log('Copy to clipboard')
-    }else{
-      console.log('no copy')
-    }
-  },[isCopied])
+  const handleSubItem = (docId = '',key='',value = '') =>{
+    handleClose()
 
+    const id = normId(docId)
+
+    const uid = nanoid()
+    const item = {
+      uid,
+      id,
+      loading: true,
+      title: '',
+    }
+
+    dispatch(addTab(item))
+    const xml = describe(id)
+    dispatch(postDoc({ uid, xml,value:{id:key,value:value} }))
+    history.push(routeToData)
+  }
 
   return (
     <div>
@@ -110,6 +133,18 @@ export default function IconGridMenu({
           </ListItemIcon>
           <ListItemText primary="Сбросить фильтр"/>
         </StyledMenuItem>
+        {subItems.length?<Divider/>:null}
+        {
+          subItems.map((item)=>(
+          <StyledMenuItem
+            key={item['DOC_ID']}
+            onClick={()=>{handleSubItem(item['DOC_ID'],item['FIELD_NAME'],value)}}
+          >
+
+          <ListItemText primary={item['DOC_NAME']}/>
+          </StyledMenuItem>
+          ))
+        }
         <Divider/>
           <StyledMenuItem onClick={handleOpenDialog}>
             <ListItemIcon>

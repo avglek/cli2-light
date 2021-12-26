@@ -2,8 +2,9 @@ import { getArray, normId } from '../utils/docs'
 import { updateTab } from '../store/actions/tabAction'
 import { postDoc } from '../store/actions/docAction'
 import { queryProc } from '../common/template'
+import {formPostParser} from './formPostParser';
 
-export const describeParser = ({ uid, json }) => {
+export const describeParser = ({ uid, json, value }) => {
   const ancor = json.DESCRIBE
 
   const pDoc = ancor.DOCPROC.CALL.PARAMS.PARAM.find(
@@ -55,6 +56,9 @@ export const describeParser = ({ uid, json }) => {
     }
 
     if (form) {
+      if(value){
+        return formPostParser(uid,item,value)
+      }
       return updateTab(item)
     } else {
       const query = queryProc(id, ancor.call, params)

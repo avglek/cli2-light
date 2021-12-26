@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 import {makeStyles} from '@material-ui/core/styles'
 import FormControl from '@material-ui/core/FormControl'
@@ -32,13 +32,6 @@ const useStyles = makeStyles((theme) => ({
 
 const UIDataPicker = ({data,control,...props}) => {
   const classes = useStyles()
-  //const [selectedDate, setSelectedDate] = useState(new Date())
-
-  //console.log('data:',data.name)
-
-  // const handleDateChange = (date) => {
-  //   setSelectedDate(date)
-  // }
 
   return (
     <div className={classes.root}>
@@ -60,9 +53,6 @@ const UIDataPicker = ({data,control,...props}) => {
               variant="inline"
               format="dd.MM.yyyy"
               margin="normal"
-              //id={data?data.name:'uid-01'}
-              //value={selectedDate}
-              //onChange={handleDateChange}
               KeyboardButtonProps={{
                 'aria-label': 'change date',
               }}

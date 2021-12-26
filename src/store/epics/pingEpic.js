@@ -12,8 +12,8 @@ export const pingEpic = (action$, state$) =>
     //     mapTo({ type: 'PONG'})
     //   )
     // ),
-    tap((x) => console.log('out:', x)),
+    //tap((x) => console.log('out:', x)),
     mapTo({ type: 'PONG' }),
-    tap((x) => console.log('pong out:', x)),
+    //tap((x) => console.log('pong out:', x)),
     take(5)
   )

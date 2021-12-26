@@ -29,12 +29,13 @@ const defaultColDef = {
 
 const AgGridData = ({data}) => {
 
-  //const {items} = useSelector((state)=>state.tabs)
+
   const dispatch = useDispatch()
 
   const [anchorEl, setAnchorEl] = useState(null)
   const [value, setValue] = useState('')
   const [colId, setColId] = useState('')
+  const [subItems,setSubItems] = useState([])
 
 
   const classes = useStyles()
@@ -45,10 +46,13 @@ const AgGridData = ({data}) => {
 
 
   const handleClickCell = (event) => {
-    console.log(event)
+    //console.log(event)
     setAnchorEl(event.event.target)
     setValue(event.value)
     setColId(event.column.colId)
+
+    const subData = data.data.subDocs.filter((i)=> i['FIELD_NAME'] === event.column.colId)
+    setSubItems(subData)
   }
 
   const handleClose = () => {
@@ -127,6 +131,7 @@ const AgGridData = ({data}) => {
           handleFilterOff={handleFilterOff}
           value={value}
           data={{title:data.title,rows:data.data.outdata[0].value.filterRows,col:realColumns}}
+          subItems={subItems}
         />
       </div>
     </Paper>

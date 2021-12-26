@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid, Input, TextField, Typography} from '@material-ui/core';
+import {Grid, TextField, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/styles'
 import {Controller} from 'react-hook-form'
 
@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
 const UITextArea = ({data, control, ...props}) => {
 
   const classes = useStyles()
-  console.log('data:',data)
 
   return (
     <div className={classes.root}>

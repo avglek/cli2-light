@@ -5,8 +5,6 @@ import UITextField from './ui-kit/UITextField';
 import UIDataPicker from './ui-kit/UIDataPicker';
 import UITextArea from './ui-kit/UITextArea';
 import UISelectControl from './ui-kit/UISelectControl';
-import UISimpleSelect from './ui-kit/UISimpleSelect';
-
 
 /********************
  * 0.0 Edit
