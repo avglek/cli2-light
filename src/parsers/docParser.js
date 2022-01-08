@@ -71,7 +71,7 @@ const getDataValue = (param, descriptionFields = []) => {
 }
 
 
-export const docParser = ({uid, json}) => {
+export const docParser = ({uid, json,value,call,inParams}) => {
 
   const ancor = json.DOC
   const pDoc = getMETA(ancor, 'P_DOCS')
@@ -106,6 +106,9 @@ export const docParser = ({uid, json}) => {
       uid,
       id,
       title,
+      inParams,
+      call,
+      value,
       titleDoc: desc['DOC_TITLE'],
       loading: false,
       data: {
@@ -116,8 +119,10 @@ export const docParser = ({uid, json}) => {
       },
     }
 
+    Object.keys(item).forEach(key => item[key] === undefined && delete item[key])
+
     return updateTab(item)
   }
 
-  return updateTab({uid, loading: false, error: 'no data'})
+  return updateTab({uid, loading: false,call,value,inParams, error: 'no data'})
 }

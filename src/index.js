@@ -15,8 +15,7 @@ const epicMiddleware = createEpicMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 //const baseUrl = '/'; //window.location.pathname
-const baseUrl = process.env.REACT_APP_BASE_URL
-console.log('base url:',baseUrl)
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const store = createStore(
   rootReducer,

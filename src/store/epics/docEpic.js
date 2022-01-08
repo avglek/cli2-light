@@ -14,7 +14,9 @@ export const docEpic = (action$, state$) =>
       cli2winxmlServise(action.payload.xml, state$.value).pipe(
         map((json) => {
           const uid = action.payload.uid
-          return succesDoc({ uid, json,value:action.payload.value })
+          const call = action.payload.call
+          const inParams = action.payload.inParams
+          return succesDoc({ uid, json,value:action.payload.value,call,inParams })
         })
       )
     ),

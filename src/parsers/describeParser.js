@@ -62,7 +62,7 @@ export const describeParser = ({ uid, json, value }) => {
       return updateTab(item)
     } else {
       const query = queryProc(id, ancor.call, params)
-      return postDoc({ uid, xml: query })
+      return postDoc({ uid, xml: query ,call:ancor.call})
     }
   }
   return updateTab({ uid, loading: false, error: 'no data' })

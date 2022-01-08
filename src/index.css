@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap');
 @import url('nullstyle.css');
+@import url('~antd/dist/antd.css');
 
 body {
   font-family: 'Roboto', sans-serif;
@@ -12,6 +13,3 @@ body {
   margin: 0;
   padding: 0;
 }
-
-
-

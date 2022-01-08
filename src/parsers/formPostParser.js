@@ -23,5 +23,5 @@ export function formPostParser(uid, item, value) {
 
   const query = queryProc(item.id, item.call, inParams)
 
-  return postDoc({ uid, xml: query })
+  return postDoc({ uid, xml: query,call:item.call,inParams })
 }

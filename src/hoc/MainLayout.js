@@ -1,70 +1,71 @@
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-import clsx from 'clsx'
+import clsx from 'clsx';
 
-import { useTheme } from '@material-ui/core/styles'
-import Drawer from '@material-ui/core/Drawer'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import Divider from '@material-ui/core/Divider'
-import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import Button from '@material-ui/core/Button'
-import CopyrightIcon from '@material-ui/icons/Copyright'
+import { useTheme } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Button from '@material-ui/core/Button';
+import CopyrightIcon from '@material-ui/icons/Copyright';
 
-import ListAltIcon from '@material-ui/icons/ListAlt'
-import GridOnIcon from '@material-ui/icons/GridOn'
+import ListAltIcon from '@material-ui/icons/ListAlt';
+import GridOnIcon from '@material-ui/icons/GridOn';
 
-import { useStyles } from './styleMainLayout'
-import { appTitle } from '../common/constApp'
-import TreeDrawer from '../components/Drawer/TreeDrawer'
-import AboutDialog from '../components/Dialog/AboutDialog'
-import { useListView } from '../ListViewContext'
-import { logoutAuth } from '../store/actions/authAction'
+import { useStyles } from './styleMainLayout';
+import { appTitle } from '../common/constApp';
+import TreeDrawer from '../components/Drawer/TreeDrawer';
+import AboutDialog from '../components/Dialog/AboutDialog';
+import { useListView } from '../ListViewContext';
+import { logoutAuth } from '../store/actions/authAction';
+import FooterBar from '../components/FooterBar/FooterBar';
 
 const DesktopLayout = ({ children }) => {
-  const classes = useStyles()
-  const theme = useTheme()
-  const [open, setOpen] = useState(true)
-  const [isAbout, setIsAbout] = useState(false)
-  const history = useHistory()
-  const listView = useListView()
-  const dispatch = useDispatch()
+  const classes = useStyles();
+  const theme = useTheme();
+  const [open, setOpen] = useState(true);
+  const [isAbout, setIsAbout] = useState(false);
+  const history = useHistory();
+  const listView = useListView();
+  const dispatch = useDispatch();
 
   const handleDrawerOpen = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   const handleDrawerClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   const handleLogout = () => {
-    dispatch(logoutAuth())
-    history.push('/login')
-  }
+    dispatch(logoutAuth());
+    history.push('/login');
+  };
 
   const handleAbout = () => {
-    setIsAbout((prev) => !prev)
-  }
+    setIsAbout((prev) => !prev);
+  };
 
   const handleToggleView = () => {
-    listView.toggle()
-  }
+    listView.toggle();
+  };
 
   const handleQueryView = () => {
     if (history.location.pathname === '/data') {
-      history.goBack()
+      history.goBack();
     } else {
-      history.push('/data')
+      history.push('/data');
     }
-  }
+  };
 
   return (
     <div className={classes.root}>
@@ -98,47 +99,41 @@ const DesktopLayout = ({ children }) => {
         })}
       >
         <AppBar position="static" className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap className={classes.title}>
-            {appTitle}
-          </Typography>
-          <IconButton
-            color="inherit"
-            aria-label="list view"
-            onClick={handleToggleView}
-          >
-            {listView.list ? <GridOnIcon /> : <ListAltIcon />}
-          </IconButton>
-          <Button color="inherit" onClick={handleQueryView}>
-            {history.location.pathname === '/data' ? 'Menu' : 'Query'}
-          </Button>
-          <Button color="inherit" onClick={handleAbout}>
-            О нас
-          </Button>
-          <Button color="inherit" onClick={handleLogout}>
-            Выход
-          </Button>
-        </Toolbar>
-      </AppBar>
-        <div className={classes.mainBody}>
-        {children}
-        </div>
-        <footer className={classes.footer}>
-          <CopyrightIcon fontSize="small"/>Copyright ООО "ИЦС-УК"
-        </footer>
-
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, open && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap className={classes.title}>
+              {appTitle}
+            </Typography>
+            <IconButton
+              color="inherit"
+              aria-label="list view"
+              onClick={handleToggleView}
+            >
+              {listView.list ? <GridOnIcon /> : <ListAltIcon />}
+            </IconButton>
+            <Button color="inherit" onClick={handleQueryView}>
+              {history.location.pathname === '/data' ? 'Menu' : 'Query'}
+            </Button>
+            <Button color="inherit" onClick={handleAbout}>
+              О нас
+            </Button>
+            <Button color="inherit" onClick={handleLogout}>
+              Выход
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <div className={classes.mainBody}>{children}</div>
+        <FooterBar />
       </main>
-
     </div>
-  )
-}
-export default DesktopLayout
+  );
+};
+export default DesktopLayout;

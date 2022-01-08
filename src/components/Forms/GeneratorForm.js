@@ -2,7 +2,7 @@ import React from 'react'
 
 import DefaultControl from './DefaultControl'
 import UITextField from './ui-kit/UITextField';
-import UIDataPicker from './ui-kit/UIDataPicker';
+import {UiDate, UiInput, UiRadioGroup, UiSelect, UiTextarea} from './ui-antd-kit';
 import UITextArea from './ui-kit/UITextArea';
 import UISelectControl from './ui-kit/UISelectControl';
 
@@ -23,14 +23,14 @@ import UISelectControl from './ui-kit/UISelectControl';
  */
 
 const controls = {
-  '0.0': UITextField,
-  '1.0': UIDataPicker, ///<h6>inputDate {data}</h6>,
+  '0.0': UiInput,
+  '1.0': UiDate, ///<h6>inputDate {data}</h6>,
   //'2.0': UISimpleSelect,
-  '3.0': UISelectControl, ///<h6>select {data}</h6>,
+  '3.0': UiSelect, ///<h6>select {data}</h6>,
   //'5.0': InputDateControl,
   //'6.0': spinEdit year now()
-  //'7.0': RadioButtonControl, ///<h6>radioButton {data}</h6>,
-  '13.0': UITextArea, ///<h6>inputList {data}</h6>,
+  '7.0': UiRadioGroup, ///<h6>radioButton {data}</h6>,
+  '13.0': UiTextarea, ///<h6>inputList {data}</h6>,
 }
 
 const withItemData =

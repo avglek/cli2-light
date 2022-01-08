@@ -1,11 +1,11 @@
 import React from 'react'
 import MainLayout from '../../hoc/MainLayout';
-import Form from '../../components/Forms';
+import TestForm from './TestForm';
 
 const TestPage = () => {
   return(
     <MainLayout>
-      <Form/>
+      <TestForm/>
     </MainLayout>
   )
 }
