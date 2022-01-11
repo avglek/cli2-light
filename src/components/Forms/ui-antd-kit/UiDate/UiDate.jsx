@@ -10,13 +10,13 @@ import { UiFormItem } from '../UiFormItem';
 
 const StyledUiDate = styled(DatePicker)(
   ({ maxWidth }) => `
-  width: 100%;
+  width: 150px;
   max-width: ${
     maxWidth
       ? typeof maxWidth === 'string'
         ? maxWidth
         : `${maxWidth}px`
-      : '420px'
+      : '120px'
   };
   border-color: #afc7da;
   box-shadow: none !important;

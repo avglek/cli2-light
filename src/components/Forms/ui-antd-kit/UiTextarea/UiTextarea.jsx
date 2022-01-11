@@ -6,8 +6,8 @@ import { UiFormItem } from '../UiFormItem';
 
 const StyledTextArea = styled(Input.TextArea)(
   (props) => `
-  max-width: 120px;
-  width: 120px;
+  max-width: 250px;
+  width: 250px;
   border-color: #E9E9E9;
   justify-content: space-between;
   --antd-wave-shadow-color: var(--color__secondary);

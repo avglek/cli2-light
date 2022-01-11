@@ -45,10 +45,11 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       height: '50px',
     },
+    paddingRight: '40px',
   },
   formSubmit: {
     height: '2rem',
-    flex: '1 1 50px',
+    flex: '1 1 20px',
   },
   formButton: {
     width: '100%',
@@ -121,6 +122,8 @@ const Form = ({ id }) => {
   if (item.loading) {
     return <h1>Loading...</h1>;
   }
+
+  console.log('item:', item);
 
   return (
     <div className={classes.root}>

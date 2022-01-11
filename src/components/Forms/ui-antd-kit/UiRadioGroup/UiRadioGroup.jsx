@@ -11,6 +11,8 @@ const StyledUiRadioGroup = styled(Radio.Group)(
 );
 
 const UiRadioGroup = ({ data, control, ...props }) => {
+  const defaultValue = '0';
+
   const renderRadio = useCallback(
     (field) => {
       if (!data['ITEM_LIST']) {
@@ -20,7 +22,7 @@ const UiRadioGroup = ({ data, control, ...props }) => {
       const items = data['ITEM_LIST'].trim().split('\n');
 
       return (
-        <Radio.Group defaultValue={'0'} {...field}>
+        <Radio.Group {...field}>
           <Space direction="vertical">
             {items.map((item, index) => {
               const options = item.trim().split('=');
@@ -40,7 +42,7 @@ const UiRadioGroup = ({ data, control, ...props }) => {
   return control ? (
     <Controller
       name={data.name}
-      defaultValue={''}
+      defaultValue={defaultValue}
       control={control}
       render={({ ref, field, fieldState: { error } }) => (
         <UiFormItem

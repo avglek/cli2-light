@@ -37,7 +37,9 @@ const StyledUiSelect = styled(Select)(
 );
 
 const UiSelect = ({ data, control, look, ...props }) => {
-  const keyLook = data['LOOKUP_RESULTFIELD'];
+  const keyLook = data['LOOKUP_RESULTFIELD']
+    ? data['LOOKUP_RESULTFIELD']
+    : data['FIELD_NAME'];
   const defaultValue = look.data[0][keyLook];
 
   // const memoizedOptions = useMemo(

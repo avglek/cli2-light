@@ -1,8 +1,16 @@
-import React from 'react'
+import React from 'react';
 
-import DefaultControl from './DefaultControl'
+import DefaultControl from './DefaultControl';
 import UITextField from './ui-kit/UITextField';
-import {UiDate, UiInput, UiRadioGroup, UiSelect, UiTextarea} from './ui-antd-kit';
+import {
+  UiDate,
+  UiInput,
+  UiRadioButton,
+  UiRadioGroup,
+  UiRadioMixedGroup,
+  UiSelect,
+  UiTextarea,
+} from './ui-antd-kit';
 import UITextArea from './ui-kit/UITextArea';
 import UISelectControl from './ui-kit/UISelectControl';
 
@@ -29,20 +37,23 @@ const controls = {
   '3.0': UiSelect, ///<h6>select {data}</h6>,
   //'5.0': InputDateControl,
   //'6.0': spinEdit year now()
+
   '7.0': UiRadioGroup, ///<h6>radioButton {data}</h6>,
+  //'10.0': UiRadioMixedGroup,
+  //'11.0': UiRadioButton,
   '13.0': UiTextarea, ///<h6>inputList {data}</h6>,
-}
+};
 
 const withItemData =
   (ItemComponent) =>
   ({ ...props }) =>
-    <ItemComponent {...props} />
+    <ItemComponent {...props} />;
 
-export const RenderForm = ({ ui,control, look, controlsValue }) => {
-  const ctrl = controls[ui['CONTROL_TYPE']]
+export const RenderForm = ({ ui, control, look, controlsValue }) => {
+  const ctrl = controls[ui['CONTROL_TYPE']];
 
   if (ctrl) {
-    return withItemData(ctrl)({ data: ui,control, look, controlsValue })
+    return withItemData(ctrl)({ data: ui, control, look, controlsValue });
   }
-  return withItemData(DefaultControl)({ data: ui, controlsValue })
-}
+  return withItemData(DefaultControl)({ data: ui, controlsValue });
+};

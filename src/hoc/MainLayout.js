@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import clsx from 'clsx';
 
@@ -17,6 +17,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Button from '@material-ui/core/Button';
 import CopyrightIcon from '@material-ui/icons/Copyright';
+import ViewAgendaIcon from '@material-ui/icons/ViewAgenda';
 
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import GridOnIcon from '@material-ui/icons/GridOn';
@@ -28,6 +29,7 @@ import AboutDialog from '../components/Dialog/AboutDialog';
 import { useListView } from '../ListViewContext';
 import { logoutAuth } from '../store/actions/authAction';
 import FooterBar from '../components/FooterBar/FooterBar';
+import { updateTab } from '../store/actions/tabAction';
 
 const DesktopLayout = ({ children }) => {
   const classes = useStyles();
@@ -37,6 +39,11 @@ const DesktopLayout = ({ children }) => {
   const history = useHistory();
   const listView = useListView();
   const dispatch = useDispatch();
+
+  const { items, pointer } = useSelector((state) => state.tabs);
+
+  const isTwoTables = items[pointer]?.data?.docClass === 'TfrmTwoTables';
+  const isData = history.location.pathname === '/data';
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -57,6 +64,14 @@ const DesktopLayout = ({ children }) => {
 
   const handleToggleView = () => {
     listView.toggle();
+  };
+
+  const handleChangePosition = () => {
+    if (isTwoTables) {
+      dispatch(
+        updateTab({ ...items[pointer], isVert: !items[pointer].isVert })
+      );
+    }
   };
 
   const handleQueryView = () => {
@@ -112,15 +127,30 @@ const DesktopLayout = ({ children }) => {
             <Typography variant="h6" noWrap className={classes.title}>
               {appTitle}
             </Typography>
-            <IconButton
-              color="inherit"
-              aria-label="list view"
-              onClick={handleToggleView}
-            >
-              {listView.list ? <GridOnIcon /> : <ListAltIcon />}
-            </IconButton>
+            {isTwoTables && isData ? (
+              <IconButton
+                color="inherit"
+                aria-label="list view"
+                onClick={handleChangePosition}
+              >
+                {items[pointer]?.isVert ? (
+                  <ViewAgendaIcon style={{ transform: 'rotate(90deg)' }} />
+                ) : (
+                  <ViewAgendaIcon />
+                )}
+              </IconButton>
+            ) : null}
+            {!isData ? (
+              <IconButton
+                color="inherit"
+                aria-label="list view"
+                onClick={handleToggleView}
+              >
+                {listView.list ? <GridOnIcon /> : <ListAltIcon />}
+              </IconButton>
+            ) : null}
             <Button color="inherit" onClick={handleQueryView}>
-              {history.location.pathname === '/data' ? 'Menu' : 'Query'}
+              {isData ? 'Меню' : 'Запросы'}
             </Button>
             <Button color="inherit" onClick={handleAbout}>
               О нас

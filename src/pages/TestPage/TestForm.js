@@ -1,16 +1,15 @@
-import React from 'react'
-import {useSelector, useDispatch} from 'react-redux'
-import {makeStyles} from '@material-ui/core/styles'
-import {Button, Container, Paper, Typography} from '@material-ui/core';
-import {useForm} from 'react-hook-form';
-import {yupResolver} from '@hookform/resolvers/yup';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import { Button, Container, Paper, Typography } from '@material-ui/core';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import {RenderForm} from './TestGeneratorForm';
+import { RenderForm } from './TestGeneratorForm';
 import moment from 'moment';
-import {submitForm} from '../../store/actions/formAction';
-import {clearTab} from '../../store/actions/tabAction';
-import {ref_341434} from './params'
-
+import { submitForm } from '../../store/actions/formAction';
+import { clearTab } from '../../store/actions/tabAction';
+import { ref_191303 } from './params';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,62 +50,67 @@ const useStyles = makeStyles((theme) => ({
   formSubmit: {
     height: '2rem',
     flex: '1 1 50px',
-
   },
   formButton: {
     width: '100%',
     height: '100%',
   },
-  listContainer:{
+  listContainer: {
     listStyle: 'none',
   },
-  listItem:{
-    marginBottom:'20px',
-  }
+  listItem: {
+    marginBottom: '20px',
+  },
+}));
 
-}))
-
-const schema = yup.object().shape({})
+const schema = yup.object().shape({});
 
 const defaultConst = {
   VARCHAR: '',
   DATE: Date.now(),
-}
+};
 
 const TestForm = () => {
+  const item = ref_191303;
+  console.log('current item:', item);
 
-  const item = ref_341434
-  console.log('current item:',item)
-
-  const params = item.params.filter((i) => i.type === 'IN')
+  const params = item.params.filter((i) => i.type === 'IN');
 
   const defaultParams = params.reduce((acc, item) => {
     return {
-      ...acc, [item.name]: defaultConst[item.datatype],
-    }
-  }, '')
+      ...acc,
+      [item.name]: defaultConst[item.datatype],
+    };
+  }, '');
 
-  const {control, handleSubmit, formState: {errors}} = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: defaultParams,
 
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = data => console.log('Submit:',data)
+  const onSubmit = (data) => console.log('Submit:', data);
 
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <Container className={classes.container} maxWidth={'sm'}>
-        <Paper  elevation={3} style={{height:'100%', padding:'20px'}}>
+        <Paper elevation={3} style={{ height: '100%', padding: '20px' }}>
           <div className={classes.form}>
             <div className={classes.formTitle}>
               <Typography variant="h6" color="primary" align={'center'}>
                 {item.title}
               </Typography>
             </div>
-            <form onSubmit={handleSubmit(onSubmit)} className={classes.formBody}>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className={classes.formBody}
+            >
               <div className={classes.formContent}>
                 <ul className={classes.listContainer}>
                   {item.form.map((uiControl, index) => {
@@ -121,7 +125,7 @@ const TestForm = () => {
                           look={item.lookdata}
                         />
                       </li>
-                    )
+                    );
                   })}
                 </ul>
               </div>
@@ -141,7 +145,7 @@ const TestForm = () => {
         </Paper>
       </Container>
     </div>
-  )
-}
+  );
+};
 
-export default TestForm
+export default TestForm;

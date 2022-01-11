@@ -62,9 +62,7 @@ const filtersArray = (selectRow, inArray, options) => {
 const AgTwoGridData = ({ data }) => {
   const classes = useStyles();
 
-  const isVert = false;
-
-  //const [rows, setRows] = useState([]);
+  const isVert = data.isVert;
 
   const pDoc = data.data.outdata.find((i) => i.name === 'P_DOC');
   const pLink = data.data.outdata.find((i) => i.name === 'P_LINKS');
@@ -86,10 +84,7 @@ const AgTwoGridData = ({ data }) => {
       optionsKey
     );
     data.data.outdata[1].value.filterRows = filterRows;
-    console.log(data);
     dispatch(updateTab(data));
-
-    // setRows(filterRows);
   }, []);
 
   const a1 = pLink ? pLink.value.text.split('=') : [];
@@ -98,9 +93,6 @@ const AgTwoGridData = ({ data }) => {
 
   const docValue = pDoc.value;
   const detailValue = pDetail.value;
-
-  // const docSize=sum(docValue)
-  // const detailSize = sum(detailValue)
 
   const optionsKey = docArr.map((i, index) => ({
     doc: i,

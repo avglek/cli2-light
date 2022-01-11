@@ -1,13 +1,16 @@
-import React from 'react'
+import React from 'react';
 
-import DefaultControl from '../../components/Forms/DefaultControl'
+import DefaultControl from '../../components/Forms/DefaultControl';
 import UITextField from '../../components/Forms/ui-kit/UITextField';
 import UIDataPicker from '../../components/Forms/ui-kit/UIDataPicker';
 import UITextArea from '../../components/Forms/ui-kit/UITextArea';
 import UISelectControl from '../../components/Forms/ui-kit/UISelectControl';
-import {UiDate} from '../../components/Forms/ui-antd-kit/UiDate';
-import {UiRadioGroup} from '../../components/Forms/ui-antd-kit/UiRadioGroup';
-import {UiTextarea} from '../../components/Forms/ui-antd-kit';
+import { UiDate } from '../../components/Forms/ui-antd-kit/UiDate';
+import { UiRadioGroup } from '../../components/Forms/ui-antd-kit/UiRadioGroup';
+import {
+  UiRadioMixedGroup,
+  UiTextarea,
+} from '../../components/Forms/ui-antd-kit';
 
 /********************
  * 0.0 Edit
@@ -27,25 +30,26 @@ import {UiTextarea} from '../../components/Forms/ui-antd-kit';
 
 const controls = {
   '0.0': UITextField,
-  '1.0': UiDate,//UIDataPicker, ///<h6>inputDate {data}</h6>,
+  '1.0': UiDate, //UIDataPicker, ///<h6>inputDate {data}</h6>,
   //'2.0': UISimpleSelect,
   '3.0': UISelectControl, ///<h6>select {data}</h6>,
   //'5.0': InputDateControl,
   //'6.0': spinEdit year now()
   '7.0': UiRadioGroup, ///<h6>radioButton {data}</h6>,
+  '10.0': UiRadioMixedGroup,
   '13.0': UiTextarea, ///<h6>inputList {data}</h6>,
-}
+};
 
 const withItemData =
   (ItemComponent) =>
   ({ ...props }) =>
-    <ItemComponent {...props} />
+    <ItemComponent {...props} />;
 
-export const RenderForm = ({ ui,control, look, controlsValue }) => {
-  const ctrl = controls[ui['CONTROL_TYPE']]
+export const RenderForm = ({ ui, control, look, controlsValue }) => {
+  const ctrl = controls[ui['CONTROL_TYPE']];
 
   if (ctrl) {
-    return withItemData(ctrl)({ data: ui,control, look, controlsValue })
+    return withItemData(ctrl)({ data: ui, control, look, controlsValue });
   }
-  return withItemData(DefaultControl)({ data: ui, controlsValue })
-}
+  return withItemData(DefaultControl)({ data: ui, controlsValue });
+};
