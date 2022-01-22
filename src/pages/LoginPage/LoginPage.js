@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router'
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Redirect } from 'react-router';
 
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles';
 import {
   Grid,
   Paper,
@@ -17,14 +17,14 @@ import {
   Menu,
   CircularProgress,
   FormHelperText,
-} from '@material-ui/core'
+} from '@material-ui/core';
 
-import { Visibility, VisibilityOff, MoreHoriz } from '@material-ui/icons'
-import clsx from 'clsx'
+import { Visibility, VisibilityOff, MoreHoriz } from '@material-ui/icons';
+import clsx from 'clsx';
 
-import { postAuth } from '../../store/actions/authAction'
-import WarningMessage from '../../components/WarningMessage'
-import { postTree } from '../../store/actions/treeAction'
+import { postAuth } from '../../store/actions/authAction';
+import WarningMessage from '../../components/WarningMessage';
+import { postTree } from '../../store/actions/treeAction';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,26 +72,26 @@ const useStyles = makeStyles((theme) => ({
     marginTop: -12,
     marginLeft: -12,
   },
-}))
+}));
 
-const prefixEva = 'http://172.16.14.102/eva/'
-const prefixGrimm = 'http://172.16.14.102/grimm/'
+const prefixEva = 'http://172.16.14.102/eva/';
+const prefixGrimm = 'http://172.16.14.102/grimm/';
 
 const resources = [
-  prefixEva+'sevstal_ch',
-  prefixGrimm+'sevstal_ch',
-  prefixEva+'storaenso',
-  prefixGrimm+'storaenso',
-]
+  prefixEva + 'sevstal_ch',
+  prefixGrimm + 'sevstal_ch',
+  prefixEva + 'storaenso',
+  prefixGrimm + 'storaenso',
+];
 
-const resourcePostfix = '/servlet/CliServlet'
+const resourcePostfix = '/servlet/CliServlet';
 
 const LoginPage = () => {
-  const classes = useStyles()
+  const classes = useStyles();
   const [values, setValues] = useState({
     resource: resources[0],
-    user: 'OPER_CH',
-    password: 'ch11',
+    user: 'admin',
+    password: '20admin19',
     weightRange: '',
     showPassword: false,
     ancorRes: null,
@@ -103,53 +103,53 @@ const LoginPage = () => {
       user: false,
       resource: false,
     },
-  })
+  });
 
-  const { loading, tree } = useSelector((state) => state.tree)
-  const { login, error } = useSelector((state) => state.auth)
-  const dispatch = useDispatch()
+  const { loading, tree } = useSelector((state) => state.tree);
+  const { login, error } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (login) {
-      dispatch(postTree())
+      dispatch(postTree(values.user));
     }
     if (error) {
-      setValues((prev) => ({ ...prev, loading: false, openWarning: true }))
+      setValues((prev) => ({ ...prev, loading: false, openWarning: true }));
     }
-  }, [login, error, dispatch])
+  }, [login, error, dispatch]);
 
   const handleClickMenu = (event) => {
-    setValues({ ...values, ancorRes: event.currentTarget })
-  }
+    setValues({ ...values, ancorRes: event.currentTarget });
+  };
 
   const handleCloseMenu = (index) => () => {
-    setValues({ ...values, resource: resources[index], ancorRes: null })
-  }
+    setValues({ ...values, resource: resources[index], ancorRes: null });
+  };
 
   const handleChangeValues = (prop) => (event) => {
-    const value = event.target.value
+    const value = event.target.value;
 
-    setValues({ ...values, [prop]: value })
-  }
+    setValues({ ...values, [prop]: value });
+  };
 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword })
-  }
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
 
   const handleMouseDownPassword = (event) => {
-    event.preventDefault()
-  }
+    event.preventDefault();
+  };
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     const formData = {
       user: values.user,
       password: values.password,
       resource: values.resource + resourcePostfix,
-    }
-    dispatch(postAuth(formData))
-    setValues({ ...values, disabled: true, loading: true })
-  }
+    };
+    dispatch(postAuth(formData));
+    setValues({ ...values, disabled: true, loading: true });
+  };
 
   const handleCloseWarning = () => {
     setValues({
@@ -157,8 +157,8 @@ const LoginPage = () => {
       disabled: false,
       openWarning: false,
       ancorRes: null,
-    })
-  }
+    });
+  };
 
   return (
     <div
@@ -340,7 +340,7 @@ const LoginPage = () => {
         </Grid>
       </Grid>
     </div>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;
