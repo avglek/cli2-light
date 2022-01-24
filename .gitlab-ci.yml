@@ -1,21 +1,27 @@
 stages:
   - build
-  - test
-
+  - deploy
 build:
   stage: build
-  image: node
+  tags:
+    - dev
   script:
-    - echo "Start building App"
-    - npm install
-    - npm build
-    - echo "Build successfully!"
+    - echo "Building deploy package"
+    - yarn install
+    - yarn build
+    - echo "Build successful"
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - build
 
-test:
-  stage: test
-  image: node
+deploy_production:
+  stage: deploy
+  tags:
+    - dev
   script:
-    - echo "Testing App"
-    - npm install
-    - CI=true npm test
-    - echo "Test successfully!"
+    - echo "Deploying to server"
+    - docker-compose up -d
+    - echo "Deployed"
+  only:
+    - master
