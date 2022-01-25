@@ -7,13 +7,13 @@ build:
     - dev
   script:
     - echo "Building deploy package"
-#    - yarn install
-#    - yarn build
+    - yarn install
+    - yarn build
     - echo "Build successful"
-#  artifacts:
-#    expire_in: 1 hour
-#    paths:
-#      - build
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - build
 
 deploy_production:
   stage: deploy
