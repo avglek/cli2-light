@@ -74,8 +74,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const prefixEva = 'http://172.16.14.102/eva/';
-const prefixGrimm = 'http://172.16.14.102/grimm/';
+//const prefixEva = 'http://172.16.14.102/eva/';
+const prefixEva = 'http://172.16.10.3:7080/';
+//const prefixGrimm = 'http://172.16.14.102/grimm/';
+const prefixGrimm = 'http://172.16.10.3:7081/';
 
 const resources = [
   prefixEva + 'sevstal_ch',
