@@ -11,6 +11,9 @@
 # production
 /build
 
+# IDE
+/.idea
+
 # misc
 /__mock__
 .DS_Store
