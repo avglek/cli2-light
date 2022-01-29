@@ -5,7 +5,7 @@ FROM node:16-alpine as builder
 COPY package.json package-lock.json ./
 
 # Install the dependencies and make the folder
-RUN npm install && mkdir /cli2_light && mv ./node_modules ./cli2_light
+RUN npm@latest && mkdir /cli2_light && mv ./node_modules ./cli2_light
 
 WORKDIR /cli2_light
 
