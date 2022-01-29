@@ -74,9 +74,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//const prefixEva = 'http://172.16.14.102/eva/';
 const prefixEva = 'http://172.16.10.3:7080/';
-//const prefixGrimm = 'http://172.16.14.102/grimm/';
 const prefixGrimm = 'http://172.16.10.3:7081/';
 
 const resources = [
@@ -87,6 +85,9 @@ const resources = [
 ];
 
 const resourcePostfix = '/servlet/CliServlet';
+
+const user = 'OPER_CH';
+const password = 'ch11';
 
 const LoginPage = () => {
   const classes = useStyles();
@@ -118,7 +119,7 @@ const LoginPage = () => {
     if (error) {
       setValues((prev) => ({ ...prev, loading: false, openWarning: true }));
     }
-  }, [login, error, dispatch]);
+  }, [login, error, dispatch, values.error, values.user]);
 
   const handleClickMenu = (event) => {
     setValues({ ...values, ancorRes: event.currentTarget });
@@ -263,6 +264,7 @@ const LoginPage = () => {
                     Пользователь
                   </InputLabel>
                   <OutlinedInput
+                    defaultValue={user}
                     id="login-page-user"
                     type={'text'}
                     value={values.user}
@@ -289,6 +291,7 @@ const LoginPage = () => {
                   <OutlinedInput
                     id="outlined-adornment-password"
                     type={values.showPassword ? 'text' : 'password'}
+                    defaultValue={password}
                     value={values.password}
                     onChange={handleChangeValues('password')}
                     endAdornment={

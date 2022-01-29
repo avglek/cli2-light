@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { Radio, Space } from 'antd';
 import styled from 'styled-components';
 import { Controller } from 'react-hook-form';
@@ -36,7 +36,7 @@ const UiRadioGroup = ({ data, control, ...props }) => {
         </Radio.Group>
       );
     },
-    [data['ITEM_LIST']]
+    [data]
   );
 
   return control ? (

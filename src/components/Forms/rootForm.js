@@ -65,10 +65,10 @@ const useStyles = makeStyles((theme) => ({
 
 const schema = yup.object().shape({});
 
-const defaultConst = {
-  VARCHAR: '',
-  DATE: Date.now(),
-};
+// const defaultConst = {
+//   VARCHAR: '',
+//   DATE: Date.now(),
+// };
 
 const Form = ({ id }) => {
   const dispatch = useDispatch();
@@ -76,19 +76,21 @@ const Form = ({ id }) => {
   const { items } = useSelector((state) => state.tabs);
   const item = items.find((i) => i.uid === id);
 
-  const params = item.params.filter((i) => i.type === 'IN');
+  //  const params = item.params.filter((i) => i.type === 'IN');
 
-  const defaultParams = params.reduce((acc, item) => {
-    return {
-      ...acc,
-      [item.name]: defaultConst[item.datatype],
-    };
-  }, '');
+  // const defaultParams = params.reduce((acc, item) => {
+  //   return {
+  //     ...acc,
+  //     [item.name]: defaultConst[item.datatype],
+  //   };
+  // }, '');
 
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    // formState: {
+    //   errors
+    // },
   } = useForm({
     // defaultValues: defaultParams,
 

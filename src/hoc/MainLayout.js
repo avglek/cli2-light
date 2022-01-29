@@ -16,7 +16,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Button from '@material-ui/core/Button';
-import CopyrightIcon from '@material-ui/icons/Copyright';
 import ViewAgendaIcon from '@material-ui/icons/ViewAgenda';
 
 import ListAltIcon from '@material-ui/icons/ListAlt';

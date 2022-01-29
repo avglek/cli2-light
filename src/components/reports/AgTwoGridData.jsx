@@ -1,8 +1,7 @@
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import React, { useCallback, useEffect, useState } from 'react';
-import WarningMessage from '../WarningMessage';
+import React, { useEffect, useState } from 'react';
 import classnames from 'classnames';
 import { useDispatch } from 'react-redux';
 import { updateTab } from '../../store/actions/tabAction';
@@ -46,8 +45,8 @@ const defaultColDef = {
   resizable: true,
 };
 
-const sum = (data) =>
-  data.columns.reduce((acc, item) => acc + Number.parseInt(item.size), 0);
+// const sum = (data) =>
+//   data.columns.reduce((acc, item) => acc + Number.parseInt(item.size), 0);
 
 const filtersArray = (selectRow, inArray, options) => {
   let out = inArray;
@@ -75,17 +74,6 @@ const AgTwoGridData = ({ data }) => {
   const [colId, setColId] = useState('');
   const [subItems, setSubItems] = useState([]);
   const [indexGrid, setIndexGrid] = useState(0);
-
-  useEffect(() => {
-    const initRow = docValue.filterRows[0];
-    const filterRows = filtersArray(
-      initRow,
-      detailValue.filterRows,
-      optionsKey
-    );
-    data.data.outdata[1].value.filterRows = filterRows;
-    dispatch(updateTab(data));
-  }, []);
 
   const a1 = pLink ? pLink.value.text.split('=') : [];
   const docArr = getSearchParams(a1[0]);
@@ -155,6 +143,20 @@ const AgTwoGridData = ({ data }) => {
     dispatch(updateTab(data));
     handleClose();
   };
+
+  //todo переделать под использование DeadMonint
+  useEffect(() => {
+    const initRow = docValue.filterRows[0];
+    const filterRows = filtersArray(
+      initRow,
+      detailValue.filterRows,
+      optionsKey
+    );
+    data.data.outdata[1].value.filterRows = filterRows;
+    dispatch(updateTab(data));
+
+    // eslint-disable-next-line
+  }, []);
 
   if (!pLink) {
     return (

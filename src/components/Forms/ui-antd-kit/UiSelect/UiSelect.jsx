@@ -1,6 +1,5 @@
 import { Select } from 'antd';
-import { LabeledValue } from 'antd/lib/select';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Controller } from 'react-hook-form';
 
 import styled from 'styled-components';
@@ -42,16 +41,6 @@ const UiSelect = ({ data, control, look, ...props }) => {
     : data['FIELD_NAME'];
   const defaultValue = look.data[0][keyLook];
 
-  // const memoizedOptions = useMemo(
-  //   () =>
-  //     styledOptions ??
-  //     options.map(({ value, displayName }, i) => (
-  //       <Select.Option key={`${value}-${i}`} value={value}>
-  //         {displayName || value}
-  //       </Select.Option>
-  //     )),
-  //   [options, styledOptions]
-  // );
   const memoizedOptions = useMemo(() => {
     return look.data.map((row) => {
       return (
@@ -60,7 +49,7 @@ const UiSelect = ({ data, control, look, ...props }) => {
         </Select.Option>
       );
     });
-  });
+  }, [look.data, keyLook]);
 
   return control ? (
     <Controller

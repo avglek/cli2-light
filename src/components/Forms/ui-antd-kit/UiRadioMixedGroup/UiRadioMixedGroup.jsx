@@ -1,9 +1,8 @@
-import { Input, Radio, Select, Space, Form } from 'antd';
-import React, { useCallback, useMemo, useState } from 'react';
+import { Radio, Select, Space, Form } from 'antd';
+import React, { useCallback } from 'react';
 import { Controller } from 'react-hook-form';
 import { UiFormItem } from '../UiFormItem';
 import styled from 'styled-components';
-import { UiSelect } from '../UiSelect';
 
 const StyledUiRadioMixedGroup = styled(Radio.Group)(
   () => `
@@ -52,15 +51,6 @@ const StyledSpace = styled(Space)`
 `;
 
 const UiRadioMixedGroup = ({ data, control, look, ...props }) => {
-  console.log('in data', data, look, control);
-
-  // const [selectValue, setSelectValue] = useState('');
-  //
-  // const handleChangeSelect = (e) => {
-  //   console.log(e);
-  //   setSelectValue(e);
-  // };
-
   const renderRadio = useCallback(
     (field) => {
       if (!data['GROUPED_FIELDS']) {
@@ -109,7 +99,7 @@ const UiRadioMixedGroup = ({ data, control, look, ...props }) => {
         </StyledSpace>
       );
     },
-    [data['GROUPED_FIELDS']]
+    [data, look.data]
   );
 
   return control ? (
@@ -133,19 +123,6 @@ const UiRadioMixedGroup = ({ data, control, look, ...props }) => {
   ) : (
     <StyledUiRadioMixedGroup>{renderRadio}</StyledUiRadioMixedGroup>
   );
-
-  // return (
-  //   <Radio.Group onChange={onChange} value={value}>
-  //     <Space direction="vertical">
-  //       <Radio value={1}>Option A</Radio>
-  //       <Radio value={2}>Option B</Radio>
-  //       <Radio value={3}>Option C</Radio>
-  //       <Radio value={4}>
-  //         <Input style={{ width: 100, marginLeft: 10 }} />
-  //       </Radio>
-  //     </Space>
-  //   </Radio.Group>
-  // );
 };
 
 export default UiRadioMixedGroup;

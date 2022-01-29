@@ -1,14 +1,10 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Container, Paper, Typography } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { RenderForm } from './TestGeneratorForm';
-import moment from 'moment';
-import { submitForm } from '../../store/actions/formAction';
-import { clearTab } from '../../store/actions/tabAction';
 import { ref_191303 } from './params';
 
 const useStyles = makeStyles((theme) => ({
@@ -86,7 +82,7 @@ const TestForm = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    //    formState: { errors },
   } = useForm({
     defaultValues: defaultParams,
 

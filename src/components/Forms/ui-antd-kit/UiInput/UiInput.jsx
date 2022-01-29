@@ -1,6 +1,6 @@
 import React from 'react';
-import styled, { StyledComponent } from 'styled-components';
-import { Form, Input, InputProps } from 'antd';
+import styled from 'styled-components';
+import { Input } from 'antd';
 import { Controller } from 'react-hook-form';
 import { UiFormItem } from '../UiFormItem';
 

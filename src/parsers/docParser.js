@@ -35,10 +35,29 @@ const getDataValue = (param, descriptionFields = []) => {
                 const date = row[col['FIELD_NAME']];
                 if (date) {
                   const iso = date.split(':').join('');
+                  const dataFormat = col['DISPLAY_FORMAT'];
+                  let stringFormatData = '';
+                  switch (dataFormat) {
+                    case 'dd.mm.yy':
+                      stringFormatData = 'DD.MM.YYYY';
+                      break;
+                    case 'dd.mm.yy hh:nn':
+                      stringFormatData = 'DD.MM.YYYY HH:mm';
+                      break;
+                    default:
+                      stringFormatData = 'DD.MM.YYYY';
+                      break;
+                  }
+
                   row[col['FIELD_NAME']] = moment(iso.slice(0, 13)).format(
-                    'DD.MM.YYYY HH:mm'
+                    stringFormatData
                   );
                 }
+              }
+              if (col.fieldtype === 'r8') {
+                row[col['FIELD_NAME']] = row[col['FIELD_NAME']]
+                  ? Number.parseInt(row[col['FIELD_NAME']])
+                  : 0;
               }
             });
 

@@ -1,24 +1,23 @@
-import React from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 //import { useDispatch } from 'react-redux'
 
-import { ThemeProvider } from '@material-ui/styles'
-import theme from './theme/blueTheme'
+import { ThemeProvider } from '@material-ui/styles';
+import theme from './theme/blueTheme';
 
-import MainLayout from './hoc/MainLayout'
-import LoginPage from './pages/LoginPage/LoginPage'
+import MainLayout from './hoc/MainLayout';
+import LoginPage from './pages/LoginPage/LoginPage';
 
-import Views from './components/Views'
-import { ListViewProvider } from './ListViewContext'
-import { routeToData } from './common/constApp'
-import TabsViewData from './components/TabsView/TabsViewData'
-import { useSelector } from 'react-redux'
-import Home from './pages/Home/Home'
+import Views from './components/Views';
+import { ListViewProvider } from './ListViewContext';
+import { routeToData } from './common/constApp';
+import TabsViewData from './components/TabsView/TabsViewData';
+import { useSelector } from 'react-redux';
+import Home from './pages/Home/Home';
 import TestPage from './pages/TestPage/TestPage';
 
-
 const App = () => {
-  const { login } = useSelector((state) => state.auth)
+  const { login } = useSelector((state) => state.auth);
 
   return (
     <ListViewProvider>
@@ -38,9 +37,9 @@ const App = () => {
         </Switch>
       </ThemeProvider>
     </ListViewProvider>
-  )
+  );
 
   //return <TestPage />
-}
+};
 
-export default App
+export default App;

@@ -2,8 +2,6 @@ import React from 'react';
 
 import DefaultControl from '../../components/Forms/DefaultControl';
 import UITextField from '../../components/Forms/ui-kit/UITextField';
-import UIDataPicker from '../../components/Forms/ui-kit/UIDataPicker';
-import UITextArea from '../../components/Forms/ui-kit/UITextArea';
 import UISelectControl from '../../components/Forms/ui-kit/UISelectControl';
 import { UiDate } from '../../components/Forms/ui-antd-kit/UiDate';
 import { UiRadioGroup } from '../../components/Forms/ui-antd-kit/UiRadioGroup';

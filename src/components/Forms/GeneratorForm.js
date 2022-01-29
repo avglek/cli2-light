@@ -1,18 +1,14 @@
 import React from 'react';
 
 import DefaultControl from './DefaultControl';
-import UITextField from './ui-kit/UITextField';
+
 import {
   UiDate,
   UiInput,
-  UiRadioButton,
   UiRadioGroup,
-  UiRadioMixedGroup,
   UiSelect,
   UiTextarea,
 } from './ui-antd-kit';
-import UITextArea from './ui-kit/UITextArea';
-import UISelectControl from './ui-kit/UISelectControl';
 
 /********************
  * 0.0 Edit

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import TwoDataGrid from './TwoDataGrid';
 import DataPlainText from './DataPlainText';
 import AgGridData from './AgGridData';
 import AgTwoGridData from './AgTwoGridData';
