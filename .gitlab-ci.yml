@@ -1,24 +1,11 @@
 stages:
-  - build
   - deploy
-build:
-  stage: build
-  tags:
-    - dev
-  script:
-    - echo "Building deploy package"
-    - yarn install
-    - yarn build
-    - echo "Build successful"
-  artifacts:
-    expire_in: 1 hour
-    paths:
-      - build
 
 deploy_production:
   stage: deploy
+  when: manual
   tags:
-    - dev
+    - shell
   script:
     - echo "Deploying to server"
     - docker-compose up -d

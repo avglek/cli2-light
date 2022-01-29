@@ -92,8 +92,8 @@ const LoginPage = () => {
   const classes = useStyles();
   const [values, setValues] = useState({
     resource: resources[0],
-    user: 'admin',
-    password: '20admin19',
+    user: '',
+    password: '',
     weightRange: '',
     showPassword: false,
     ancorRes: null,
