@@ -125,8 +125,6 @@ const Form = ({ id }) => {
     return <h1>Loading...</h1>;
   }
 
-  console.log('item:', item);
-
   return (
     <div className={classes.root}>
       <Container className={classes.container} maxWidth={'sm'}>

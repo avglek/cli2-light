@@ -68,7 +68,6 @@ const defaultConst = {
 
 const TestForm = () => {
   const item = ref_191303;
-  console.log('current item:', item);
 
   const params = item.params.filter((i) => i.type === 'IN');
 

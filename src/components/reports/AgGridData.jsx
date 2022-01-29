@@ -27,7 +27,6 @@ const defaultColDef = {
 };
 
 const AgGridData = ({ data }) => {
-  console.log(data);
   const dispatch = useDispatch();
 
   const [anchorEl, setAnchorEl] = useState(null);

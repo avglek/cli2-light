@@ -71,7 +71,6 @@ const UiRadioMixedGroup = ({ data, control, look, ...props }) => {
                 </StyledFormItem>
               );
             } else if (item['CONTROL_TYPE'] === '3.0') {
-              console.log('field:', field);
               return (
                 <StyledFormItem>
                   <Radio key={index}>{`${item['DISPLAY_LABEL']}: `}</Radio>

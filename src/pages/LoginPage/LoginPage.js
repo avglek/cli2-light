@@ -113,6 +113,14 @@ const LoginPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setValues((prev) => ({
+      ...prev,
+      user,
+      password,
+    }));
+  }, []);
+
+  useEffect(() => {
     if (login) {
       dispatch(postTree(values.user));
     }
@@ -264,7 +272,7 @@ const LoginPage = () => {
                     Пользователь
                   </InputLabel>
                   <OutlinedInput
-                    defaultValue={user}
+                    //defaultValue={user}
                     id="login-page-user"
                     type={'text'}
                     value={values.user}
@@ -291,7 +299,7 @@ const LoginPage = () => {
                   <OutlinedInput
                     id="outlined-adornment-password"
                     type={values.showPassword ? 'text' : 'password'}
-                    defaultValue={password}
+                    //defaultValue={password}
                     value={values.password}
                     onChange={handleChangeValues('password')}
                     endAdornment={
