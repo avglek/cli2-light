@@ -2,17 +2,18 @@
 FROM node:16-alpine as builder
 
 # copy the package.json to install dependencies
-COPY package.json package-lock.json ./
+COPY package.json ./
+COPY yarn.lock ./
 
 # Install the dependencies and make the folder
-RUN npm@latest && mkdir /cli2_light && mv ./node_modules ./cli2_light
+RUN yarn install && mkdir /cli2_light && mv ./node_modules ./cli2_light
 
 WORKDIR /cli2_light
 
 COPY . .
 
 # Build the project and copy the files
-RUN npm run build
+RUN yarn build
 
 
 FROM nginx:alpine
