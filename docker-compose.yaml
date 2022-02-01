@@ -1,7 +1,19 @@
 version: "3.8"
+networks:
+  traefik_net:
+    external: true
 services:
-  client:
+  cli2:
     build: .
     ports:
       - "8080:80"
     container_name: cli2-light
+    networks:
+      - traefik_net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cli2.entrypoints=https"
+      - "traefik.http.routers.cli2.rule=Host(`cli.icc.spb.ru`)"
+      - "traefik.http.routers.cli2.tls=true"
+      - "traefik.http.routers.cli2.tls.certresolver=letsEncrypt"
+      - "traefik.http.services.cli2-service.loadbalancer.server.port=80"
