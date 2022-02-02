@@ -74,20 +74,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const prefixEva = 'http://172.16.10.3:7080/';
-const prefixGrimm = 'http://172.16.10.3:7081/';
+const resourcePrefix = process.env.REACT_APP_SERVLET_URL + '/';
 
-const resources = [
-  prefixEva + 'sevstal_ch',
-  prefixGrimm + 'sevstal_ch',
-  prefixEva + 'storaenso',
-  prefixGrimm + 'storaenso',
-];
+const resources = ['sevstal_ch'];
 
 const resourcePostfix = '/servlet/CliServlet';
-
-const user = 'OPER_CH';
-const password = 'ch11';
 
 const LoginPage = () => {
   const classes = useStyles();
@@ -112,13 +103,13 @@ const LoginPage = () => {
   const { login, error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setValues((prev) => ({
-      ...prev,
-      user,
-      password,
-    }));
-  }, []);
+  // useEffect(() => {
+  //   setValues((prev) => ({
+  //     ...prev,
+  //     user,
+  //     password,
+  //   }));
+  // }, []);
 
   useEffect(() => {
     if (login) {
@@ -156,8 +147,9 @@ const LoginPage = () => {
     const formData = {
       user: values.user,
       password: values.password,
-      resource: values.resource + resourcePostfix,
+      resource: resourcePrefix + values.resource + resourcePostfix,
     };
+    console.log(formData);
     dispatch(postAuth(formData));
     setValues({ ...values, disabled: true, loading: true });
   };
