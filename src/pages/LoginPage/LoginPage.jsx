@@ -81,6 +81,7 @@ const resources = ['sevstal_ch'];
 const resourcePostfix = '/servlet/CliServlet';
 
 const LoginPage = () => {
+
   const classes = useStyles();
   const [values, setValues] = useState({
     resource: resources[0],

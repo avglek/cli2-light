@@ -19,6 +19,9 @@ import TestPage from './pages/TestPage/TestPage';
 const App = () => {
   const { login } = useSelector((state) => state.auth);
 
+  console.log('version:',process.env.REACT_APP_VERSION)
+
+
   return (
     <ListViewProvider>
       <ThemeProvider theme={theme}>
