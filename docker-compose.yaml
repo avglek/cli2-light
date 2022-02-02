@@ -11,7 +11,7 @@ services:
     networks:
       - traefik_net
     environment:
-      REACT_APP_SERVLET_URL: "https://eva.icc.spb.ru"
+      - REACT_APP_SERVLET_URL=https://eva.icc.spb.ru
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.cli2-light.entrypoints=https"
@@ -28,7 +28,7 @@ services:
     networks:
       - traefik_net
     environment:
-      REACT_APP_SERVLET_URL: "https://grimm.icc.spb.ru"
+      - REACT_APP_SERVLET_URL=https://grimm.icc.spb.ru
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.cli2-light-reserve.entrypoints=https"
