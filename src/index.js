@@ -11,6 +11,9 @@ import { rootReducer } from './store/reducers/rootReducer';
 import { rootEpic } from './store/epics/rootEpics';
 import ErrorBoundary from './hoc/ErrorBaundary';
 
+console.log('version:', process.env.REACT_APP_VERSION);
+console.log('servlet url:', process.env.REACT_APP_SERVLET_URL);
+
 const epicMiddleware = createEpicMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

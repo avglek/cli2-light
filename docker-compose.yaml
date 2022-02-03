@@ -10,8 +10,8 @@ services:
     container_name: cli2-light
     networks:
       - traefik_net
-    environment:
-      - REACT_APP_SERVLET_URL=https://eva.icc.spb.ru
+#    environment:
+#      - SERVLET_URL="https://eva.icc.spb.ru"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.cli2-light.entrypoints=https"
@@ -20,19 +20,19 @@ services:
       - "traefik.http.routers.cli2-light.tls.certresolver=letsEncrypt"
       - "traefik.http.services.cli2-light-service.loadbalancer.server.port=80"
 
-  cli2-light-reserve:
-    build: .
-    ports:
-      - "9080:80"
-    container_name: cli2-light-reserve
-    networks:
-      - traefik_net
-    environment:
-      - REACT_APP_SERVLET_URL=https://grimm.icc.spb.ru
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.cli2-light-reserve.entrypoints=https"
-      - "traefik.http.routers.cli2-light-reserve.rule=Host(`product2.icc.spb.ru`)"
-      - "traefik.http.routers.cli2-light-reserve.tls=true"
-      - "traefik.http.routers.cli2-light-reserve.tls.certresolver=letsEncrypt"
-      - "traefik.http.services.cli2-light-reserve-service.loadbalancer.server.port=80"
+#  cli2-light-reserve:
+#    build: .
+#    ports:
+#      - "9080:80"
+#    container_name: cli2-light-reserve
+#    networks:
+#      - traefik_net
+#    environment:
+#      - REACT_APP_SERVLET_URL="https://grimm.icc.spb.ru"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.cli2-light-reserve.entrypoints=https"
+#      - "traefik.http.routers.cli2-light-reserve.rule=Host(`product2.icc.spb.ru`)"
+#      - "traefik.http.routers.cli2-light-reserve.tls=true"
+#      - "traefik.http.routers.cli2-light-reserve.tls.certresolver=letsEncrypt"
+#      - "traefik.http.services.cli2-light-reserve-service.loadbalancer.server.port=80"
