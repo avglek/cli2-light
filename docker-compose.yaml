@@ -14,7 +14,7 @@ services:
 #      - SERVLET_URL="https://eva.icc.spb.ru"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.cli2-light.entrypoints=websecure"
+      - "traefik.http.routers.cli2-light.entrypoints=https"
       - "traefik.http.routers.cli2-light.rule=Host(`product.icc.spb.ru`)"
       - "traefik.http.routers.cli2-light.tls=true"
       - "traefik.http.services.cli2-light-service.loadbalancer.server.port=80"
