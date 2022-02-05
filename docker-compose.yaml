@@ -1,6 +1,6 @@
 version: "3.8"
 networks:
-  traefik_net:
+  proxy_net:
     external: true
 services:
   cli2-light:
@@ -9,29 +9,4 @@ services:
       - "8080:80"
     container_name: cli2-light
     networks:
-      - traefik_net
-#    environment:
-#      - SERVLET_URL="https://eva.icc.spb.ru"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.cli2-light.entrypoints=https"
-      - "traefik.http.routers.cli2-light.rule=Host(`product.icc.spb.ru`)"
-      - "traefik.http.routers.cli2-light.tls=true"
-      - "traefik.http.services.cli2-light-service.loadbalancer.server.port=80"
-
-#  cli2-light-reserve:
-#    build: .
-#    ports:
-#      - "9080:80"
-#    container_name: cli2-light-reserve
-#    networks:
-#      - traefik_net
-#    environment:
-#      - REACT_APP_SERVLET_URL="https://grimm.icc.spb.ru"
-#    labels:
-#      - "traefik.enable=true"
-#      - "traefik.http.routers.cli2-light-reserve.entrypoints=https"
-#      - "traefik.http.routers.cli2-light-reserve.rule=Host(`product2.icc.spb.ru`)"
-#      - "traefik.http.routers.cli2-light-reserve.tls=true"
-#      - "traefik.http.routers.cli2-light-reserve.tls.certresolver=letsEncrypt"
-#      - "traefik.http.services.cli2-light-reserve-service.loadbalancer.server.port=80"
+      - proxy_net
