@@ -6,3 +6,4 @@ export * from './UiSelect';
 export * from './UiTextarea';
 export * from './UiRadioMixedGroup';
 export * from './UiRadioButton';
+export * from './UiNumber';

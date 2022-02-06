@@ -76,15 +76,12 @@ const useStyles = makeStyles((theme) => ({
 
 const resourcePrefix = process.env.REACT_APP_SERVLET_URL + '/';
 
-const resources = ['sevstal_ch'];
-
 const resourcePostfix = '/servlet/CliServlet';
 
 const LoginPage = () => {
-
   const classes = useStyles();
   const [values, setValues] = useState({
-    resource: resources[0],
+    resource: '',
     user: '',
     password: '',
     weightRange: '',
@@ -100,33 +97,75 @@ const LoginPage = () => {
     },
   });
 
+  const [resources, setResources] = useState([]);
+
   const { loading, tree } = useSelector((state) => state.tree);
   const { login, error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   setValues((prev) => ({
-  //     ...prev,
-  //     user,
-  //     password,
-  //   }));
-  // }, []);
+  useEffect(() => {
+    const ls = localStorage.getItem('init');
+    const res = JSON.parse(ls);
+    console.log('get items:', res, ls);
+    setResources((prev) => res || prev);
+  }, []);
 
   useEffect(() => {
     if (login) {
+      const prevKey = JSON.parse(localStorage.getItem('init'));
+      localStorage.clear();
+      if (prevKey) {
+        if (
+          prevKey.find(
+            (key) =>
+              key.resource === values.resource && key.user === values.user
+          )
+        ) {
+          localStorage.setItem('init', JSON.stringify([...prevKey]));
+        } else {
+          localStorage.setItem(
+            'init',
+            JSON.stringify([
+              ...prevKey,
+              { resource: values.resource, user: values.user },
+            ])
+          );
+        }
+      } else {
+        localStorage.setItem(
+          'init',
+          JSON.stringify([{ resource: values.resource, user: values.user }])
+        );
+      }
       dispatch(postTree(values.user));
     }
     if (error) {
       setValues((prev) => ({ ...prev, loading: false, openWarning: true }));
     }
-  }, [login, error, dispatch, values.error, values.user]);
+  }, [login, error, dispatch, values.error, values.user, values.resource]);
+
+  // useEffect(() => {
+  //   console.log(values);
+  //   localStorage.setItem(
+  //     'init',
+  //     JSON.stringify([
+  //       { user: values.user, resource: values.resource },
+  //       { user: 'test', resource: 'some' },
+  //     ])
+  //   );
+  // }, [values]);
 
   const handleClickMenu = (event) => {
     setValues({ ...values, ancorRes: event.currentTarget });
   };
 
   const handleCloseMenu = (index) => () => {
-    setValues({ ...values, resource: resources[index], ancorRes: null });
+    setValues({
+      ...values,
+      resource: resources[index].resource,
+      user: resources[index].user,
+      ancorRes: null,
+    });
   };
 
   const handleChangeValues = (prop) => (event) => {
@@ -225,22 +264,24 @@ const LoginPage = () => {
                         >
                           <MoreHoriz />
                         </IconButton>
-                        <Menu
-                          id="simple-menu"
-                          anchorEl={values.ancorRes}
-                          keepMounted
-                          open={Boolean(values.ancorRes)}
-                          onClose={handleCloseMenu}
-                        >
-                          {resources.map((item, index) => (
-                            <MenuItem
-                              key={index}
-                              onClick={handleCloseMenu(index)}
-                            >
-                              {item}
-                            </MenuItem>
-                          ))}
-                        </Menu>
+                        {resources?.length > 0 && (
+                          <Menu
+                            id="simple-menu"
+                            anchorEl={values.ancorRes}
+                            keepMounted
+                            open={Boolean(values.ancorRes)}
+                            onClose={handleCloseMenu}
+                          >
+                            {resources.map((item, index) => (
+                              <MenuItem
+                                key={index}
+                                onClick={handleCloseMenu(index)}
+                              >
+                                {`${item.user}/${item.resource}`}
+                              </MenuItem>
+                            ))}
+                          </Menu>
+                        )}
                       </InputAdornment>
                     }
                     labelWidth={200}

@@ -8,6 +8,7 @@ import {
   UiRadioGroup,
   UiSelect,
   UiTextarea,
+  UiNumber,
 } from './ui-antd-kit';
 
 /********************
@@ -32,7 +33,7 @@ const controls = {
   //'2.0': UISimpleSelect,
   '3.0': UiSelect, ///<h6>select {data}</h6>,
   //'5.0': InputDateControl,
-  //'6.0': spinEdit year now()
+  '6.0': UiNumber,
 
   '7.0': UiRadioGroup, ///<h6>radioButton {data}</h6>,
   //'10.0': UiRadioMixedGroup,
