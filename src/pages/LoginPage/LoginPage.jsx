@@ -106,7 +106,6 @@ const LoginPage = () => {
   useEffect(() => {
     const ls = localStorage.getItem('init');
     const res = JSON.parse(ls);
-    console.log('get items:', res, ls);
     setResources((prev) => res || prev);
   }, []);
 
@@ -189,7 +188,6 @@ const LoginPage = () => {
       password: values.password,
       resource: resourcePrefix + values.resource + resourcePostfix,
     };
-    console.log(formData);
     dispatch(postAuth(formData));
     setValues({ ...values, disabled: true, loading: true });
   };

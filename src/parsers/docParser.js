@@ -22,10 +22,14 @@ const getDataValue = (param, descriptionFields = []) => {
       const fieldsObj = param.DATA.DATAPACKET.METADATA.FIELDS.FIELD;
       const fields = Array.isArray(fieldsObj) ? fieldsObj : [fieldsObj];
       const columns = fields.map((i) => {
-        const field = descriptionFields.find(
-          (t) => t['FIELD_NAME'] === i['attrname']
-        );
-        return { ...i, ...field };
+        if (Array.isArray(descriptionFields)) {
+          const field = descriptionFields.find(
+            (t) => t['FIELD_NAME'] === i['attrname']
+          );
+          return { ...i, ...field };
+        } else {
+          return { ...i, ...descriptionFields };
+        }
       });
 
       const rows = param.DATA.DATAPACKET.ROWDATA.ROW

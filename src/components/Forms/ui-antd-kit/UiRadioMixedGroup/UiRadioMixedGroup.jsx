@@ -12,8 +12,8 @@ const StyledUiRadioMixedGroup = styled(Radio.Group)(
 );
 
 const StyledFormItem = styled(Form.Item)`
-  display: flex;
-  flex-direction: row;
+  //display: flex;
+  //flex-direction: row;
 `;
 
 const StyledSelect = styled(Select)(
@@ -56,7 +56,7 @@ const UiRadioMixedGroup = ({ data, control, look, ...props }) => {
       if (!data['GROUPED_FIELDS']) {
         return null;
       }
-
+      console.log('data:', data, look);
       const items = data.group;
 
       return (
@@ -81,7 +81,7 @@ const UiRadioMixedGroup = ({ data, control, look, ...props }) => {
                     listHeight={150}
                   >
                     {look.data.map((row) => {
-                      const keyLook = item['FIELD_NAME'];
+                      const keyLook = item['LOOKUP_KEYFIELDS'];
                       return (
                         <Select.Option key={row[keyLook]} value={row[keyLook]}>
                           {row[keyLook]}

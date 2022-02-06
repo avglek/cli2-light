@@ -55,9 +55,10 @@ export const cli2winxmlServise = (body, value) => {
       xmlJsonStream$(xml).pipe(
         map((json) => {
           if (json.EXCEPTION) {
-            return throwError(
-              () => new Error(`From server: ${json.EXCEPTION}`)
-            );
+            // return throwError(
+            //   () => new Error(`From server: ${json.EXCEPTION}`)
+            // );
+            return json.EXCEPTION;
           }
           return json.RESPONSE;
         })
