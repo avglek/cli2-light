@@ -1,8 +1,8 @@
 import React from 'react';
 
 import DefaultControl from '../../components/Forms/DefaultControl';
-import UITextField from '../../components/Forms/ui-kit/UITextField';
-import UISelectControl from '../../components/Forms/ui-kit/UISelectControl';
+//import UITextField from '../../components/Forms/ui-kit/UITextField';
+//import UISelectControl from '../../components/Forms/ui-kit/UISelectControl';
 import { UiDate } from '../../components/Forms/ui-antd-kit/UiDate';
 import { UiRadioGroup } from '../../components/Forms/ui-antd-kit/UiRadioGroup';
 import {
@@ -27,10 +27,10 @@ import {
  */
 
 const controls = {
-  '0.0': UITextField,
+  //  '0.0': UITextField,
   '1.0': UiDate, //UIDataPicker, ///<h6>inputDate {data}</h6>,
   //'2.0': UISimpleSelect,
-  '3.0': UISelectControl, ///<h6>select {data}</h6>,
+  //  '3.0': UISelectControl, ///<h6>select {data}</h6>,
   //'5.0': InputDateControl,
   //'6.0': spinEdit year now()
   '7.0': UiRadioGroup, ///<h6>radioButton {data}</h6>,

@@ -1,26 +1,30 @@
 //import Typography from '@material-ui/core/Typography'
 
 //import Close from '@material-ui/icons/Close'
-import CancelIcon from '@material-ui/icons/Cancel'
-import Grid from '@material-ui/core/Grid'
-import Icon from '@material-ui/core/Icon'
+import CancelIcon from '@material-ui/icons/Cancel';
+import Icon from '@material-ui/core/Icon';
+import styled from 'styled-components';
+
+const StyledText = styled.div`
+  padding-right: 3px;
+`;
+
+const StyledLabel = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 const TabLabel = ({ classes, onCloseTab, children }) => {
   return (
-    <Grid
-      className={classes.label}
-      container
-      direction='row'
-      alignItems='stretch'
-      justifyContent='space-between'
-      wrap='nowrap'
-    >
+    <StyledLabel>
       {/* <Typography>{title}</Typography> */}
-      {children}
+      <StyledText>{children}</StyledText>
       <Icon>
         <CancelIcon onClick={onCloseTab} />
       </Icon>
-    </Grid>
-  )
-}
-export default TabLabel
+    </StyledLabel>
+  );
+};
+export default TabLabel;

@@ -56,7 +56,6 @@ const UiRadioMixedGroup = ({ data, control, look, ...props }) => {
       if (!data['GROUPED_FIELDS']) {
         return null;
       }
-      console.log('data:', data, look);
       const items = data.group;
 
       return (
@@ -98,7 +97,7 @@ const UiRadioMixedGroup = ({ data, control, look, ...props }) => {
         </StyledSpace>
       );
     },
-    [data, look.data]
+    [data, look]
   );
 
   return control ? (

@@ -12,7 +12,7 @@ import TabPanel from './TabPanel';
 import TabLabel from './TabLabel';
 
 import Form from '../Forms';
-import RenderData from '../reports';
+import { RenderData, RenderError } from '../reports';
 
 const TabsViewData = () => {
   const classes = useStyles();
@@ -82,6 +82,7 @@ const TabsViewData = () => {
           >
             {item.form ? <Form id={item.uid} /> : null}
             {item.data ? <RenderData id={item.uid} /> : null}
+            {item.error ? <RenderError id={item.uid} /> : null}
           </TabPanel>
         );
       })}

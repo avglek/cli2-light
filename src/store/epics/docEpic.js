@@ -13,9 +13,9 @@ export const docEpic = (action$, state$) =>
     mergeMap((action) =>
       cli2winxmlServise(action.payload.xml, state$.value).pipe(
         map((json) => {
-          if (json.message) {
-            return errorDoc(json.message);
-          }
+          // if (json.message) {
+          //   return errorDoc(json.message);
+          // }
           const uid = action.payload.uid;
           const call = action.payload.call;
           const inParams = action.payload.inParams;

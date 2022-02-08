@@ -24,10 +24,8 @@ const UiNumber = ({ data, control, ...props }) => {
         >
           <StyledUiNumber
             {...field}
-            {...props}
             onChange={(e) => {
               field.onChange(e);
-              props.onChange?.(e);
             }}
           />
         </UiFormItem>

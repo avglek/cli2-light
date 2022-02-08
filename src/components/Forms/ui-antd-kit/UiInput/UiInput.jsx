@@ -52,7 +52,7 @@ const StyledUiInput = styled(Input)(
 `
 );
 
-const UiInput = ({ data, control, ...props }) => {
+const UiInput = ({ data, control }) => {
   return control ? (
     <Controller
       control={control}
@@ -64,14 +64,12 @@ const UiInput = ({ data, control, ...props }) => {
             validateStatus={error ? 'error' : ''}
             status={error ? 'error' : ''}
             hasFeedback={!!error}
-            help={error?.message || props.help}
+            help={error?.message}
           >
             <StyledUiInput
               {...field}
-              {...props}
               onChange={(e) => {
                 field.onChange(e);
-                props.onChange?.(e);
               }}
             />
           </UiFormItem>
@@ -79,7 +77,7 @@ const UiInput = ({ data, control, ...props }) => {
       }}
     />
   ) : (
-    <StyledUiInput {...props} />
+    <StyledUiInput />
   );
 };
 

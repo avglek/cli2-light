@@ -1,4 +1,4 @@
-import { map, Observable, switchMap, throwError } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import { btoa } from 'abab';
 import { parseString } from 'xml2js';

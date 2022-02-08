@@ -1,3 +1,2 @@
-import { RenderData } from './rootReport'
-
-export default RenderData
+export * from './rootReport';
+export * from './RenderError';
