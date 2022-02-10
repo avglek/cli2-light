@@ -96,6 +96,8 @@ const AgGridData = ({ data }) => {
           rowSelection={'single'}
           rowData={data.data.outdata[0].value.filterRows}
           gridOptions={gridOptions}
+          overlayLoadingTemplate={'Загрузка данных'}
+          overlayNoRowsTemplate={'Нет данных'}
         >
           {realColumns.map((item, index) => {
             return (

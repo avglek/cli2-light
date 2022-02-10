@@ -79,8 +79,8 @@ const AgTwoGridData = ({ data }) => {
   const docArr = getSearchParams(a1[0]);
   const detailArr = getSearchParams(a1[1]);
 
-  const docValue = pDoc.value;
-  const detailValue = pDetail.value;
+  const docValue = pDoc?.value;
+  const detailValue = pDetail?.value;
 
   const optionsKey = docArr.map((i, index) => ({
     doc: i,
@@ -88,7 +88,7 @@ const AgTwoGridData = ({ data }) => {
   }));
 
   const handleRowClick = (event) => {
-    const filterRows = filtersArray(event.data, detailValue.rows, optionsKey);
+    const filterRows = filtersArray(event.data, detailValue?.rows, optionsKey);
 
     data.data.outdata[1].value.filterRows = filterRows;
 
@@ -144,7 +144,6 @@ const AgTwoGridData = ({ data }) => {
     handleClose();
   };
 
-  //todo переделать под использование DeadMonint
   useEffect(() => {
     const initRow = docValue.filterRows[0];
     const filterRows = filtersArray(
@@ -157,14 +156,6 @@ const AgTwoGridData = ({ data }) => {
 
     // eslint-disable-next-line
   }, []);
-
-  if (!pLink) {
-    return (
-      <div className={classes.root}>
-        <h1>No support</h1>
-      </div>
-    );
-  }
 
   const realColumns = data.data.outdata[indexGrid].value.columns;
   return (
@@ -186,6 +177,8 @@ const AgTwoGridData = ({ data }) => {
             rowData={docValue.filterRows}
             gridOptions={gridOptions}
             onRowClicked={handleRowClick}
+            overlayLoadingTemplate={'Загрузка данных'}
+            overlayNoRowsTemplate={'Нет данных'}
           >
             {docValue.columns.map((col) => {
               return (
@@ -217,6 +210,8 @@ const AgTwoGridData = ({ data }) => {
             rowSelection={'single'}
             rowData={pDetail.value.filterRows}
             gridOptions={gridOptionsDetail}
+            overlayLoadingTemplate={'Загрузка данных'}
+            overlayNoRowsTemplate={'Нет данных'}
           >
             {detailValue.columns.map((col) => {
               return (
