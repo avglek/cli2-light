@@ -20,6 +20,9 @@ import ViewAgendaIcon from '@material-ui/icons/ViewAgenda';
 
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import GridOnIcon from '@material-ui/icons/GridOn';
+import { RiPlayListAddLine } from 'react-icons/ri';
+import { FaSave } from 'react-icons/fa';
+import { IoTrashOutline } from 'react-icons/io5';
 
 import { useStyles } from './styleMainLayout';
 import { appTitle } from '../common/constApp';
@@ -42,6 +45,7 @@ const DesktopLayout = ({ children }) => {
   const { items, pointer } = useSelector((state) => state.tabs);
 
   const isTwoTables = items[pointer]?.data?.docClass === 'TfrmTwoTables';
+  const isEditable = items[pointer]?.isEditable;
   const isData = history.location.pathname === '/data';
 
   const handleDrawerOpen = () => {
@@ -78,6 +82,22 @@ const DesktopLayout = ({ children }) => {
       history.goBack();
     } else {
       history.push('/data');
+    }
+  };
+
+  const handleAddRow = () => {
+    if (items[pointer].onAddRow) {
+      items[pointer].onAddRow();
+    }
+  };
+  const handleRemoveRows = () => {
+    if (items[pointer].onRemoveRows) {
+      items[pointer].onRemoveRows();
+    }
+  };
+  const handleSaveRows = () => {
+    if (items[pointer].onSaveData) {
+      items[pointer].onSaveData();
     }
   };
 
@@ -126,6 +146,32 @@ const DesktopLayout = ({ children }) => {
             <Typography variant="h6" noWrap className={classes.title}>
               {appTitle}
             </Typography>
+            {isEditable && isData ? (
+              <>
+                <IconButton
+                  color="inherit"
+                  aria-label="list view"
+                  onClick={handleAddRow}
+                >
+                  <RiPlayListAddLine />
+                </IconButton>
+                <IconButton
+                  color="inherit"
+                  aria-label="list view"
+                  onClick={handleRemoveRows}
+                >
+                  <IoTrashOutline />
+                </IconButton>
+                <IconButton
+                  color="inherit"
+                  aria-label="list view"
+                  onClick={handleSaveRows}
+                  disabled={!items[pointer].isDocChanged}
+                >
+                  <FaSave />
+                </IconButton>
+              </>
+            ) : null}
             {isTwoTables && isData ? (
               <IconButton
                 color="inherit"

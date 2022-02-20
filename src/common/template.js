@@ -30,7 +30,7 @@ export const describe = (
 </REQUEST>`;
 
 export const queryProc = (id, call, params) => {
-  const body = params.reduce((acc, item) => {
+  const body = params?.reduce((acc, item) => {
     let data = '';
     if (item.data) {
       data = `<DATA>${item.data}</DATA>`;
@@ -50,4 +50,44 @@ export const queryLookTable = (tables) => {
   }, '');
 
   return `<?xml version="1.0" encoding="Windows-1251"?><REQUEST><LOOKUP><TABLES>${body}</TABLES></LOOKUP></REQUEST>`;
+};
+//`<ROW RowState="2" NV="29200011" CODE="24  " ROWID="ABHRDMAAHAACETHAAA" nullfields="2"/>`
+const getXMLRow = (row) => {
+  const keys = Object.keys(row);
+  let body = '<ROW ';
+  for (const key of keys) {
+    if (key === 'id') continue;
+    body = body + `${key}="${row[key]}" `;
+  }
+  return body + '/>';
+};
+
+export const queryUpdate = (id, table, fields, rowdata) => {
+  return `<?xml version="1.0" encoding="Windows-1251"?>
+<REQUEST>
+ <UPDATE>
+  <cdsDoc table="${table}" keyfield="ROWID">
+   <DATAPACKET Version="2.0">
+    <METADATA>
+     <FIELDS>
+     ${fields?.reduce((acc, field) => {
+       return (
+         acc +
+         `<FIELD attrname="${field.value}" fieldtype="${field.type}" SUBTYPE="FixedChar" WIDTH="${field.size}" returning="yes"/>`
+       );
+     }, '')}
+      <FIELD attrname="TS_LOAD" fieldtype="dateTime"/>
+      <FIELD attrname="ROWID" fieldtype="string" WIDTH="18"/>
+     </FIELDS>
+     <PARAMS DATASET_DELTA="1"/>
+    </METADATA>
+    <ROWDATA>
+    ${rowdata?.reduce((acc, row) => {
+      return acc + getXMLRow(row);
+    }, '')}
+    </ROWDATA>
+   </DATAPACKET>
+  </cdsDoc>
+ </UPDATE>
+</REQUEST>`;
 };

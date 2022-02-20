@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import DataPlainText from './DataPlainText';
 import AgGridData from './AgGridData';
 import AgTwoGridData from './AgTwoGridData';
+import { AgGridEdit } from './AgGridEdit';
 
 const def = <h1>Default</h1>;
 
@@ -16,6 +17,10 @@ const views = {
   Default: def,
 };
 
+const edit = {
+  TfrmTable: AgGridEdit,
+};
+
 const withItemData =
   (ReportComponent) =>
   ({ ...props }) =>
@@ -25,5 +30,15 @@ export const RenderData = ({ id, size }) => {
   const { items } = useSelector((state) => state.tabs);
   const item = items.find((i) => i.uid === id);
 
-  return withItemData(views[item.data.docClass])({ data: item, size });
+  if (item.data.outdata[0].value.rows[0]['ROWID']) {
+    return withItemData(edit[item.data.docClass])({
+      data: { ...item, isEditable: true },
+      size,
+    });
+  } else {
+    return withItemData(views[item.data.docClass])({
+      data: { ...item, isEditable: false },
+      size,
+    });
+  }
 };

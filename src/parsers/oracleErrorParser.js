@@ -12,7 +12,5 @@ export const oracleErrorParser = ({ uid, json, value, call, inParams }) => {
     error: json.message,
   };
 
-  console.log(errTab);
-
   return updateTab(errTab);
 };

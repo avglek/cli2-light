@@ -143,16 +143,6 @@ const LoginPage = () => {
     }
   }, [login, error, dispatch, values.error, values.user, values.resource]);
 
-  // useEffect(() => {
-  //   console.log(values);
-  //   localStorage.setItem(
-  //     'init',
-  //     JSON.stringify([
-  //       { user: values.user, resource: values.resource },
-  //       { user: 'test', resource: 'some' },
-  //     ])
-  //   );
-  // }, [values]);
 
   const handleClickMenu = (event) => {
     setValues({ ...values, ancorRes: event.currentTarget });
