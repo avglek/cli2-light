@@ -19,8 +19,10 @@ export const docEpic = (action$, state$) =>
           const uid = action.payload.uid;
           const call = action.payload.call;
           const inParams = action.payload.inParams;
+          const id = action.payload.id;
           return succesDoc({
             uid,
+            id,
             json,
             value: action.payload.value,
             call,
