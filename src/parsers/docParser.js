@@ -40,18 +40,12 @@ const getDataValue = (param, descriptionFields = []) => {
                 if (date) {
                   const iso = date.split(':').join('');
                   const dataFormat = col['DISPLAY_FORMAT'];
-                  let stringFormatData = '';
-                  switch (dataFormat) {
-                    case 'dd.mm.yy':
-                      stringFormatData = 'DD.MM.YYYY';
-                      break;
-                    case 'dd.mm.yy hh:nn':
-                      stringFormatData = 'DD.MM.YYYY HH:mm';
-                      break;
-                    default:
-                      stringFormatData = 'DD.MM.YYYY';
-                      break;
-                  }
+
+                  let stringFormatData = dataFormat
+                    ? dataFormat.trim().toUpperCase()
+                    : 'DD.MM.YY';
+                  stringFormatData = stringFormatData.replace('NN', 'mm');
+                  stringFormatData = stringFormatData.replace('YY', 'YYYY');
 
                   row[col['FIELD_NAME']] = moment(iso.slice(0, 13)).format(
                     stringFormatData
