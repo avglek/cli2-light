@@ -2,7 +2,6 @@ import {
   UPDATE_POST,
   UPDATE_SUCCESS,
   UPDATE_ERROR,
-  UPDATE_CLEAR,
 } from '../actions/actionsType';
 
 const initialState = {

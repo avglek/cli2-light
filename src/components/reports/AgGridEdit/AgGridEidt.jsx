@@ -18,7 +18,6 @@ import { customAlphabet } from 'nanoid';
 import { Paper } from '@material-ui/core';
 import DialogRemoveRows from '../../Dialog/DialogRemoveRows';
 import { UiInputTextEdit } from './CustomEdits';
-import { queryUpdate } from '../../../common/template';
 import { updatePost } from '../../../store/actions/updateAction';
 
 const nanoid = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 4);
@@ -142,7 +141,15 @@ const AgGridEdit = ({ data }) => {
       })
     );
     dispatch(clearTab({ uid: data.uid, title: data.title, call: data.call }));
-  }, [data.data.outdata]);
+  }, [
+    data.data.outdata,
+    data.call,
+    data.id,
+    data.inParams,
+    data.title,
+    data.uid,
+    dispatch,
+  ]);
 
   const handleRemoveRows = useCallback(() => {
     const selectedNodes = gridRef.current.api.getSelectedNodes();
@@ -259,7 +266,6 @@ const AgGridEdit = ({ data }) => {
       ...colDef,
     ]);
   }, [data.data.outdata, isEdit]);
-
 
   return (
     <Paper className={classes.paper}>
