@@ -61,7 +61,6 @@ const TabsViewData = () => {
     setCloseTab(null);
   };
 
-  console.log('p:', pointer, ' count:', count);
   return (
     <div className={classes.root}>
       <AppBar className={classes.header} color="default">
