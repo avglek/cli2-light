@@ -39,6 +39,7 @@ const TabsViewData = () => {
       setCloseTab(index.toString());
     } else {
       if (count === items.length - 1) {
+        console.log('pointer:', pointer - 1);
         dispatch(changeTab(pointer - 1));
       }
       dispatch(removeTab(index));
@@ -52,6 +53,7 @@ const TabsViewData = () => {
         items[pointer].onSaveData();
       }
     }
+
     if (count === items.length - 1) {
       dispatch(changeTab(pointer - 1));
     }
@@ -60,6 +62,7 @@ const TabsViewData = () => {
     setCloseTab(null);
   };
 
+  console.log('p:', pointer, ' count:', count);
   return (
     <div className={classes.root}>
       <AppBar className={classes.header} color="default">
