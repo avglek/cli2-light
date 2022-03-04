@@ -91,3 +91,7 @@ export const queryUpdate = (id, table, fields, rowdata) => {
  </UPDATE>
 </REQUEST>`;
 };
+
+export const createXmlErrorMessage = (message) => {
+  return `<?xml version="1.0" encoding="UTF-8"?><EXCEPTION message="${message}" />`;
+};

@@ -1,9 +1,11 @@
-import { map, Observable, switchMap } from 'rxjs';
+import { map, switchMap, catchError } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import { btoa } from 'abab';
 import { parseString } from 'xml2js';
 import * as win from 'windows-1251';
 import * as utf from 'utf8';
+import { createXmlErrorMessage } from '../common/template';
 
 const xmlJsonStream$ = (value) =>
   new Observable((observer) => {
@@ -30,6 +32,18 @@ const body2win = (body) => {
   return arr;
 };
 
+// const fetchUserEpic = action$ => action$.pipe(
+//   ofType(FETCH_USER),
+//   mergeMap(action => ajax.getJSON(`/api/users/${action.payload}`).pipe(
+//     map(response => fetchUserFulfilled(response)),
+//     catchError(error => of({
+//       type: FETCH_USER_REJECTED,
+//       payload: error.xhr.response,
+//       error: true
+//     }))
+//   ))
+// );
+
 export const cli2winxmlServise = (body, value) => {
   const { user, password, resource } = value.auth;
 
@@ -47,8 +61,11 @@ export const cli2winxmlServise = (body, value) => {
       const buff = response.response;
       const raw = win.encode(buff);
       const xml = utf.decode(raw);
-
       return xml;
+    }),
+    catchError((error) => {
+      const xmlError = createXmlErrorMessage(error.message);
+      return of(xmlError);
     }),
 
     switchMap((xml) =>
@@ -61,6 +78,10 @@ export const cli2winxmlServise = (body, value) => {
             return json.EXCEPTION;
           }
           return json.RESPONSE;
+        }),
+        catchError((error) => {
+          console.log('error xml to json: ', xml, error);
+          return error;
         })
       )
     )
