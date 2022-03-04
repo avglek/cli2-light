@@ -1,5 +1,5 @@
 import { ofType } from 'redux-observable';
-import { catchError, mergeMap, map } from 'rxjs';
+import { catchError, mergeMap, map, of } from 'rxjs';
 
 import { succesDoc, errorDoc } from '../actions/docAction';
 import { DOC_POST } from '../actions/actionsType';
@@ -28,11 +28,15 @@ export const docEpic = (action$, state$) =>
             call,
             inParams,
           });
+        }),
+        catchError((error) => {
+          console.log('servlet error:', error);
+          return of(error);
         })
       )
     ),
     catchError((error) => {
       console.log('[cli2 error]:', error);
-      errorDoc(error);
+      return errorDoc(error);
     })
   );
