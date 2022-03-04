@@ -21,7 +21,7 @@ export const describeParser = ({ uid, json, value }) => {
 
   const lookTables = getArray(pLookupTables.DATA.DATAPACKET.ROWDATA.ROW);
 
-  const params = getArray(ancor.PARAMS.PARAM).map((i) => i.META);
+  const params = getArray(ancor.PARAMS?.PARAM)?.map((i) => i.META);
 
   let form = null;
 

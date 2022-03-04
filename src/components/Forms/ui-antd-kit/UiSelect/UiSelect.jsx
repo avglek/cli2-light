@@ -36,16 +36,22 @@ const StyledUiSelect = styled(Select)(
 );
 
 const UiSelect = ({ data, control, look, ...props }) => {
+  //LOOKUP_DISPLAYFIELDS
   const keyLook = data['LOOKUP_RESULTFIELD']
     ? data['LOOKUP_RESULTFIELD']
     : data['FIELD_NAME'];
+
+  const displayLook = data['LOOKUP_DISPLAYFIELDS']
+    ? data['LOOKUP_DISPLAYFIELDS']
+    : data['FIELD_NAME'];
+
   const defaultValue = look.data[0][keyLook];
 
   const memoizedOptions = useMemo(() => {
     return look.data.map((row) => {
       return (
         <Select.Option key={row[keyLook]} value={row[keyLook]}>
-          {row[keyLook]}
+          {row[displayLook]}
         </Select.Option>
       );
     });

@@ -39,7 +39,7 @@ const TabsViewData = () => {
       setCloseTab(index.toString());
     } else {
       if (count === items.length - 1) {
-        dispatch(changeTab(pointer - 1));
+        dispatch(changeTab(index - 1));
       }
       dispatch(removeTab(index));
     }
