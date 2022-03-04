@@ -32,13 +32,12 @@ export default function tabReducer(state = initialState, action) {
 
     case TAB_CHANGE:
       const pointer = action.payload;
-      return { ...state, pointer };
+      return { ...state, pointer: pointer < 0 ? 0 : pointer };
 
     case TAB_UPDATE:
       const cloneItems = state.items.map((item) => {
         if (item.uid === action.payload.uid) {
-          const normalize = JSON.parse(JSON.stringify(action.payload));
-          item = { ...item, ...normalize };
+          item = { ...item, ...action.payload };
         }
         return item;
       });

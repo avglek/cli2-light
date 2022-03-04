@@ -116,6 +116,7 @@ export const docParser = ({ uid, json, value, call, inParams }) => {
     const id = Number.parseInt(normId(desc['DOC_ID']));
     const title = desc['DOC_NAME'];
     const docClass = desc['DOC_CLASS'];
+    //const editable =
 
     const item = {
       uid,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import AppBar from '@material-ui/core/AppBar';
@@ -13,6 +13,7 @@ import TabLabel from './TabLabel';
 
 import Form from '../Forms';
 import { RenderData, RenderError } from '../reports';
+import DialogCloseTab from '../Dialog/DialogCloseTab';
 
 const TabsViewData = () => {
   const classes = useStyles();
@@ -20,6 +21,8 @@ const TabsViewData = () => {
 
   const { items, pointer, count } = useSelector((store) => store.tabs);
   const dispatch = useDispatch();
+
+  const [closeTab, setCloseTab] = useState(null);
 
   const handleChange = (event, newValue) => {
     if (newValue < items.length) {
@@ -30,12 +33,36 @@ const TabsViewData = () => {
   const handleRemove = (event, index) => {
     event.stopPropagation();
 
+    const currentItem = items[index];
+
+    if (currentItem.isEditable && currentItem?.isDocChanged) {
+      setCloseTab(index.toString());
+    } else {
+      if (count === items.length - 1) {
+        console.log('pointer:', pointer - 1);
+        dispatch(changeTab(pointer - 1));
+      }
+      dispatch(removeTab(index));
+    }
+  };
+
+  const handleDialogClose = (close) => {
+    //const index = Number.parseInt(closeTab);
+    if (close) {
+      if (items[pointer].onSaveData) {
+        items[pointer].onSaveData();
+      }
+    }
+
     if (count === items.length - 1) {
       dispatch(changeTab(pointer - 1));
     }
-    dispatch(removeTab(index));
+    dispatch(removeTab(pointer));
+
+    setCloseTab(null);
   };
 
+  console.log('p:', pointer, ' count:', count);
   return (
     <div className={classes.root}>
       <AppBar className={classes.header} color="default">
@@ -86,6 +113,7 @@ const TabsViewData = () => {
           </TabPanel>
         );
       })}
+      <DialogCloseTab open={!!closeTab} handleClose={handleDialogClose} />
     </div>
   );
 };
