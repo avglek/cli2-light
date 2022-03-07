@@ -18,7 +18,6 @@ const StyledFormItem = styled(Form.Item)`
 
 const StyledSelect = styled(Select)(
   ({ max_width, fontWeight }) => `
-  width: 100%;
   max-width: ${
     max_width
       ? typeof max_width === 'string'

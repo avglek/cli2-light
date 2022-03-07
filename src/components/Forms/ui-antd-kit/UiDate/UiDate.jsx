@@ -8,16 +8,9 @@ import 'moment/locale/ru';
 import locale from 'antd/es/date-picker/locale/ru_RU';
 import { UiFormItem } from '../UiFormItem';
 
-const StyledUiDate = styled(DatePicker)(
-  ({ maxWidth }) => `
-  width: 150px;
-  max-width: ${
-    maxWidth
-      ? typeof maxWidth === 'string'
-        ? maxWidth
-        : `${maxWidth}px`
-      : '120px'
-  };
+const StyledUiDate = styled(DatePicker)`
+  width: 100%;
+  //max-width: 320px;
   border-color: #afc7da;
   box-shadow: none !important;
 
@@ -29,13 +22,11 @@ const StyledUiDate = styled(DatePicker)(
     box-shadow: none !important;
     border-color: #e9e9e9;
   }
-  
+
   .custom-dropdown {
     z-index: 1500;
   }
-  `
-);
-
+`;
 const UiDate = ({ data, control, ...props }) => {
   // const _value = defaultValue
   //   ? moment.isMoment(defaultValue)

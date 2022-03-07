@@ -4,11 +4,9 @@ import styled from 'styled-components';
 import { Controller } from 'react-hook-form';
 import { UiFormItem } from '../UiFormItem';
 
-const StyledUiRadioGroup = styled(Radio.Group)(
-  () => `
+const StyledUiRadioGroup = styled(Radio.Group)`
   width: 100%;
-  `
-);
+`;
 
 const UiRadioGroup = ({ data, control, ...props }) => {
   const defaultValue = '0';
@@ -47,6 +45,7 @@ const UiRadioGroup = ({ data, control, ...props }) => {
       render={({ ref, field, fieldState: { error } }) => (
         <UiFormItem
           label={data['DISPLAY_LABEL']}
+          position={'top'}
           validateStatus={error ? 'error' : ''}
           status={error ? 'error' : ''}
           help={error?.message}

@@ -16,12 +16,10 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
   },
   container: {
-    height: '100%',
-    padding: '10px',
+    paddingTop: '40px',
   },
   form: {
     overflow: 'auto',
-    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'stretch',
@@ -30,30 +28,37 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '6rem',
+    height: '96px',
+    padding: '0 20px',
   },
   formBody: {
     flexGrow: '1',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    flexWrap: 'wrap',
+    minHeight: '120px',
+    maxHeight: '100%',
+    overflow: 'auto',
+    //display: 'flex',
+    //flexDirection: 'row',
+    //alignItems: 'stretch',
+    //flexWrap: 'wrap',
   },
   formContent: {
     height: '100%',
-    flex: '1 1 250px',
+
+    //    flex: '1 1 250px',
     [theme.breakpoints.down('xs')]: {
       height: '50px',
     },
-    paddingRight: '40px',
+    //paddingRight: '40px',
   },
   formSubmit: {
-    height: '2rem',
-    flex: '1 1 20px',
+    height: '72px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   formButton: {
-    width: '100%',
-    height: '100%',
+    width: '140px',
+    height: '36px',
   },
   listContainer: {
     listStyle: 'none',
@@ -64,11 +69,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const schema = yup.object().shape({});
-
-// const defaultConst = {
-//   VARCHAR: '',
-//   DATE: Date.now(),
-// };
 
 const Form = ({ id }) => {
   const dispatch = useDispatch();
@@ -128,17 +128,14 @@ const Form = ({ id }) => {
   return (
     <div className={classes.root}>
       <Container className={classes.container} maxWidth={'sm'}>
-        <Paper elevation={3} style={{ height: '100%', padding: '20px' }}>
-          <div className={classes.form}>
+        <Paper elevation={5} className={classes.form}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className={classes.formTitle}>
               <Typography variant="h6" color="primary" align={'center'}>
                 {item.title}
               </Typography>
             </div>
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className={classes.formBody}
-            >
+            <div className={classes.formBody}>
               <div className={classes.formContent}>
                 <ul className={classes.listContainer}>
                   {item.form.map((uiControl, index) => {
@@ -157,19 +154,18 @@ const Form = ({ id }) => {
                   })}
                 </ul>
               </div>
-              <div className={classes.formSubmit}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  className={classes.formButton}
-                >
-                  Отправить
-                </Button>
-              </div>
-            </form>
-            {/*</div>*/}
-          </div>
+            </div>
+            <div className={classes.formSubmit}>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.formButton}
+              >
+                Отправить
+              </Button>
+            </div>
+          </form>
         </Paper>
       </Container>
     </div>

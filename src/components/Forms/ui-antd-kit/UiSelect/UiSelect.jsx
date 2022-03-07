@@ -5,16 +5,9 @@ import { Controller } from 'react-hook-form';
 import styled from 'styled-components';
 import { UiFormItem } from '../UiFormItem';
 
-const StyledUiSelect = styled(Select)(
-  ({ max_width, fontWeight }) => `
+const StyledUiSelect = styled(Select)`
   width: 100%;
-  max-width: ${
-    max_width
-      ? typeof max_width === 'string'
-        ? max_width
-        : `${max_width}px`
-      : '240px'
-  };
+
   justify-content: space-between;
 
   &:hover :not(.ant-select-open) {
@@ -27,13 +20,11 @@ const StyledUiSelect = styled(Select)(
   }
 
   & > div.ant-select-selector {
-    font-weight: ${fontWeight ? fontWeight : '400'};
     box-shadow: none !important;
     border-color: #afc7da !important;
     --antd-wave-shadow-color: none;
   }
-`
-);
+`;
 
 const UiSelect = ({ data, control, look, ...props }) => {
   //LOOKUP_DISPLAYFIELDS
