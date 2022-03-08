@@ -23,11 +23,20 @@ export default function tabReducer(state = initialState, action) {
       };
     case TAB_REMOVE:
       const items = state.items.filter((i, inx) => inx !== action.payload);
+      let current = state.pointer;
+
+      if (action.payload === state.pointer) {
+        current =
+          action.payload > items.length - 1 ? items.length - 1 : action.payload;
+      } else {
+        current = state.pointer === 0 ? 0 : state.pointer - 1;
+      }
+
       return {
         ...state,
         items,
         count: items.length,
-        pointer: state.pointer > items.length ? items.length : state.pointer,
+        pointer: current,
       };
 
     case TAB_CHANGE:
@@ -50,6 +59,7 @@ export default function tabReducer(state = initialState, action) {
           item = {
             ...action.payload,
             loading: true,
+            from: item.from,
           };
         }
         return item;

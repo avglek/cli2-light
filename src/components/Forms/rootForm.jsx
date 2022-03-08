@@ -91,6 +91,7 @@ const Form = ({ id }) => {
     // formState: {
     //   errors
     // },
+    setValue,
   } = useForm({
     // defaultValues: defaultParams,
 
@@ -98,6 +99,7 @@ const Form = ({ id }) => {
   });
 
   const onSubmit = (data) => {
+
     const params = item.params.map((i) => {
       let findData = data[i.name];
 
@@ -114,6 +116,8 @@ const Form = ({ id }) => {
       call: item.call,
       params,
     };
+
+    console.log('send:', reqData);
 
     dispatch(submitForm(reqData));
     dispatch(clearTab({ uid: item.uid, title: 'result', call: reqData.call }));
@@ -148,6 +152,7 @@ const Form = ({ id }) => {
                           ui={uiControl}
                           control={control}
                           look={item.lookdata}
+                          setValue={setValue}
                         />
                       </li>
                     );

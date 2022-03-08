@@ -47,11 +47,17 @@ const withItemData =
   ({ ...props }) =>
     <ItemComponent {...props} />;
 
-export const RenderForm = ({ ui, control, look, controlsValue }) => {
+export const RenderForm = ({ ui, control, look, controlsValue, setValue }) => {
   const ctrl = controls[ui['CONTROL_TYPE']];
 
   if (ctrl) {
-    return withItemData(ctrl)({ data: ui, control, look, controlsValue });
+    return withItemData(ctrl)({
+      data: ui,
+      control,
+      look,
+      controlsValue,
+      setValue,
+    });
   }
   return withItemData(DefaultControl)({ data: ui, controlsValue });
 };

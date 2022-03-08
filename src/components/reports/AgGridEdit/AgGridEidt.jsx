@@ -42,7 +42,6 @@ const useStyles = makeStyles((/*theme*/) => ({
 const staticCellStyle = { borderRight: '1px solid #aaa' };
 
 const AgGridEdit = ({ data }) => {
-  //console.log('data:', data);
   const dispatch = useDispatch();
   const gridRef = useRef();
 

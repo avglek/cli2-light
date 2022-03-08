@@ -11,7 +11,6 @@ const StyledToolTips = styled.div`
 `;
 
 export const GridToolTips = ({ children, ...props }) => {
-  console.log('tooltips:', props);
 
   return (
     <StyledToolTips>

@@ -12,7 +12,6 @@ export const updateEpic = (action$) =>
     map(({ payload }) => {
       const { id, uid, table, fields, rowData, call, inParams } = payload;
       const query = queryUpdate(id, table, fields, rowData);
-      console.log(call, inParams);
       return postDoc({ uid, id, xml: query, call, inParams });
     }),
     catchError((error) => {

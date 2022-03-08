@@ -5,7 +5,6 @@ import { Button } from 'antd';
 const ReadCvsFile = () => {
   const handleFile = (e) => {
     const content = e.target.result;
-    //console.log('file content', content);
     // You can set content in state and show it in render.
   };
 
