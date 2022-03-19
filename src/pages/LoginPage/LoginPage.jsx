@@ -81,9 +81,9 @@ const resourcePostfix = '/servlet/CliServlet';
 const LoginPage = () => {
   const classes = useStyles();
   const [values, setValues] = useState({
-    resource: 'rwd',
-    user: 'admin',
-    password: '20admin19',
+    resource: '',
+    user: '',
+    password: '',
     weightRange: '',
     showPassword: false,
     ancorRes: null,
