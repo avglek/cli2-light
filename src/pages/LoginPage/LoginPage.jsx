@@ -81,9 +81,9 @@ const resourcePostfix = '/servlet/CliServlet';
 const LoginPage = () => {
   const classes = useStyles();
   const [values, setValues] = useState({
-    resource: '',
-    user: '',
-    password: '',
+    resource: 'rwd',
+    user: 'admin',
+    password: '20admin19',
     weightRange: '',
     showPassword: false,
     ancorRes: null,
@@ -142,7 +142,6 @@ const LoginPage = () => {
       setValues((prev) => ({ ...prev, loading: false, openWarning: true }));
     }
   }, [login, error, dispatch, values.error, values.user, values.resource]);
-
 
   const handleClickMenu = (event) => {
     setValues({ ...values, ancorRes: event.currentTarget });

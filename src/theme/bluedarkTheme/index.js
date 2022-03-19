@@ -7,7 +7,7 @@ const themeOptions = {
       main: '#6599C5',
     },
     secondary: {
-      main: '#ECBBBB',
+      main: '#de8282',
     },
   },
 };

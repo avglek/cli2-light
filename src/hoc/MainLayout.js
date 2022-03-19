@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,6 +23,7 @@ import GridOnIcon from '@material-ui/icons/GridOn';
 import { RiPlayListAddLine } from 'react-icons/ri';
 import { FaSave } from 'react-icons/fa';
 import { IoTrashOutline } from 'react-icons/io5';
+import { FaFileImport } from 'react-icons/fa';
 
 import { useStyles } from './styleMainLayout';
 import { appTitle } from '../common/constApp';
@@ -33,11 +34,17 @@ import { logoutAuth } from '../store/actions/authAction';
 import FooterBar from '../components/FooterBar/FooterBar';
 import { updateTab } from '../store/actions/tabAction';
 
+import DialogImportFile from '../components/Dialog/DialogImportFile';
+import { Tooltip } from '@material-ui/core';
+
 const DesktopLayout = ({ children }) => {
   const classes = useStyles();
   const theme = useTheme();
+  const fileRef = useRef();
   const [open, setOpen] = useState(true);
   const [isAbout, setIsAbout] = useState(false);
+  const [openFileDialog, setOpenFileDialog] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
   const history = useHistory();
   const listView = useListView();
   const dispatch = useDispatch();
@@ -101,11 +108,32 @@ const DesktopLayout = ({ children }) => {
     }
   };
 
+  const handleCloseImportFile = () => {
+    setOpenFileDialog(false);
+  };
+
+  const handleImportFile = (e) => {
+    const files = e.target.files;
+    console.log('file import', files, fileRef);
+
+    if (files?.length > 0) {
+      setOpenFileDialog(true);
+      setSelectedFile(files[0]);
+    }
+
+    fileRef.current.value = null;
+  };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
 
       <AboutDialog open={isAbout} onClose={handleAbout} />
+      <DialogImportFile
+        open={openFileDialog}
+        onClose={handleCloseImportFile}
+        file={selectedFile}
+      />
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -148,51 +176,108 @@ const DesktopLayout = ({ children }) => {
             </Typography>
             {isEditable && isData ? (
               <>
-                <IconButton
-                  color="inherit"
-                  aria-label="list view"
-                  onClick={handleAddRow}
+                <Tooltip
+                  arrow={true}
+                  title={<Typography>Импортировать из файла</Typography>}
                 >
-                  <RiPlayListAddLine />
-                </IconButton>
-                <IconButton
-                  color="inherit"
-                  aria-label="list view"
-                  onClick={handleRemoveRows}
+                  <label htmlFor="file">
+                    <IconButton
+                      color="inherit"
+                      aria-label="list view"
+                      component={'span'}
+                    >
+                      <FaFileImport />
+                    </IconButton>
+                    <input
+                      id={'file'}
+                      type={'file'}
+                      accept={'.csv,.xlsx,.xls'}
+                      onChange={handleImportFile}
+                      style={{ display: 'none' }}
+                      ref={fileRef}
+                    />
+                  </label>
+                </Tooltip>
+                <Tooltip
+                  arrow={true}
+                  title={<Typography>Добавить строку</Typography>}
                 >
-                  <IoTrashOutline />
-                </IconButton>
-                <IconButton
-                  color="inherit"
-                  aria-label="list view"
-                  onClick={handleSaveRows}
-                  disabled={!items[pointer].isDocChanged}
+                  <IconButton
+                    color="inherit"
+                    aria-label="list view"
+                    onClick={handleAddRow}
+                  >
+                    <RiPlayListAddLine />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip
+                  arrow={true}
+                  title={<Typography>Удалить выбранные строки</Typography>}
                 >
-                  <FaSave />
-                </IconButton>
+                  <IconButton
+                    color="inherit"
+                    aria-label="list view"
+                    onClick={handleRemoveRows}
+                  >
+                    <IoTrashOutline />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip
+                  arrow={true}
+                  title={<Typography>Сохранить изменения</Typography>}
+                >
+                  <span>
+                    <IconButton
+                      color="inherit"
+                      aria-label="list view"
+                      onClick={handleSaveRows}
+                      disabled={!items[pointer].isDocChanged}
+                    >
+                      <FaSave />
+                    </IconButton>
+                  </span>
+                </Tooltip>
               </>
             ) : null}
             {isTwoTables && isData ? (
-              <IconButton
-                color="inherit"
-                aria-label="list view"
-                onClick={handleChangePosition}
+              <Tooltip
+                arrow={true}
+                title={
+                  <Typography>
+                    Сменить позиционирование таблиц (вертикально/горизонтально)
+                  </Typography>
+                }
               >
-                {items[pointer]?.isVert ? (
-                  <ViewAgendaIcon style={{ transform: 'rotate(90deg)' }} />
-                ) : (
-                  <ViewAgendaIcon />
-                )}
-              </IconButton>
+                <IconButton
+                  color="inherit"
+                  aria-label="list view"
+                  onClick={handleChangePosition}
+                >
+                  {items[pointer]?.isVert ? (
+                    <ViewAgendaIcon style={{ transform: 'rotate(90deg)' }} />
+                  ) : (
+                    <ViewAgendaIcon />
+                  )}
+                </IconButton>
+              </Tooltip>
             ) : null}
             {!isData ? (
-              <IconButton
-                color="inherit"
-                aria-label="list view"
-                onClick={handleToggleView}
+              <Tooltip
+                arrow={true}
+                title={
+                  <Typography>
+                    Изменение внешнего вида меню (список/карточки)
+                  </Typography>
+                }
               >
-                {listView.list ? <GridOnIcon /> : <ListAltIcon />}
-              </IconButton>
+                <IconButton
+                  color="inherit"
+                  aria-label="list view"
+                  onClick={handleToggleView}
+                >
+                  {listView.list ? <GridOnIcon /> : <ListAltIcon />}
+                </IconButton>
+              </Tooltip>
             ) : null}
             <Button color="inherit" onClick={handleQueryView}>
               {isData ? 'Меню' : 'Запросы'}

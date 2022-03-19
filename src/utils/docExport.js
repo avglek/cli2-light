@@ -7,7 +7,7 @@ export async function toExcel(data, fileName) {
     headerFooter: { firstHeader: data.title, firstFooter: '' },
   });
 
-  const fontSize = 18;
+  const fontSize = 10;
   worksheet.columns = data.col.map((col) => {
     let len = +col.size > col.name.length ? col.size : col.name.length + 2;
     len = (len * fontSize) / 11;
@@ -52,4 +52,13 @@ export async function toExcel(data, fileName) {
     new Blob([buffer], { type: 'application/octet-stream' }),
     `${fileName}.xlsx`
   );
+}
+
+export function fromExcel(columns, data) {
+  console.log(columns, data);
+
+  const headers = columns.map((title) => {
+    //title.name;
+  });
+  return [];
 }
