@@ -99,7 +99,6 @@ const Form = ({ id }) => {
   });
 
   const onSubmit = (data) => {
-
     const params = item.params.map((i) => {
       let findData = data[i.name];
 
@@ -116,8 +115,6 @@ const Form = ({ id }) => {
       call: item.call,
       params,
     };
-
-    console.log('send:', reqData);
 
     dispatch(submitForm(reqData));
     dispatch(clearTab({ uid: item.uid, title: 'result', call: reqData.call }));

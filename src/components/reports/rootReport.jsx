@@ -30,17 +30,14 @@ export const RenderData = ({ id, size }) => {
   const { items } = useSelector((state) => state.tabs);
   const item = items.find((i) => i.uid === id);
 
-  if (
-    item.data.outdata[0].value.rows?.length > 0 &&
-    item.data.outdata[0].value.rows[0]['ROWID']
-  ) {
+  if (item.isEditable) {
     return withItemData(edit[item.data.docClass])({
-      data: { ...item, isEditable: true },
+      data: { ...item },
       size,
     });
   } else {
     return withItemData(views[item.data.docClass])({
-      data: { ...item, isEditable: false },
+      data: { ...item },
       size,
     });
   }

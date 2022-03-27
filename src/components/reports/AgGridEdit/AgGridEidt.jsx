@@ -19,6 +19,11 @@ import { Paper } from '@material-ui/core';
 import DialogRemoveRows from '../../Dialog/DialogRemoveRows';
 import { UiInputTextEdit } from './CustomEdits';
 import { updatePost } from '../../../store/actions/updateAction';
+import {
+  styleValidateNV,
+  validateNV,
+} from './customValidated/colunmsVaildated';
+import DialogErrorNV from '../../Dialog/DialogErrorNV';
 
 const nanoid = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 4);
 
@@ -47,9 +52,11 @@ const AgGridEdit = ({ data }) => {
 
   const [columnDef, setColumnDef] = useState();
   const [openRemove, setOpenRemove] = useState(false);
+  const [viewRows, setViewRows] = useState([]);
+  const [errors, setErrors] = useState('');
 
   const classes = useStyles();
-  //const rows = data.data.outdata[0].value.filterRows;
+  const rows = data.data.outdata[0].value.filterRows;
 
   const isEdit = data.isEditable;
   const realColumns = useMemo(() => data.data.outdata[0].value.columns, [data]);
@@ -88,16 +95,36 @@ const AgGridEdit = ({ data }) => {
     [realColumns]
   );
 
-  const handleAddRow = useCallback(() => {
-    const newRow = emptyColumns;
-    const id = nanoid();
-    setRows([
-      ...data.data.outdata[0].value.filterRows,
-      { ...newRow, id, RowState: 4 },
-    ]);
-  }, [data.data.outdata, emptyColumns, setRows]);
+  const handleAddRow = useCallback(
+    (rowsData = [], over = false) => {
+      if (rowsData.length > 0) {
+        const newRowsData = rowsData
+          .map((row) => {
+            const id = nanoid();
+            return { ...row, id, RowState: 4 };
+          })
+          .filter((row) => row.NV !== '');
+        if (over) {
+          const removeRows = data.data.outdata[0].value.filterRows.map(
+            (row) => ({ ...row, RowState: 2, nullfields: '2' })
+          );
+          setRows([...removeRows, ...newRowsData]);
+        } else {
+          setRows([...data.data.outdata[0].value.filterRows, ...newRowsData]);
+        }
+      } else {
+        const newRow = emptyColumns;
+        const id = nanoid();
+        setRows([
+          ...data.data.outdata[0].value.filterRows,
+          { ...newRow, id, RowState: 4 },
+        ]);
+      }
+    },
+    [data.data.outdata, emptyColumns, setRows]
+  );
 
-  const handleSaveData = useCallback(() => {
+  const savedData = useCallback(() => {
     const changedData = data.data.outdata[0].value.filterRows;
     const originalData = data.data.outdata[0].value.rows;
 
@@ -149,6 +176,18 @@ const AgGridEdit = ({ data }) => {
     data.uid,
     dispatch,
   ]);
+
+  const handleSaveData = useCallback(() => {
+    const viewAllData = data.data.outdata[0].value.filterRows.filter(
+      (row) => row.RowState !== 2
+    );
+
+    const error = validateNV(viewAllData);
+    setErrors(error);
+    if (!error) {
+      savedData();
+    }
+  }, [data.data.outdata, savedData]);
 
   const handleRemoveRows = useCallback(() => {
     const selectedNodes = gridRef.current.api.getSelectedNodes();
@@ -213,6 +252,10 @@ const AgGridEdit = ({ data }) => {
   }, []);
 
   useEffect(() => {
+    setViewRows(rows.filter((row) => row.RowState !== 2));
+  }, [rows]);
+
+  useEffect(() => {
     if (isEdit) {
       const rows = data.data.outdata[0].value.filterRows;
 
@@ -220,12 +263,18 @@ const AgGridEdit = ({ data }) => {
         ...item,
         id: nanoid(),
       }));
+
+      const isNV = !!data.data.outdata[0].value.columns.find(
+        (i) => i.value === 'NV'
+      );
+
       const item = {
         ...data,
         onAddRow: handleAddRow,
         onSaveData: handleSaveData,
         onRemoveRows: handleRemoveRows,
         isDocChanged: false, //docChanged,
+        isNV,
       };
       dispatch(updateTab({ ...item }));
     }
@@ -233,6 +282,9 @@ const AgGridEdit = ({ data }) => {
   }, []);
 
   useEffect(() => {
+    const vags = viewRows.reduce((acc, row) => {
+      return [...acc, row.NV];
+    }, []);
     const colDef = [...data.data.outdata[0].value.columns].map((item) => {
       switch (item.type) {
         case 'string':
@@ -240,7 +292,10 @@ const AgGridEdit = ({ data }) => {
             headerName: item.name,
             field: item.value,
             sortable: true,
-            cellStyle: staticCellStyle,
+            cellStyle: (params) =>
+              item.value === 'NV'
+                ? styleValidateNV(params, vags)
+                : staticCellStyle,
             cellEditor: UiInputTextEdit,
             editable: isEdit,
           };
@@ -264,7 +319,7 @@ const AgGridEdit = ({ data }) => {
       },
       ...colDef,
     ]);
-  }, [data.data.outdata, isEdit]);
+  }, [data.data.outdata, isEdit, viewRows]);
 
   return (
     <Paper className={classes.paper}>
@@ -278,9 +333,10 @@ const AgGridEdit = ({ data }) => {
           onGridReady={onGridRead}
           defaultColDef={defaultColDef}
           columnDefs={columnDef}
-          rowData={data.data.outdata[0].value.filterRows.filter(
-            (row) => row.RowState !== 2
-          )}
+          // rowData={data.data.outdata[0].value.filterRows.filter(
+          //   (row) => row.RowState !== 2
+          // )}
+          rowData={viewRows}
           gridOptions={gridOptions}
           overlayLoadingTemplate={'Загрузка данных'}
           overlayNoRowsTemplate={'Нет данных'}
@@ -292,6 +348,11 @@ const AgGridEdit = ({ data }) => {
       <DialogRemoveRows
         open={openRemove}
         handleClose={handleRemoveSelectedRows}
+      />
+      <DialogErrorNV
+        open={!!errors}
+        error={errors}
+        handleClose={() => setErrors('')}
       />
     </Paper>
   );

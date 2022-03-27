@@ -55,10 +55,11 @@ export async function toExcel(data, fileName) {
 }
 
 export function fromExcel(columns, data) {
-  console.log(columns, data);
-
-  const headers = columns.map((title) => {
-    //title.name;
+  const dataOut = data.map((row) => {
+    const obj = columns.reduce((acc, col, index) => {
+      return { ...acc, [col.value]: row[index] };
+    }, {});
+    return { ...obj };
   });
-  return [];
+  return dataOut;
 }

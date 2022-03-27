@@ -1,4 +1,4 @@
-import { Radio, Select, Space, Form } from 'antd';
+import { Radio, Select, Space } from 'antd';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { UiFormItem } from '../UiFormItem';
@@ -38,7 +38,6 @@ const StyledSpace = styled(Space)`
 `;
 
 const UiRadioMixedGroup = ({ data, control, look, setValue, ...props }) => {
-
   const [optionRadio, setOptionRadio] = useState(
     data.group[0]['DISPLAY_LABEL']
   );
@@ -94,7 +93,7 @@ const UiRadioMixedGroup = ({ data, control, look, setValue, ...props }) => {
         </StyledSpace>
       );
     },
-    [data, look, optionRadio]
+    [data, look, optionRadio, onChangeSelect]
   );
 
   useEffect(() => {
@@ -109,7 +108,7 @@ const UiRadioMixedGroup = ({ data, control, look, setValue, ...props }) => {
     } else {
       setValue(data.name, optionRadio);
     }
-  }, [optionRadio, optionSelect, data.name]);
+  }, [optionRadio, optionSelect, data.name, data.group, look.data, setValue]);
 
   return control ? (
     <Controller
