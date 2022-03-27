@@ -32,7 +32,7 @@ const TabsViewData = () => {
         dispatch(changeTab(newValue));
       }
     },
-    [dispatch]
+    [dispatch, items.length]
   );
 
   const handleRemove = useCallback(
@@ -51,7 +51,7 @@ const TabsViewData = () => {
         }
       }
     },
-    [count, items, history, dispatch]
+    [count, items, history, dispatch, pointer]
   );
 
   const handleDialogClose = (close) => {
@@ -61,13 +61,16 @@ const TabsViewData = () => {
         items[pointer].onSaveData();
       }
     }
+    const currentItem = items[pointer];
+    const from = currentItem.from;
 
     if (count === items.length - 1) {
       dispatch(changeTab(pointer - 1));
     }
     dispatch(removeTab(pointer));
-
-    setCloseTab(null);
+    if ((count === 0 || count === 1) && pointer === 0) {
+      history.push(from);
+    }
   };
 
   return (

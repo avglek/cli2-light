@@ -46,7 +46,7 @@ const UiSelect = ({ data, control, look, ...props }) => {
         </Select.Option>
       );
     });
-  }, [look.data, keyLook]);
+  }, [look.data, keyLook, displayLook]);
 
   return control ? (
     <Controller

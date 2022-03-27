@@ -94,6 +94,11 @@ export const docParser = ({ uid, json, value, call, inParams }) => {
   const pSubDocs = getMETA(ancor, 'P_SUB_DOCS');
   const pLookupTables = getMETA(ancor, 'P_LOOKUP_TABLES');
 
+  const rowid =
+    json.DOC.CALL?.PARAMS?.PARAM[0]?.DATA?.DATAPACKET.METADATA.FIELDS.FIELD.find(
+      (i) => i.attrname === 'ROWID'
+    );
+
   const columns = pFields.DATA.DATAPACKET.ROWDATA.ROW;
   const subDocs = pSubDocs.DATA.DATAPACKET.ROWDATA.ROW;
   const lookupTables = pLookupTables.DATA.DATAPACKET.ROWDATA.ROW;
@@ -125,6 +130,7 @@ export const docParser = ({ uid, json, value, call, inParams }) => {
       inParams,
       call,
       value,
+      isEditable: !!rowid,
       titleDoc: desc['DOC_TITLE'],
       loading: false,
       data: {

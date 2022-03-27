@@ -41,15 +41,10 @@ const TableTest = () => {
   const addRef = useRef();
 
   const handleClickAdd = (event) => {
-    //console.log('e:', event.target);
-    //console.log('ref:', addRef.current.state.value);
-
     const current = rows;
   };
 
-  const handleClickDelete = () => {
-    //console.log('delete:');
-  };
+  const handleClickDelete = () => {};
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {

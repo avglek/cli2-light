@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 
 import { DialogTitle, Typography } from '@material-ui/core';
 
-export default function DialogCloseTab({ open, handleClose }) {
+export default function DialogErrorNV({ open, error, handleClose }) {
   return (
     <div>
       <Dialog
@@ -14,18 +14,17 @@ export default function DialogCloseTab({ open, handleClose }) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle>{'Данные не сохранены'}</DialogTitle>
-        <DialogContent>
-          <Typography variant={'body1'}>
-            Сохранить сделаные изменения?
+        <DialogTitle>
+          <Typography variant={'h6'} color="secondary">
+            {'Ошибка ввода вагонов'}
           </Typography>
+        </DialogTitle>
+        <DialogContent>
+          <Typography variant={'body1'}>{error}</Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => handleClose(false)} color="secondary">
-            НЕТ
-          </Button>
           <Button onClick={() => handleClose(true)} color="primary">
-            ДА
+            ОК
           </Button>
         </DialogActions>
       </Dialog>

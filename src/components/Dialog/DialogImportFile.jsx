@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -12,8 +12,7 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 
 import styled from 'styled-components';
 import * as XLSX from 'xlsx';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateTab } from '../../store/actions/tabAction';
+import { useSelector } from 'react-redux';
 import { fromExcel } from '../../utils/docExport';
 
 const styles = (theme) => ({
@@ -68,64 +67,65 @@ const StyledRadioGroup = styled(Radio.Group)`
   // margin-top: 20px;
 `;
 
-export default function FileImportDialog({ open, onClose, file }) {
-  const dispatch = useDispatch();
+export default function DialogImportFile({ open, onClose, file }) {
   const { items, pointer } = useSelector((store) => store.tabs);
+  const [over, setOver] = useState(false);
   const currentTabs = items[pointer];
 
-  const processData = useCallback((dataString) => {
-    const dataStringLines = dataString.split(/\r\n|\n/);
+  const processData = useCallback(
+    (dataString) => {
+      const dataStringLines = dataString.split(/\r\n|\n/);
 
-    const list = [];
-    for (let i = 0; i < dataStringLines.length; i++) {
-      const row = dataStringLines[i]
-        .trim()
-        .split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
-      list.push(row);
-    }
+      const list = [];
+      for (let i = 0; i < dataStringLines.length; i++) {
+        const row = dataStringLines[i]
+          .trim()
+          .split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
+        list.push(row);
+      }
+      const data = fromExcel(currentTabs.data.outdata[0].value.columns, list);
 
-    //console.log(list);
-    const data = fromExcel(currentTabs.data.outdata[0].value.columns, list);
+      currentTabs.onAddRow(data, over);
+    },
+    [currentTabs, over]
+  );
 
-    console.log('tabs:', data);
-    //console.log(currentTabs.data.outdata[0].value.rows);
-    // currentTabs.isDocChanged = true;
-    // currentTabs.data.outdata[0].value.rows = [];
-    // currentTabs.data.outdata[0].value.filterRows = [];
-    // dispatch(updateTab(currentTabs));
-  }, []);
+  const fileUpload = useCallback(
+    (file) => {
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        /* Parse data */
+        const bstr = evt.target.result;
+        const wb = XLSX.read(bstr, { type: 'binary' });
+        /* Get first worksheet */
+        const wsname = wb.SheetNames[0];
+        const ws = wb.Sheets[wsname];
+        /* Convert array of arrays */
+        const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
+        processData(data);
+      };
+      reader.readAsBinaryString(file);
+    },
+    [processData]
+  );
 
-  // const setRows = useCallback(
-  //   (currentRows) => {
-  //     data.data.outdata[0].value.filterRows = currentRows;
-  //     data.isDocChanged = true;
-  //     dispatch(updateTab(data));
-  //   },
-  //   [data, dispatch]
-  // );
-
-  // handle file upload
-  const fileUpload = (file) => {
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-      /* Parse data */
-      const bstr = evt.target.result;
-      const wb = XLSX.read(bstr, { type: 'binary' });
-      /* Get first worksheet */
-      const wsname = wb.SheetNames[0];
-      const ws = wb.Sheets[wsname];
-      /* Convert array of arrays */
-      const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
-      console.log('data', data);
-      processData(data);
-    };
-    reader.readAsBinaryString(file);
-  };
-
-  const handleClickOk = () => {
+  const handleClickOk = useCallback(() => {
     fileUpload(file);
     onClose();
-  };
+  }, [file, onClose, fileUpload]);
+
+  const onChange = useCallback(
+    (even) => {
+      setOver(even.target.value === 'over');
+    },
+    [setOver]
+  );
+
+  useEffect(() => {
+    if (open) {
+      setOver(false);
+    }
+  }, [open]);
 
   return (
     <div>
@@ -138,13 +138,13 @@ export default function FileImportDialog({ open, onClose, file }) {
           {`Импорт данных из файла ${file?.name}`}
         </DialogTitle>
         <DialogContent>
-          <StyledRadioGroup defaultValue={'over'}>
+          <StyledRadioGroup defaultValue={'add'} onChange={onChange}>
             <Space direction="vertical">
-              <Radio key={'over'} value={'over'}>
-                {'Заменить все строки'}
-              </Radio>
               <Radio key={'add'} value={'add'}>
                 {'Добавить строки'}
+              </Radio>
+              <Radio key={'over'} value={'over'}>
+                {'Заменить все строки'}
               </Radio>
             </Space>
           </StyledRadioGroup>

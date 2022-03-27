@@ -53,6 +53,7 @@ const DesktopLayout = ({ children }) => {
 
   const isTwoTables = items[pointer]?.data?.docClass === 'TfrmTwoTables';
   const isEditable = items[pointer]?.isEditable;
+  const isNV = items[pointer]?.isNV;
   const isData = history.location.pathname === '/data';
 
   const handleDrawerOpen = () => {
@@ -114,7 +115,6 @@ const DesktopLayout = ({ children }) => {
 
   const handleImportFile = (e) => {
     const files = e.target.files;
-    console.log('file import', files, fileRef);
 
     if (files?.length > 0) {
       setOpenFileDialog(true);
@@ -176,28 +176,31 @@ const DesktopLayout = ({ children }) => {
             </Typography>
             {isEditable && isData ? (
               <>
-                <Tooltip
-                  arrow={true}
-                  title={<Typography>Импортировать из файла</Typography>}
-                >
-                  <label htmlFor="file">
-                    <IconButton
-                      color="inherit"
-                      aria-label="list view"
-                      component={'span'}
-                    >
-                      <FaFileImport />
-                    </IconButton>
-                    <input
-                      id={'file'}
-                      type={'file'}
-                      accept={'.csv,.xlsx,.xls'}
-                      onChange={handleImportFile}
-                      style={{ display: 'none' }}
-                      ref={fileRef}
-                    />
-                  </label>
-                </Tooltip>
+                {isNV ? (
+                  <Tooltip
+                    arrow={true}
+                    title={<Typography>Импортировать из файла</Typography>}
+                  >
+                    <label htmlFor="file">
+                      <IconButton
+                        color="inherit"
+                        aria-label="list view"
+                        component={'span'}
+                      >
+                        <FaFileImport />
+                      </IconButton>
+                      <input
+                        id={'file'}
+                        type={'file'}
+                        accept={'.csv,.xlsx,.xls'}
+                        onChange={handleImportFile}
+                        style={{ display: 'none' }}
+                        ref={fileRef}
+                      />
+                    </label>
+                  </Tooltip>
+                ) : null}
+
                 <Tooltip
                   arrow={true}
                   title={<Typography>Добавить строку</Typography>}
